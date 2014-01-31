@@ -2,7 +2,7 @@
 <img align="center" src="http://f.cl.ly/items/3C2j1v2T360u1s23170P/pingpong-square.png"> 
 </p>
 
-<img src="https://travis-ci.org/keenlabs/pingpong.png?branch=master" alt="Pingpong Build Status">
+<img src="https://travis-ci.org/keenlabs/pingpong.png?branch=master&foo=bar" alt="Pingpong Build Status">
 
 #### Easy & Powerful HTTP Request-Response Analytics
 
