@@ -93,6 +93,34 @@
 
     queries.push({
       tab: "status",
+      title: "Response Status Count, Last 120 Minutes",
+      chartClass: Keen.Series,
+      collection: Pingpong.collection,
+      queryParams: {
+        analysisType: "count",
+        timeframe: "last_120_minutes",
+        interval: "minutely",
+        groupBy: "response.status"
+      },
+      refreshEvery: 60
+    });
+
+    queries.push({
+      tab: "status",
+      title: "Response Status Count, Last 48 Hours",
+      chartClass: Keen.Series,
+      collection: Pingpong.collection,
+      queryParams: {
+        analysisType: "count",
+        timeframe: "last_48_hours",
+        interval: "hourly",
+        groupBy: "response.status"
+      },
+      refreshEvery: 60
+    });
+
+    queries.push({
+      tab: "status",
       title: "Failure Count By Check, Last 120 Minutes",
       chartClass: Keen.Series,
       collection: Pingpong.collection,
@@ -121,34 +149,6 @@
         filters: [{
           "property_name": "response.status", "operator": "gte", "property_value": 400
         }]
-      },
-      refreshEvery: 60
-    });
-
-    queries.push({
-      tab: "status",
-      title: "Response Status Count, Last 120 Minutes",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
-      queryParams: {
-        analysisType: "count",
-        timeframe: "last_120_minutes",
-        interval: "minutely",
-        groupBy: "response.status"
-      },
-      refreshEvery: 60
-    });
-
-    queries.push({
-      tab: "status",
-      title: "Response Status Count, Last 48 Hours",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
-      queryParams: {
-        analysisType: "count",
-        timeframe: "last_48_hours",
-        interval: "hourly",
-        groupBy: "response.status"
       },
       refreshEvery: 60
     });
