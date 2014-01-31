@@ -22,7 +22,7 @@ Pingpong captures most of the data you'd want about HTTP requests and responses,
 
 **Now, choose your own adventure:**
 
-+ See a [live Pingpong instance](http://pingpong-api-companies.herokuapp.com) that tracks the response time of popular API providers
++ See a [live Pingpong instance](http://api-pong.herokuapp.com) that tracks the response time of popular API providers
 + Read [the inspiration](#inspiration) behind Pingpong
 + Setup and deploy your own Pingpong app (keep reading!)
 
