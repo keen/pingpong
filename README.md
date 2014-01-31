@@ -228,7 +228,7 @@ Capturing all of these fields makes it possible to perform powerful grouping and
 
 #### The Pingpong dashboard
 
-![Pingpong Dashboard](http://f.cl.ly/items/0Z2v3S311D2X1L2R3x0r/Screen%20Shot%202014-01-31%20at%2012.25.05%20PM.png)
+![Pingpong Dashboard](http://f.cl.ly/items/2C0D2C0q3T2F272x1Z3p/Screen%20Shot%202014-01-31%20at%201.08.15%20PM.png)
 
 The included dashboard displays a few default visualizations, such as:
 
@@ -271,7 +271,6 @@ Pingpong comes with a set of rake tasks to make various tasks easier.
 + `foreman run rake checks:add` - Add a check to checks.json
 + `foreman run rake checks:run` - Run checks in an endless while loop. Useful for workers.
 + `foreman run rake checks:run_once` - Run checks once, and don't log the response. Useful for testing.
-+ `foreman run rake checks:run_once[name=api_server]` - Run checks once that match a name=value filter. Useful for testing.
 + `foreman run rake keen:workbench` - Print the Keen IO workbench URL for the configured project. The workbench lets you do data exploration and generates JavaScript for adding queries to your dashboard.
 + `foreman run rake keen:count` - Print counts grouped by check name
 + `foreman run rake keen:duration` - Print average durations grouped by check name
