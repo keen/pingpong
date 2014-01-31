@@ -404,4 +404,10 @@ Pingpong has a full set of specs. Before submitting your pull request, make sure
 $ bundle exec rake spec
 ```
 
-Thanks!
+##### Contributors
+
++ Josh Dzielak - [@dzello](https://twitter.com/dzello)
++ Justin Johhson - [@elof](https://twitter.com/elof)
++ Micah Wolfe - [@micahwolfe](https://twitter.com/forzalupo)
+
+If you contribute, add your name to this list!
