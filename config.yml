@@ -1,0 +1,59 @@
+defaults: &defaults
+
+  check_scheduler: CheckScheduler
+
+  # what checks should be run?
+  check_source: JsonCheckSource
+  check_source_auto_reload: true
+  json_check_source_file: <%= ENV['CHECK_SOURCE_FILE'] || File.expand_path('../checks.json', __FILE__) %>
+
+  # how should they be scheduled and run?
+  check_runner: EventmachineCheckRunner
+  check_runner_connect_timeout: 15
+  check_runner_inactivity_timeout: 60
+
+  # how are check results converted into properties?
+  check_marshaller: EnvironmentAwareCheckMarshaller
+
+  # how/where are check results published?
+  check_logger: KeenCheckLogger
+  keen:
+    project_id: <%= ENV['KEEN_PROJECT_ID'] %>
+    write_key: <%= ENV['KEEN_WRITE_KEY'] %>
+    read_key: <%= ENV['KEEN_READ_KEY'] %>
+    master_key: <%= ENV['KEEN_MASTER_KEY'] %>
+    collection: <%= ENV['KEEN_COLLECTION'] || 'checks' %>
+
+  # by default a web worker will run checks
+  skip_checks: <%= ENV['SKIP_CHECKS'] %>
+
+development:
+  <<: *defaults
+
+  environment:
+    region: <%= ENV['REGION'] || 'local' %>
+    location: <%= ENV['LOCATION'] || 'San Francisco, CA, US' %>
+    hostname: <%= ENV['HOSTNAME'] || (`hostname` rescue nil) %>
+
+test:
+  <<: *defaults
+
+  environment:
+    region: test-region
+    location: test-location
+    hostname: test-hostname
+  keen:
+    project_id: test-project-id
+    write_key: test-write-key
+    read_key: test-read-key
+    collection: test-collection
+
+production:
+  <<: *defaults
+
+  # add environment specific configs here if you want them in your properties
+  environment:
+    region: <%= ENV['REGION'] || 'heroku-us-east' %>
+    location: <%= ENV['LOCATION'] || 'Northern Virginia, US' %>
+    hostname: <%= ENV['HOSTNAME'] || (`hostname` rescue nil) %>
+

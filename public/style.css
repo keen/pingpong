@@ -1,0 +1,96 @@
+body {
+  min-width: 1280px;
+}
+
+.tab-pane {
+	overflow: hidden;
+}
+
+.chart {
+  float: left;
+  margin-left: 20px;
+  margin-top: 0px;
+}
+
+.logo {
+  padding: 0px;
+  display: block;
+  width: 100%;
+}
+
+.logo img {
+  margin: 46px 0;
+}
+
+aside {
+  position: fixed;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  overflow: hidden;
+  background: black;
+  z-index: 2000;
+  color: #888;
+}
+
+aside .info {
+  position: absolute;
+  bottom: 0;
+  padding: 10px 20px;
+  text-align: right;
+}
+
+.main {
+  position: relative;
+  /*min-width: 1280px;*/
+  max-width: 2200px;
+  margin-left: 200px;
+}
+
+.heads-up {
+  width: 500px;
+  margin: 200px auto 0;
+  text-align: center;
+}
+
+.nav-stacked {
+  position: fixed;
+  left: 0;
+  top: 200px;
+  z-index: 5000;
+  text-align: right;
+  font-weight: bold;
+}
+.nav-stacked>li>a {
+  border-radius: 0;
+  padding-right: 20px;
+  color: #00afd7;
+}
+
+.nav-stacked>li>a:hover {
+  background-color: #222;
+  color: #aaa;
+}
+
+.nav-pills>li.active>a, .nav-pills>li.active>a:hover {
+  background-color: #00afd7;
+}
+
+.nav-stacked li+li {
+  margin: 0;
+}
+
+aside, .nav-stacked {
+  width: 200px;
+}
+
+.link-container {
+  margin: 30px 0 0 30px;
+}
+
+.update-on {
+  position: absolute;
+  top: 5px;
+  right: 5px;
+  padding: 4px 10px;
+}

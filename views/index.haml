@@ -1,0 +1,61 @@
+.main
+  .alert.alert-info.update-on
+    Auto-update ON
+  - unless @config.properties[:keen][:project_id]
+    .alert.alert-warning
+      Warning: Keen IO environment variables are not set. No visualizations will be drawn. See
+      %a(href="https://github.com/keenlabs/pingpong")
+        the pingpong documentation
+      for setup information.
+  - if @checks.empty?
+    .alert.alert-warning
+      Warning: No checks configured. Add a check with
+      %code
+        foreman run rake checks:add
+      or edit the
+      %code
+        \./checks.json
+      file directly.
+
+  %ul.nav.nav-pills.nav-stacked
+    %li.active
+      %a(href="#performance" data-toggle="tab") Performance
+    %li
+      %a(href="#status" data-toggle="tab") Status
+    %li
+      %a(href="#custom" data-toggle="tab") Custom
+    %li
+      %a(href="#links" data-toggle="tab") Links
+
+  %div.tab-content
+    #performance.tab-pane.active
+    #status.tab-pane
+    #custom.tab-pane
+      .heads-up
+        %h1 Add other checks here!
+        %p.lead Just specify the "custom" tab when adding a query to queries.js.
+    #links.tab-pane
+      .link-container
+        %h2
+          Pingpong Links
+        %br
+        %p
+          Here's a few resources to help you get the most out of Pingpong.
+        %br
+        %ul
+          %li
+            %a(target="_blank" href="https://github.com/keenlabs/pingpong")
+              Pingpong Documentation
+            %p
+              Learn how to setup checks, extend this dashboard, and more.
+          %li
+            %a(target="_blank" href="https://keen.io/project/#{@config[:keen][:project_id]}/workbench")
+              Keen IO Workbench
+            %p
+              Explore your Pingpong data, and discover new charts to add to your dashboard
+          %li
+            %a(target="_blank" href="https://keen.io/docs")
+              Keen IO API Documentation
+            %p
+              See everything you can do with Keen IO.
+

@@ -1,0 +1,18 @@
+{
+  "checks": [{
+    "name": "Test Web",
+    "url": "https://test.io/",
+    "frequency": 30,
+    "custom": {
+    }
+  }, {
+    "name": "Test API",
+    "url": "https://api.test.io/",
+    "frequency": 15,
+    "custom": {
+      "server_role": "api",
+      "is_https": true
+  }
+  }]
+}
+
