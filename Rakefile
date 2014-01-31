@@ -79,7 +79,8 @@ namespace :keen do
     require './pingpong_config'
     config = PingpongConfig
     keen = config.check_logger.keen_client(config)
-    puts keen.count(config[:keen][:collection], :group_by => 'check.name')
+    result = keen.count(config[:keen][:collection], :group_by => 'check.name')
+    puts MultiJson.dump(result, :pretty => true)
   end
 
   desc 'Print Keen IO check duration averages'
@@ -112,7 +113,8 @@ namespace :keen do
     require './pingpong_config'
     config = PingpongConfig
     keen = config.check_logger.keen_client(config)
-    puts keen.delete(config[:keen][:collection])
+    result = keen.delete(config[:keen][:collection])
+    puts MultiJson.dump(result, :pretty => true)
   end
 end
 
