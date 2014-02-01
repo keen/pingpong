@@ -1,9 +1,4 @@
 {
   "checks":[
-    "name": "Your Mom",
-    "url": "http://requestb.in/1atn6rx1",
-    "frequency": 10,
-    "method": "POST",
-    "data": "FOOBARBAZ"
   ]
 }

@@ -19,7 +19,7 @@ class EventmachineCheckRunner
         # Note that this was vetted earlier, so this is just a conversative check
         raise "Invalid HTTP method '#{check.method}"
       end
-        
+
 
       callback = Proc.new {
         duration = Time.now - start_time
