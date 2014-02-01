@@ -8,7 +8,19 @@ class EventmachineCheckRunner
       prepare
 
       start_time = Time.now
-      http = EventMachine::HttpRequest.new(check.url, em_http_options(config)).get
+      em = EventMachine::HttpRequest.new(check.url, em_http_options(config))
+      http = case check.method
+      # Decide what method to use
+      when "GET"
+        em.get
+      when "POST"
+        em.post :body => check.data
+      else
+        # Note that this was vetted earlier, so this is just a conversative check
+        raise "Invalid HTTP method '#{check.method}"
+      end
+
+
       callback = Proc.new {
         duration = Time.now - start_time
         block.yield(start_time, duration, http.response_header.status, response_to_hash(http))

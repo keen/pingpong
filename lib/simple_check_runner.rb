@@ -5,9 +5,15 @@ class SimpleCheckRunner
 
   class << self
     def run_check(config, check, &block)
-      uri = URI(check[:url])
+      uri = URI(check.url)
       start_time = Time.now
-      response = get_http(uri).request_get(uri)
+      http_client = get_http(uri)
+      response = case check.method
+      when "GET"
+        http_client.request_get(uri)
+      when "POST"
+        http_client.request_post(uri, check.data)
+      end
       duration = Time.now - start_time
       block.yield(start_time, duration, response.code, response.to_hash)
     end
