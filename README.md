@@ -64,7 +64,11 @@ Google
 
 How often, in seconds, to run this check? (leave blank for 60)
 30
+
+What HTTP Method? (GET or POST, leave blank for GET)
 ```
+
+**Note**: Entering POST as the Method will ask you for data to be posted.
 
 This process adds a check to a `./checks.json` file, creating it if necessary. Here's what that file looks like after we add the check:
 
@@ -74,6 +78,8 @@ This process adds a check to a `./checks.json` file, creating it if necessary. H
     "name" : "Google",
     "url" : "http://google.com/",
     "frequency": 30
+    "method": "GET",
+    "data": null
   }]
 }
 ```
