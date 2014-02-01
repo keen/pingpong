@@ -21,6 +21,17 @@ namespace :checks do
     name = STDIN.gets.chomp
     puts 'How often, in seconds, to run this check? (leave blank for 60)'
     frequency = STDIN.gets.chomp
+    puts 'What HTTP Method? (GET or POST, leave blank for GET)'
+    method = STDIN.gets.chomp
+    if method == nil || method == ""
+      method = "GET"
+    end
+
+    data = nil
+    if method.upcase == "POST"
+      puts 'What data to POST?'
+      data = STDIN.gets.chomp
+    end
 
     file = File.expand_path('../checks.json',  __FILE__)
     if File.exists?(file)
@@ -32,7 +43,9 @@ namespace :checks do
     checks[:checks] << {
       :name => name,
       :url => url,
-      :frequency => frequency.to_i > 0 ? frequency.to_i : 60
+      :frequency => frequency.to_i > 0 ? frequency.to_i : 60,
+      :method => method,
+      :data => data
     }
 
     File.open(file, 'w') do |f|
