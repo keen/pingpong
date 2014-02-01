@@ -415,5 +415,6 @@ $ bundle exec rake spec
 + Josh Dzielak - [@dzello](https://twitter.com/dzello)
 + Justin Johhson - [@elof](https://twitter.com/elof)
 + Micah Wolfe - [@micahwolfe](https://twitter.com/forzalupo)
++ Cory Watson - [@gphat](https://twitter.com/gphat)
 
 If you contribute, add your name to this list!
