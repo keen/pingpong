@@ -361,7 +361,7 @@ $ git remote add heroku-eu git@heroku.com:my-pingpong-app-eu.git
 $ git push heroku-eu master
 ```
 
-That's it! You should now have events from both datacenters going to the seem Keen IO project. At this time, you might want to add a new chart to your dashboard that shows the latency from each datacenter.
+That's it! You should now have events from both datacenters going to the same Keen IO project. At this time, you might want to add a new chart to your dashboard that shows the latency from each datacenter.
 
 ##### Use a different collection name locally
 
