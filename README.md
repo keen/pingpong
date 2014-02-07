@@ -371,6 +371,10 @@ You might want to do this locally to avoid checks from your development environm
 
 You can also use `KEEN_COLLECTION` to break checks into multiple collections for any reason.
 
+##### HTTP Authentication
+
+Set the `HTTP_USERNAME` and `HTTP_PASSWORD` environment variables to enable HTTP authentication for the dashboard. Off by default.
+
 #### Inspiration
 
 Pingpong was developed in-house at Keen IO to answer a few simple, but important, questions about our web and API infrastructure:

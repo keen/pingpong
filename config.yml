@@ -27,6 +27,10 @@ defaults: &defaults
   # by default a web worker will run checks
   skip_checks: <%= ENV['SKIP_CHECKS'] %>
 
+  # add http authentication
+  http_username: <%= ENV['HTTP_USERNAME'] %>
+  http_password: <%= ENV['HTTP_PASSWORD'] %>
+
 development:
   <<: *defaults
 
@@ -42,11 +46,17 @@ test:
     region: test-region
     location: test-location
     hostname: test-hostname
+
   keen:
     project_id: test-project-id
     write_key: test-write-key
     read_key: test-read-key
     collection: test-collection
+
+  skip_checks: true
+
+  http_username: foo
+  http_password: bar
 
 production:
   <<: *defaults
