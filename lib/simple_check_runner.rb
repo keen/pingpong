@@ -10,9 +10,9 @@ class SimpleCheckRunner
       http_client = get_http(uri)
       response = case check.method
       when "GET"
-        http_client.request_get(uri)
+        http_client.request_get(uri.to_s)
       when "POST"
-        http_client.request_post(uri, check.data)
+        http_client.request_post(uri.to_s, check.data)
       end
       duration = Time.now - start_time
       block.yield(start_time, duration, response.code, response.to_hash)
