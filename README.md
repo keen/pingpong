@@ -234,9 +234,11 @@ Capturing all of these fields makes it possible to perform powerful grouping and
 
 #### The Pingpong dashboard
 
-![Pingpong Dashboard](http://f.cl.ly/items/2C0D2C0q3T2F272x1Z3p/Screen%20Shot%202014-01-31%20at%201.08.15%20PM.png)
+Here's a snapshot of a Pingpong [dashboard](http://api-pong.herokuapp.com) that shows the home page response time for popular API providers.
 
-The included dashboard displays a few default visualizations, such as:
+![Pingpong Dashboard](http://f.cl.ly/items/273v2H2m160l073v3l0h/Screen%20Shot%202014-02-09%20at%209.55.18%20PM.png)
+
+This dashboard uses most of Pingpong's default visualizations, such as:
 
 + Average response time by check by minute, last 120 minutes
 + Count of checks, grouped by status code, last 120 minutes
@@ -405,8 +407,13 @@ If you're using Pingpong for an open-source project and need more events, just s
 
 Contributions are very welcome. Here are some ideas for features:
 
-+ Support for other HTTP methods like POST.
-+ More queries & visualizations on the dashboard.
+##### Wishlist
+
++ More tabs & queries & visualizations on the dashboard
++ Create a table that shows slow recent checks and their full response bodies (using [extractions](https://keen.io/docs/data-analysis/extractions/))
++ Templates or builders for common `checks.json` patterns (multi-dc, many ports on same server, etc)
++ Support for more back-ends and front-ends
++ ~~Support for HTTP POST~~
 
 Pingpong has a full set of specs. Before submitting your pull request, make sure to run them:
 
@@ -420,5 +427,6 @@ $ bundle exec rake spec
 + Justin Johhson - [@elof](https://twitter.com/elof)
 + Micah Wolfe - [@micahwolfe](https://twitter.com/forzalupo)
 + Cory Watson - [@gphat](https://twitter.com/gphat)
++ Loren Siebert - [@lorensiebert](https://twitter.com/lorensiebert)
 
 If you contribute, add your name to this list!
