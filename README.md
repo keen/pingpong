@@ -18,7 +18,7 @@ The default destination is Keen IO's [analytics API](https://keen.io/docs/). Kee
 + Response time breakdown by URL
 + Errors and long-running requests
 
-Pingpong captures most of the data you'd want about HTTP requests and responses, but it also makes it easy to add custom properties specific to your infrastructure.
+Pingpong automatically captures most of the data you'd want about HTTP requests and responses, but it also makes it easy to add custom properties specific to your infrastructure.
 
 **Now, choose your own adventure:**
 
@@ -47,7 +47,7 @@ If you don't have the `bundle` command, first `gem install bundler`.
 
 **Step 3:** Add your first check
 
-At minimum a check has a name, a URL, and a frequency (how often to 'check'). Pingpong comes with an interactive rake task that makes adding checks easy. Run:
+At minimum a __check__ has a name, a URL, and a frequency (how often to 'check'). Pingpong comes with an interactive rake task that makes adding checks easy. Run:
 
 ```
 $ bundle exec rake checks:add
