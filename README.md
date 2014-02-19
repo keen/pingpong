@@ -47,7 +47,7 @@ If you don't have the `bundle` command, first `gem install bundler`.
 
 **Step 3:** Add your first check
 
-At minimum a __check__ has a name, a URL, and a frequency (how often to 'check'). Pingpong comes with an interactive rake task that makes adding checks easy. Run:
+At minimum a _check_ has a name, a URL, and a frequency (how often to 'check'). Pingpong comes with an interactive rake task that makes adding checks easy. Run:
 
 ```
 $ bundle exec rake checks:add
