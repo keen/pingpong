@@ -24,14 +24,14 @@ class EventmachineCheckRunner
 
       callback = Proc.new {
         duration = Time.now - start_time
-        block.yield(start_time, duration, http.response_header.status, response_to_hash(check, http))
+        block.yield(start_time, duration, http.response_header.status, response_to_hash(config, check, http))
       }
       http.callback &callback
       http.errback &callback
       http
     end
 
-    def response_to_hash(check, http)
+    def response_to_hash(config, check, http)
       content_type = http.response_header['CONTENT_TYPE']
       basic_params = { :http_status => http.response_header.http_status,
         :http_reason => http.response_header.http_reason,
@@ -43,13 +43,17 @@ class EventmachineCheckRunner
         :content_type => content_type,
         :location => http.response_header.location }
 
-      if content_type == 'application/json' && check.save_body
-        begin
-          json_body = MultiJson.load(http.response)
-          basic_params[:body] = json_body
-        rescue => e
-          config.logger.error(e)
-          config.logger.error("Could not parse JSON response body - #{http.response}")
+      if check.save_body
+        if content_type == 'application/json'
+          begin
+            json_body = MultiJson.load(http.response)
+            basic_params[:body] = json_body
+          rescue => e
+            config.logger.error(e)
+            config.logger.error("Could not parse JSON response body for check #{check.name} - #{http.response}")
+          end
+        else
+          config.logger.warn("Content type for #{check.name} is not JSON (it's #{content_type}) - body will not be saved")
         end
       end
 
