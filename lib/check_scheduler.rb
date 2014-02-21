@@ -51,23 +51,25 @@ class CheckScheduler
     def run_iteration(config, check)
       begin
         config.check_runner.run_check(config, check) do |start_time, duration, status, response|
-
-          config.logger.info("CheckComplete, #{check.name}, #{status}, #{duration}")
-          config.logger.debug(response)
-
-          begin
-            config.check_logger.log(config,
-                                    check,
-                                    config.check_marshaller.to_properties(
-                                        config, check, start_time, duration, status, response))
-          rescue => e
-            config.logger.error("CheckLoggingFailed for #{check.name}")
-            config.logger.error(e)
-          end
+          log_check(config, check, start_time, duration, status, response)
         end
-
       rescue => e
         config.logger.error("CheckRunningFailed for #{check.name}")
+        config.logger.error(e)
+      end
+    end
+
+    def log_check(config, check, start_time, duration, status, response)
+      config.logger.info("CheckComplete, #{check.name}, #{status}, #{duration}")
+      config.logger.debug(response)
+
+      begin
+        config.check_logger.log(config,
+                                check,
+                                config.check_marshaller.to_properties(
+                                    config, check, start_time, duration, status, response))
+      rescue => e
+        config.logger.error("CheckLoggingFailed for #{check.name}")
         config.logger.error(e)
       end
     end

@@ -8,6 +8,7 @@ class Check
   attr_accessor :frequency
   attr_accessor :method
   attr_accessor :data
+  attr_accessor :save_body
 
   attr_accessor :custom_properties
 
@@ -17,6 +18,7 @@ class Check
     self.frequency = options[:frequency]
     self.method = (options[:method] || "GET").upcase
     self.data = options[:data]
+    self.save_body = options[:save_body]
 
     self.custom_properties = options[:custom]
 
@@ -33,6 +35,7 @@ class Check
       :frequency => self.frequency,
       :method => self.method,
       :data => self.data,
+      :save_body => self.save_body,
       :custom => self.custom_properties }
   end
 end

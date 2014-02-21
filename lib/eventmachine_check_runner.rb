@@ -1,4 +1,5 @@
 require 'em-http-request'
+require 'multi_json'
 
 class EventmachineCheckRunner
 
@@ -23,23 +24,36 @@ class EventmachineCheckRunner
 
       callback = Proc.new {
         duration = Time.now - start_time
-        block.yield(start_time, duration, http.response_header.status, response_to_hash(http))
+        block.yield(start_time, duration, http.response_header.status, response_to_hash(check, http))
       }
       http.callback &callback
       http.errback &callback
       http
     end
 
-    def response_to_hash(http)
-      { :http_status => http.response_header.http_status,
+    def response_to_hash(check, http)
+      content_type = http.response_header['CONTENT_TYPE']
+      basic_params = { :http_status => http.response_header.http_status,
         :http_reason => http.response_header.http_reason,
         :http_version => http.response_header.http_version,
         :date => http.response_header['DATE'],
         :server => http.response_header['SERVER'],
         :last_modified => http.response_header.last_modified,
         :content_length => http.response_header.content_length,
-        :content_type => http.response_header['CONTENT_TYPE'],
+        :content_type => content_type,
         :location => http.response_header.location }
+
+      if content_type == 'application/json' && check.save_body
+        begin
+          json_body = MultiJson.load(http.response)
+          basic_params[:body] = json_body
+        rescue => e
+          config.logger.error(e)
+          config.logger.error("Could not parse JSON response body - #{http.response}")
+        end
+      end
+
+      basic_params
     end
 
     def prepare
