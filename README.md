@@ -294,6 +294,48 @@ Pingpong comes with a set of rake tasks to make various tasks easier.
 
 See `config.yml` for an idea of what can be configured with settings. Examples include timeouts, pluggable components, and environment properties. 
 
+##### Save a URL's JSON response body
+
+If a configured check returns JSON, you can save that JSON into the request body. This allows you to monitor and analyze not only the success or failure of web calls, but also the values they can return.
+
+To add this to a check, simple set the `save_body` property to true.
+
+``` json
+{
+  "checks": [{
+    "name": "SF-Weather",
+    "url": "https://api.forecast.io/forecast/95246bae8ab684243397323235f9f131/37.8267,-122.423?exclude=minutely,hourly,daily,flags",
+    "frequency": 300,
+    "save_body": true
+  }]
+}
+```
+
+This example grabs the weather from the [Forecast.io API](https://developer.forecast.io/) as JSON. The weather data will be merged into the response body under the key `response.body`. Here's an example check response event (some fields omitted for clarity):
+
+``` json
+{ 
+  "response": {
+    "body": {
+      "latitude": 37.8267,
+      "longitude": -122.423,
+      "timezone": "America/Los_Angeles",
+      "currently": {
+        "temperature": 56.78,
+        "summary": "Overcast",
+        "icon": "cloudy"
+      }
+    }
+  }
+}
+```
+
+Now you can visualize temperature over time by using `response.body.currently.temperature` as the target property for analysis!
+
+*Note*: The `Content-Type` header of the check's response must contain `application/json` for it to be saved. Otherwise a warning will be logged.
+
+*Note #2*: To avoid hitting Keen IO limits on the number of properties per event and per collection across all events, JSON response bodies should ideally be small and/or consistent.
+
 ##### Pluggability
 
 Each major component of Pingpong is pluggable.
