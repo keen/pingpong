@@ -44,7 +44,7 @@ class EventmachineCheckRunner
         :location => http.response_header.location }
 
       if check.save_body
-        if content_type == 'application/json'
+        if content_type && content_type =~ /application\/json/
           begin
             json_body = MultiJson.load(http.response)
             basic_params[:body] = json_body

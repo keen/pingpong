@@ -63,7 +63,7 @@ describe EventmachineCheckRunner do
 
   it 'should merge the response body into the event if the content type is json' do
     stub_request(:get, check_url).
-      to_return(:status => 200, :body => '{"created":true}', :headers => { 'CONTENT-TYPE' => 'application/json' })
+      to_return(:status => 200, :body => '{"created":true}', :headers => { 'CONTENT-TYPE' => 'application/json; charset=utf-8' })
 
     actually_ran = false
     failed_exception = nil
