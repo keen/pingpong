@@ -6,6 +6,7 @@ describe Check do
       :name => 'foo',
       :url => 'http://keen.io',
       :frequency => 60,
+      :save_body => true,
       :custom => {
         :datacenter => "dc1"
       })
@@ -43,6 +44,7 @@ describe Check do
       check.to_hash.should == {
         :name => "foo",
         :url => "http://keen.io",
+        :save_body => true,
         :frequency => 60,
         :method => "GET",
         :data => nil,
