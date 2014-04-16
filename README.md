@@ -206,15 +206,16 @@ Each time a check is run, a JSON object describing the check, request, and respo
     "duration": 0.432
   },
   "response": {
-    "headers": {
-      "status": 200,
-      "http_status": 200,
-      "content_type": "text/html",
-      "content_length": "175",
-      "date": "2013-11-01T00:00:00Z",
-      "timed_out": false,
-      "successful": true
-    }
+    "successful": true,
+    "timed_out": false,
+    "status": 200,
+    "server": "TornadoServer/3.1",
+    "http_status": 200,
+    "http_reason": "OK",
+    "http_version": "1.1",
+    "content_type": "text/html",
+    "content_length": 175,
+    "date": "Wed, 16 Apr 2014 17:39:01 GMT"
   }
 }
 ```
