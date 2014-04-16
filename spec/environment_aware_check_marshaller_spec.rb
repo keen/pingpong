@@ -5,7 +5,7 @@ describe EnvironmentAwareCheckMarshaller do
   let(:check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10) }
 
   it 'should marshal checks' do
-    properties = EnvironmentAwareCheckMarshaller.to_properties(PingpongConfig, check, now, 100, 200, { :content_length => 300 })
+    properties = EnvironmentAwareCheckMarshaller.to_properties(PingpongConfig, check, now, 100, { :content_length => 300 })
     properties.should_not be_empty
 
     properties[:check].should_not be_nil
@@ -27,7 +27,7 @@ describe EnvironmentAwareCheckMarshaller do
   end
 
   it 'should remove properties that are nil' do
-    properties = EnvironmentAwareCheckMarshaller.to_properties(PingpongConfig, check, now, 100, 200, { :content_length => nil })
+    properties = EnvironmentAwareCheckMarshaller.to_properties(PingpongConfig, check, now, 100, { :content_length => nil })
     properties[:response].should_not have_key :content_length
   end
 end

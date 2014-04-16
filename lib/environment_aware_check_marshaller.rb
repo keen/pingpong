@@ -2,22 +2,18 @@ class EnvironmentAwareCheckMarshaller
 
   class << self
 
-    def to_properties(config, check, start_time, duration, status, response)
+    def to_properties(config, check, start_time, duration, response)
       properties = {
         :check => check.to_hash,
         :request => {
             :sent_at => start_time.utc,
             :duration => duration
         },
-        :response => {
-            :status => status
-        },
+        :response => response,
         :environment => {
           :rack_env => ENV['RACK_ENV']
         }
       }
-
-      properties[:response].merge!(response) if response
 
       if env_properties = config[:environment]
         properties[:environment].merge!(env_properties)

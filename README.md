@@ -202,20 +202,19 @@ Each time a check is run, a JSON object describing the check, request, and respo
     "location": "Virginia, US"
   },
   "request": {
-    "sent_at": "2013-10-12T00:00:00.000Z"
+    "sent_at": "2013-10-12T00:00:00.000Z",
+    "duration": 0.432
   },
   "response": {
     "headers": {
       "status": 200,
-      "http_status": "200 OK",
+      "http_status": 200,
       "content_type": "text/html",
       "content_length": "175",
-      "date": "2013-11-01T00:00:00Z"
+      "date": "2013-11-01T00:00:00Z",
+      "timed_out": false,
+      "successful": true
     }
-  },
-  "results": {
-    "successful": true,
-    "duration": 0.432
   }
 }
 ```
@@ -226,7 +225,9 @@ Here's a breakdown of the major sections:
 + environment: properties describing where the check was made from (useful when you are running Pingpong instances across multiple datacenters)
 + request: information about the HTTP request that was sent
 + response: information about the HTTP response that was recorded
-+ results: overall status and duration of the check
+
+`response.timed_out` and `response.successful` are helper properties. `response.successful` is true if the request did not timeout and the response
+status is between 100 and 399.
 
 It's easy to add more fields to the `environment` section in `config.yml`, or implement a `CheckMarshaller` component that translates HTTP response fields to properties in a different way.
 
@@ -257,7 +258,7 @@ queries.push({
   collection: Pingpong.collection,
   queryParams: {
     analysisType: "average",
-    targetProperty: "results.duration",
+    targetProperty: "request.duration",
     timeframe: "last_120_minutes",
     interval: "minutely",
     groupBy: "check.name"
@@ -279,6 +280,7 @@ Pingpong comes with a set of rake tasks to make various tasks easier.
 + `foreman run rake checks:add` - Add a check to checks.json
 + `foreman run rake checks:run` - Run checks in an endless while loop. Useful for workers.
 + `foreman run rake checks:run_once` - Run checks once, and don't log the response. Useful for testing.
++ `foreman run rake checks:run_once[key=value]` - Run a subset of checks once, only those whose 'key' equals 'value' (e.g. name=Google)
 + `foreman run rake keen:workbench` - Print the Keen IO workbench URL for the configured project. The workbench lets you do data exploration and generates JavaScript for adding queries to your dashboard.
 + `foreman run rake keen:count` - Print counts grouped by check name
 + `foreman run rake keen:duration` - Print average durations grouped by check name

@@ -26,22 +26,6 @@ class CheckScheduler
       shutdown
     end
 
-    def run_once(config, filters)
-      prepare(config)
-
-      checks = config.check_source.all(config)
-      checks.each do |check|
-        should_run = filters.nil? || filters.all? do |name, value|
-          check[name.to_sym].to_s == value[0]
-        end
-        if should_run
-          run_iteration(config, check)
-        end
-      end
-
-      shutdown
-    end
-
     private
 
     def should_run_check(check, clock)
@@ -50,8 +34,8 @@ class CheckScheduler
 
     def run_iteration(config, check)
       begin
-        config.check_runner.run_check(config, check) do |start_time, duration, status, response|
-          log_check(config, check, start_time, duration, status, response)
+        config.check_runner.run_check(config, check) do |start_time, duration, response|
+          log_check(config, check, start_time, duration, response)
         end
       rescue => e
         config.logger.error("CheckRunningFailed for #{check.name}")
@@ -59,15 +43,15 @@ class CheckScheduler
       end
     end
 
-    def log_check(config, check, start_time, duration, status, response)
-      config.logger.info("CheckComplete, #{check.name}, #{status}, #{duration}")
+    def log_check(config, check, start_time, duration, response)
+      config.logger.info("CheckComplete, #{check.name}, #{duration}")
       config.logger.debug(response)
 
       begin
         config.check_logger.log(config,
                                 check,
                                 config.check_marshaller.to_properties(
-                                    config, check, start_time, duration, status, response))
+                                    config, check, start_time, duration, response))
       rescue => e
         config.logger.error("CheckLoggingFailed for #{check.name}")
         config.logger.error(e)

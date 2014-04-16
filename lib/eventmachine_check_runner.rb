@@ -12,19 +12,18 @@ class EventmachineCheckRunner
       em = EventMachine::HttpRequest.new(check.url, em_http_options(config))
       http = case check.method
       # Decide what method to use
-      when "GET"
+      when 'GET'
         em.get
-      when "POST"
+      when 'POST'
         em.post :body => check.data
       else
-        # Note that this was vetted earlier, so this is just a conversative check
-        raise "Invalid HTTP method '#{check.method}"
+        # Note that this was vetted earlier, so this is just a conservative check
+        raise "Invalid HTTP method '#{check.method}'"
       end
-
 
       callback = Proc.new {
         duration = Time.now - start_time
-        block.yield(start_time, duration, http.response_header.status, response_to_hash(config, check, http))
+        block.yield(start_time, duration, response_to_hash(config, check, http))
       }
       http.callback &callback
       http.errback &callback
@@ -33,7 +32,9 @@ class EventmachineCheckRunner
 
     def response_to_hash(config, check, http)
       content_type = http.response_header['CONTENT_TYPE']
-      basic_params = { :http_status => http.response_header.http_status,
+      basic_params = {
+        :status => http.response_header.status,
+        :http_status => http.response_header.http_status,
         :http_reason => http.response_header.http_reason,
         :http_version => http.response_header.http_version,
         :date => http.response_header['DATE'],
@@ -41,7 +42,15 @@ class EventmachineCheckRunner
         :last_modified => http.response_header.last_modified,
         :content_length => http.response_header.content_length,
         :content_type => content_type,
-        :location => http.response_header.location }
+        :location => http.response_header.location
+      }
+
+      # add some properties to make analysis easier
+      basic_params[:timed_out] = http.response_header.status == 0
+      basic_params[:successful] =
+          http.response_header.informational? ||      # 100-199
+          http.response_header.successful?    ||      # 200-299
+          http.response_header.redirection?           # 300-399
 
       if check.save_body
         if content_type && content_type =~ /application\/json/

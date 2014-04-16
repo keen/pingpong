@@ -23,12 +23,12 @@ namespace :checks do
     frequency = STDIN.gets.chomp
     puts 'What HTTP Method? (GET or POST, leave blank for GET)'
     method = STDIN.gets.chomp
-    if method == nil || method == ""
-      method = "GET"
+    if method == nil || method == ''
+      method = 'GET'
     end
 
     data = nil
-    if method.upcase == "POST"
+    if method.upcase == 'POST'
       puts 'What data to POST?'
       data = STDIN.gets.chomp
     end
@@ -66,11 +66,32 @@ namespace :checks do
   task :run_once, :filters do |task, args|
     require 'cgi'
     require './pingpong_config'
+
     config = PingpongConfig
-    config.check_runner = SimpleCheckRunner
     config.check_logger = ConsoleCheckLogger
+
     filters = CGI::parse(args[:filters]) if args[:filters]
-    config.check_scheduler.run_once(config, filters)
+
+    checks_in_flight = 0
+
+    config.check_source.all(config).each do |check|
+      should_run = filters.nil? || filters.all? do |name, value|
+        check.to_hash[name.to_sym].to_s == value[0]
+      end
+      if should_run
+        EventmachineCheckRunner.run_check(config, check) do |_, duration, response|
+          config.logger.info("CheckComplete, #{check.name}, #{duration}")
+          config.logger.info(response)
+          checks_in_flight -= 1
+        end
+        checks_in_flight += 1
+      end
+    end
+
+    # let the checks run
+    while checks_in_flight != 0
+      sleep 0.1
+    end
   end
 end
 
