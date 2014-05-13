@@ -57,6 +57,7 @@ test:
     collection: test-collection
 
   skip_checks: true
+  skip_pushpop: true
 
   http_username: foo
   http_password: bar
