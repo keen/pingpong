@@ -24,3 +24,14 @@ unless config['skip_checks']
     config.check_scheduler.run(config)
   }
 end
+
+unless config['skip_pushpop']
+  require 'pushpop'
+  Dir.glob("#{File.dirname(__FILE__)}/jobs/**/*.rb").each { |file|
+    require file
+  }
+  Pushpop.schedule
+  Thread.new {
+    Clockwork.manager.run
+  }
+end

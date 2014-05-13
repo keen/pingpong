@@ -27,6 +27,9 @@ defaults: &defaults
   # by default a web worker will run checks
   skip_checks: <%= ENV['SKIP_CHECKS'] %>
 
+  # by default a web worker will run pushpop jobs
+  skip_pushpop: <%= ENV['SKIP_PUSHPOP'] %>
+
   # add http authentication
   http_username: <%= ENV['HTTP_USERNAME'] %>
   http_password: <%= ENV['HTTP_PASSWORD'] %>

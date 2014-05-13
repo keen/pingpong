@@ -152,5 +152,25 @@ namespace :keen do
   end
 end
 
+namespace :jobs do
+  desc 'Schedule and run pushpop jobs'
+  task :run do
+    require 'pushpop'
+    Dir.glob("#{File.dirname(__FILE__)}/jobs/**/*.rb").each { |file|
+      require file
+    }
+    Pushpop.schedule
+    Clockwork.manager.run
+  end
+
+  task :run_once do
+    require 'pushpop'
+    Dir.glob("#{File.dirname(__FILE__)}/jobs/**/*.rb").each { |file|
+      require file
+    }
+    Pushpop.run
+  end
+end
+
 task :default => :spec
 task :test => [:spec]

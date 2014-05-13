@@ -1,8 +1,25 @@
+GIT
+  remote: git@github.com:keenlabs/pushpop.git
+  revision: 5f63136748db6634b7292e26ae430c13dce12461
+  specs:
+    pushpop (0.1.0)
+      clockwork
+      keen
+
 GEM
   remote: https://rubygems.org/
   specs:
+    activesupport (4.1.1)
+      i18n (~> 0.6, >= 0.6.9)
+      json (~> 1.7, >= 1.7.7)
+      minitest (~> 5.1)
+      thread_safe (~> 0.1)
+      tzinfo (~> 1.1)
     addressable (2.3.5)
     backports (3.4.1)
+    clockwork (0.7.5)
+      activesupport
+      tzinfo
     cookiejar (0.3.0)
     crack (0.4.1)
       safe_yaml (~> 0.9.0)
@@ -23,10 +40,18 @@ GEM
     haml (4.0.5)
       tilt
     http_parser.rb (0.6.0)
+    i18n (0.6.9)
+    json (1.8.1)
     keen (0.8.0)
       addressable (~> 2.3.5)
       multi_json (~> 1.0)
+    mail (2.5.4)
+      mime-types (~> 1.16)
+      treetop (~> 1.4.8)
+    mime-types (1.25.1)
+    minitest (5.3.3)
     multi_json (1.8.4)
+    polyglot (0.3.4)
     rack (1.5.2)
     rack-protection (1.5.2)
       rack
@@ -56,7 +81,13 @@ GEM
     sinatra-reloader (1.0)
       sinatra-contrib
     thor (0.18.1)
+    thread_safe (0.3.3)
     tilt (1.4.1)
+    treetop (1.4.15)
+      polyglot
+      polyglot (>= 0.3.1)
+    tzinfo (1.1.0)
+      thread_safe (~> 0.1)
     webmock (1.17.1)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
@@ -69,7 +100,9 @@ DEPENDENCIES
   foreman
   haml
   keen
+  mail
   multi_json
+  pushpop!
   rake
   rspec
   sinatra
