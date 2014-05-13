@@ -1,5 +1,5 @@
 GIT
-  remote: git@github.com:keenlabs/pushpop.git
+  remote: https://github.com/keenlabs/pushpop.git
   revision: 5f63136748db6634b7292e26ae430c13dce12461
   specs:
     pushpop (0.1.0)
