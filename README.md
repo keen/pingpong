@@ -150,7 +150,7 @@ Every check requires the following properties:
 + url: the fully qualified resource to check
 + frequency: how often to sent the request, in seconds
 
-Additionally, checks have some optional propertyes:
+Additionally, checks have some optional properties:
 
 + method: GET or POST (defaults to GET)
 + http_username: Username for HTTP authentication
