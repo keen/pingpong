@@ -7,6 +7,8 @@ describe Check do
       :url => 'http://keen.io',
       :frequency => 60,
       :save_body => true,
+      :http_username => 'borg',
+      :http_password => 'isfutile',
       :custom => {
         :datacenter => "dc1"
       })

@@ -10,12 +10,19 @@ class EventmachineCheckRunner
 
       start_time = Time.now
       em = EventMachine::HttpRequest.new(check.url, em_http_options(config))
+
+      headers = {}
+      if check.http_username && check.http_password
+        headers[:authorization] = [check.http_username, check.http_password]
+      end
+
       http = case check.method
+
       # Decide what method to use
       when 'GET'
-        em.get
+        em.get :head => headers
       when 'POST'
-        em.post :body => check.data
+        em.post :body => check.data, :head => headers
       else
         # Note that this was vetted earlier, so this is just a conservative check
         raise "Invalid HTTP method '#{check.method}'"

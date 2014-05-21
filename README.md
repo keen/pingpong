@@ -150,6 +150,12 @@ Every check requires the following properties:
 + url: the fully qualified resource to check
 + frequency: how often to sent the request, in seconds
 
+Additionally, checks have some optional propertyes:
+
++ method: GET or POST (defaults to GET)
++ http_username: Username for HTTP authentication
++ http_password: Password for HTTP authentication
+
 Checks can also have any number of custom properties, which is very useful for grouping & drill-down analysis later. Place any custom properties in the `custom` namespace of the check JSON.
 
 Here's a few example checks with custom properties:

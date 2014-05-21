@@ -9,6 +9,8 @@ class Check
   attr_accessor :method
   attr_accessor :data
   attr_accessor :save_body
+  attr_accessor :http_username
+  attr_accessor :http_password
 
   attr_accessor :custom_properties
 
@@ -19,6 +21,8 @@ class Check
     self.method = (options[:method] || "GET").upcase
     self.data = options[:data]
     self.save_body = options[:save_body]
+    self.http_username = options[:http_username]
+    self.http_password = options[:http_password]
 
     self.custom_properties = options[:custom]
 
