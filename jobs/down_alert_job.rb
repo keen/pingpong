@@ -1,8 +1,8 @@
 require 'pushpop'
 
-FROM_EMAIL = 'pushpop-app@keen.io'
-TO_EMAIL   = 'josh@keen.io'
-COLLECTION = ENV['KEEN_COLLECTION']
+FROM_EMAIL = ENV['PUSHPOP_FROM_EMAIL']
+TO_EMAIL   = ENV['PUSHPOP_TO_EMAIL']
+COLLECTION = ENV['KEEN_COLLECTION'] || 'checks'
 
 job 'alert if check has failed in the last minute' do
 
