@@ -1,4 +1,11 @@
 {
-  "checks":[
+  "checks": [
+    {
+      "name": "Blahblah",
+      "url": "http://bfldskjfdskfldsjf.com",
+      "frequency": 10,
+      "method": "GET",
+      "data": null
+    }
   ]
 }

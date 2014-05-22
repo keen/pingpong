@@ -280,6 +280,22 @@ queries.push({
 The queries object is just there for convenience. Since the full Keen IO JavaScript SDK is on the page, you can
 create any other visualizations you want as well.
 
+#### Reporting and Alerting
+
+Pingpong uses [Pushpop](https://github.com/pushpop/pingpong.git) to provide basic alerting and reporting functionality. This functionality can easily be extended to create your own custom alerts and reports.
+
+By default, a Pingpong instance started with `foreman start` will run Pushpop jobs. If you don't want this to be the case (for example if you run multiple geographically distributed Pingpongs and only want 1 to do the alerting), set the environment variable `SKIP_PUSHPOP=1`.
+
+Pushpop jobs are located in the [jobs](jobs/) directory. Here's a short description of each job.
+
+##### detect_failures_job
+
+This job runs once per minute, querying to see if the `response.successful` property of any check is `false`. If so, it sends one email for each failed check containing the name of the check and how many times it has failed.
+
+This job will only run if the `PUSHPOP_FROM_EMAIL` and `PUSHPOP_TO_EMAIL` environment variables are set. Likewise, the included version uses the Pushpop [sendgrid plugin](https://github.com/keenlabs/pushpop#sendgrid), so you'll need to set the requisite environment variables for that as well.
+
+Learn more by looking at [the job](jobs/detect_failures_job.rb) and its [template](jobs/detect_failures_job.html.erb).
+
 #### Rake tasks
 
 Pingpong comes with a set of rake tasks to make various tasks easier. 

@@ -1,5 +1,7 @@
 require 'pushpop'
 
+TEMPLATES_DIR = File.expand_path('../', __FILE__)
+
 FROM_EMAIL = ENV['PUSHPOP_FROM_EMAIL']
 TO_EMAIL   = ENV['PUSHPOP_TO_EMAIL']
 COLLECTION = ENV['KEEN_COLLECTION'] || 'checks'
@@ -8,7 +10,11 @@ job 'alert if check has failed in the last minute' do
 
   every 1.minute
 
-  keen do
+  step 'continue only if email addresses are set' do
+    FROM_EMAIL && TO_EMAIL
+  end
+
+  keen 'query for failures' do
     event_collection  COLLECTION
     analysis_type     'count'
     timeframe         'last_minute'
@@ -18,19 +24,19 @@ job 'alert if check has failed in the last minute' do
                          property_value: false }]
   end
 
-  step 'isolate checks with at least 1 failure' do |response, _|
+  step 'filter for at least 1 failure' do |response, _|
     response.select do |group|
       group['result'] > 0
     end
   end
 
-  sendgrid 'send a text for each failing check' do |response, _|
+  sendgrid 'send 1 email for each failure' do |response, _|
     response.each do |group|
       check_name = group['check.name']
       num_failures = group['result']
       send_email(TO_EMAIL, FROM_EMAIL,
                  "[pingpong] #{check_name} has failed!",
-                 "#{check_name} has failed #{num_failures} times")
+                 template("detect_failures_job.html.erb", group, _, TEMPLATES_DIR))
     end
   end
 
