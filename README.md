@@ -466,9 +466,11 @@ While agent-based application monitoring tools like New Relic are also useful (w
 
 #### Event Limits
 
-If you're using the Keen IO backend to store events, there is a limit on the number of monthly events you can send for free. Currently that limit is 50,000.
+If you're using the Keen IO backend to store events, there is a limit on the number of monthly events you can send for free. Currently that limit is 50,000. The [$20/month plan](https://keen.io/pricing) doubles that limit to 100,000.
 
-If you're using Pingpong for an open-source project and need more events, just send us an email to team at our domain.
+##### More Events
+
+As an early Pingpong user you're helping us find bugs and test out new features. That's worth something, right? We think so, and we're happy to throw some extra events your way. Just [email us](mailto:team@keen.io?subject=Pingpong Events) your project ID and we'll get you hooked up.
 
 #### Contributing
 
