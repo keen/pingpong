@@ -72,7 +72,7 @@ What HTTP Method? (GET or POST, leave blank for GET)
 
 This process adds a check to a `./checks.json` file, creating it if necessary. Here's what that file looks like after we add the check:
 
-```
+``` json
 {
   "checks": [{
     "name" : "Google",
@@ -160,7 +160,7 @@ Checks can also have any number of custom properties, which is very useful for g
 
 Here's a few example checks with custom properties:
 
-```
+``` json
 {
   "checks": [{
     "name": "Keen IO Web",
@@ -191,7 +191,7 @@ By default checks are sourced from the `checks.json` file in the project directo
 
 Each time a check is run, a JSON object describing the check, request, and response is logged via a `CheckLogger` component, defaulting to `KeenCheckLogger`. Here's an example event payload:
 
-```
+``` json
 {
   "check": {
     "name": "Keen IO Web",
