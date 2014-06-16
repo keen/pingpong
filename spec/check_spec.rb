@@ -14,11 +14,11 @@ describe Check do
       })
   }
 
-  it 'should initialize with options' do
-   check.name.should == 'foo'
+  it 'initializes with options' do
+   expect(check.name).to eq('foo')
   end
 
-  it 'should require a name, url, and frequency' do
+  it 'requires a name, url, and frequency' do
     expect {
       Check.new(:name => 'Bob', :url => 'http://google.com')
     }.to raise_error
@@ -30,7 +30,7 @@ describe Check do
     }.to raise_error
   end
 
-  it 'should require data for POST method' do
+  it 'requires data for POST method' do
     expect {
       Check.new(
         :name => 'foo',
@@ -42,8 +42,8 @@ describe Check do
   end
 
   describe "to_hash" do
-    it "should turn into an object" do
-      check.to_hash.should == {
+    it "turns into an object" do
+      expect(check.to_hash).to eq({
         :name => "foo",
         :url => "http://keen.io",
         :save_body => true,
@@ -53,7 +53,7 @@ describe Check do
         :custom => {
           :datacenter => "dc1"
         }
-      }
+      })
     end
   end
 end

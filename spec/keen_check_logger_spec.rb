@@ -5,7 +5,7 @@ describe KeenCheckLogger do
   let(:response_properties) { { "field" => "value" } }
   let(:api_url) { "https://api.keen.io/3.0/projects/test-project-id/events/test-collection" }
 
-  it "should post the event to keen asynchronously" do
+  it "posts the event to keen asynchronously" do
     stub_request(:post, api_url).
       with(:body => { "field" => "value" }).
       to_return(:status => 200, :body => "{\"created\":true}")
@@ -15,7 +15,7 @@ describe KeenCheckLogger do
     EM.run {
       KeenCheckLogger.log(PingpongConfig, check, response_properties).callback {
         begin
-          WebMock.should have_requested(:post, api_url).with(
+          expect(WebMock).to have_requested(:post, api_url).with(
             :body => "{\"field\":\"value\"}")
         rescue => exception          
           failed_exception = exception
@@ -28,8 +28,8 @@ describe KeenCheckLogger do
         fail
       }
     }
-    actually_ran.should be_true
-    failed_exception.should be_nil
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
   end
 
 end

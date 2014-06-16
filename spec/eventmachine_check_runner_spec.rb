@@ -6,7 +6,7 @@ describe EventmachineCheckRunner do
   let(:no_body_check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10) }
   let(:config) { PingpongConfig }
 
-  it 'should run the check with eventmachine' do
+  it 'runs the check with eventmachine' do
     now = Time.now
     Time.stub(:now).and_return(now)
     stub_request(:get, check_url).
@@ -17,14 +17,14 @@ describe EventmachineCheckRunner do
     EM.run {
       http = EventmachineCheckRunner.run_check(PingpongConfig, check) do |start_time, duration, response|
         begin
-          WebMock.should have_requested(:get, check_url)
-          start_time.should == now
-          duration.should == 0
-          response[:status].should == 200
-          response[:http_status].should == 200
-          response[:content_length].should == 'ok'.length
-          response[:timed_out].should be_false
-          response[:successful].should be_true
+          expect(WebMock).to have_requested(:get, check_url)
+          expect(start_time).to eq(now)
+          expect(duration).to eq(0)
+          expect(response[:status]).to eq(200)
+          expect(response[:http_status]).to eq(200)
+          expect(response[:content_length]).to eq('ok'.length)
+          expect(response[:timed_out]).to be_false
+          expect(response[:successful]).to be_true
         rescue => exception
           failed_exception = exception
         ensure
@@ -33,11 +33,11 @@ describe EventmachineCheckRunner do
         end
       end
     }
-    actually_ran.should be_true
-    failed_exception.should be_nil
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
   end
 
-  it 'should include http authentication in headers' do
+  it 'includes http authentication in headers' do
     now = Time.now
     Time.stub(:now).and_return(now)
     stub_request(:get, check_url).
@@ -51,14 +51,14 @@ describe EventmachineCheckRunner do
     EM.run {
       http = EventmachineCheckRunner.run_check(PingpongConfig, check) do |start_time, duration, response|
         begin
-          WebMock.should have_requested(:get, check_url).with(:headers => { :Authorization => ['bar', 'foo'] })
-          start_time.should == now
-          duration.should == 0
-          response[:status].should == 200
-          response[:http_status].should == 200
-          response[:content_length].should == 'ok'.length
-          response[:timed_out].should be_false
-          response[:successful].should be_true
+          expect(WebMock).to have_requested(:get, check_url).with(:headers => { :Authorization => ['bar', 'foo'] })
+          expect(start_time).to eq(now)
+          expect(duration).to eq(0)
+          expect(response[:status]).to eq(200)
+          expect(response[:http_status]).to eq(200)
+          expect(response[:content_length]).to eq('ok'.length)
+          expect(response[:timed_out]).to be_false
+          expect(response[:successful]).to be_true
         rescue => exception
           failed_exception = exception
         ensure
@@ -67,11 +67,11 @@ describe EventmachineCheckRunner do
         end
       end
     }
-    actually_ran.should be_true
-    failed_exception.should be_nil
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
   end
 
-  it 'should set timed_out to true and successful to false if status is 0' do
+  it 'sets timed_out to true and successful to false if status is 0' do
     now = Time.now
     Time.stub(:now).and_return(now)
     stub_request(:get, check_url).
@@ -82,13 +82,13 @@ describe EventmachineCheckRunner do
     EM.run {
       http = EventmachineCheckRunner.run_check(PingpongConfig, check) do |start_time, duration, response|
         begin
-          WebMock.should have_requested(:get, check_url)
-          start_time.should == now
-          duration.should == 0
-          response[:status].should == 0
-          response[:http_status].should be_nil
-          response[:timed_out].should be_true
-          response[:successful].should be_false
+          expect(WebMock).to have_requested(:get, check_url)
+          expect(start_time).to eq(now)
+          expect(duration).to eq(0)
+          expect(response[:status]).to eq(0)
+          expect(response[:http_status]).to be_nil
+          expect(response[:timed_out]).to be_true
+          expect(response[:successful]).to be_false
         rescue => exception
           failed_exception = exception
         ensure
@@ -97,11 +97,11 @@ describe EventmachineCheckRunner do
         end
       end
     }
-    actually_ran.should be_true
-    failed_exception.should be_nil
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
   end
 
-  it 'should use timeout settings from config' do
+  it 'uses timeout settings from config' do
     stub_request(:get, check_url).
         to_return(:status => 200, :body => 'ok')
 
@@ -111,10 +111,10 @@ describe EventmachineCheckRunner do
       http = EventmachineCheckRunner.run_check(PingpongConfig, check) do
         begin
           # also check that it's picking up our settings
-          config[:check_runner_connect_timeout].should == 15
-          http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@connect_timeout).should == 15
-          config[:check_runner_inactivity_timeout].should == 60
-          http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@inactivity_timeout).should == 60
+          expect(config[:check_runner_connect_timeout]).to eq(15)
+          expect(http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@connect_timeout)).to eq(15)
+          expect(config[:check_runner_inactivity_timeout]).to eq(60)
+          expect(http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@inactivity_timeout)).to eq(60)
         rescue => exception
           failed_exception = exception
         ensure
@@ -124,11 +124,11 @@ describe EventmachineCheckRunner do
       end
     }
 
-    actually_ran.should be_true
-    failed_exception.should be_nil
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
   end
 
-  it 'should merge the response body into the event if the content type is json' do
+  it 'merges the response body into the event if the content type is json' do
     stub_request(:get, check_url).
       to_return(:status => 200, :body => '{"created":true}', :headers => { 'CONTENT-TYPE' => 'application/json; charset=utf-8' })
 
@@ -137,7 +137,7 @@ describe EventmachineCheckRunner do
     EM.run {
       http = EventmachineCheckRunner.run_check(PingpongConfig, check) do |start_time, duration, response|
         begin
-          response[:body]["created"].should be_true
+          expect(response[:body]["created"]).to be_true
         rescue => exception
           failed_exception = exception
         ensure
@@ -147,11 +147,11 @@ describe EventmachineCheckRunner do
       end
     }
 
-    actually_ran.should be_true
-    failed_exception.should be_nil
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
   end
 
-  it 'should not merge the response body into the event if the check says not to' do
+  it 'does not merge the response body into the event if the check says not to' do
     stub_request(:get, check_url).
       to_return(:status => 200, :body => '{"created":true}', :headers => { 'CONTENT-TYPE' => 'application/json' })
 
@@ -160,7 +160,7 @@ describe EventmachineCheckRunner do
     EM.run {
       http = EventmachineCheckRunner.run_check(PingpongConfig, no_body_check) do |start_time, duration, response|
         begin
-          response[:body].should be_nil
+          expect(response[:body]).to be_nil
         rescue => exception
           failed_exception = exception
         ensure
@@ -170,7 +170,7 @@ describe EventmachineCheckRunner do
       end
     }
 
-    actually_ran.should be_true
-    failed_exception.should be_nil
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
   end
 end

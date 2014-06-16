@@ -4,30 +4,30 @@ describe EnvironmentAwareCheckMarshaller do
   let(:now) { Time.new(0) }
   let(:check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10) }
 
-  it 'should marshal checks' do
+  it 'marshals checks' do
     properties = EnvironmentAwareCheckMarshaller.to_properties(PingpongConfig, check, now, 100, { :content_length => 300 })
-    properties.should_not be_empty
+    expect(properties).to_not be_empty
 
-    properties[:check].should_not be_nil
-    properties[:check][:name].should == 'WebCheck'
-    properties[:check][:url].should == 'http://bark.meow'
-    properties[:check][:frequency].should == 10
+    expect(properties[:check]).to_not be_nil
+    expect(properties[:check][:name]).to eq('WebCheck')
+    expect(properties[:check][:url]).to eq('http://bark.meow')
+    expect(properties[:check][:frequency]).to eq(10)
 
-    properties[:request].should_not be_nil
-    properties[:request][:sent_at].should == now.utc
+    expect(properties[:request]).to_not be_nil
+    expect(properties[:request][:sent_at]).to eq(now.utc)
 
-    properties[:response].should_not be_nil
-    properties[:environment].should_not be_nil
-    properties[:environment][:region].should == 'test-region'
-    properties[:environment][:location].should == 'test-location'
-    properties[:environment][:hostname].should == 'test-hostname'
-    properties[:environment][:rack_env].should == 'test'
+    expect(properties[:response]).to_not be_nil
+    expect(properties[:environment]).to_not be_nil
+    expect(properties[:environment][:region]).to eq('test-region')
+    expect(properties[:environment][:location]).to eq('test-location')
+    expect(properties[:environment][:hostname]).to eq('test-hostname')
+    expect(properties[:environment][:rack_env]).to eq('test')
 
-    properties[:response][:content_length].should == 300
+    expect(properties[:response][:content_length]).to eq(300)
   end
 
-  it 'should remove properties that are nil' do
+  it 'removes properties that are nil' do
     properties = EnvironmentAwareCheckMarshaller.to_properties(PingpongConfig, check, now, 100, { :content_length => nil })
-    properties[:response].should_not have_key :content_length
+    expect(properties[:response]).to_not have_key :content_length
   end
 end
