@@ -10,8 +10,8 @@ gem 'multi_json'
 gem 'em-http-request'
 gem 'keen'
 
-gem 'mail'
-gem 'pushpop', :git => 'https://github.com/keenlabs/pushpop.git'
+gem 'pushpop-keen'
+gem 'pushpop-sendgrid'
 
 group :development, :test do
   gem 'foreman'
