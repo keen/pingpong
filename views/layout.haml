@@ -11,7 +11,7 @@
 
       var projectId = "#{@config.properties[:keen][:project_id]}";
       var readKey = "#{@config.properties[:keen][:read_key]}";
-      var client = '';
+      var client;
 
       // make sure Keen IO environment variables are set
       if (projectId != "" && readKey != "") {
