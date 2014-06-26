@@ -23,7 +23,7 @@
   this.queries = [];
 
   // wait for charting library to be available
-  Keen.onChartsReady(function() {
+  Keen.ready(function() {
 
     // push each query onto the array, specifying the anchor name of the tab you want it to show up in
     // at the end, each query will be drawn, and wired up to refresh as often as you specify (default 1 minute)
@@ -32,11 +32,11 @@
 
     queries.push({
       tab: "performance",
+      queryType: "average",
       title: "Average Response Time By Check, Last 120 Minutes",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
-        analysisType: "average",
+        eventCollection: Pingpong.collection,
         targetProperty: "request.duration",
         timeframe: "last_120_minutes",
         interval: "minutely",
@@ -47,11 +47,11 @@
 
     queries.push({
       tab: "performance",
+      queryType: "average",
       title: "Average Response Time By Check, Last 48 Hours",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
-        analysisType: "average",
+        eventCollection: Pingpong.collection,
         targetProperty: "request.duration",
         timeframe: "last_48_hours",
         interval: "hourly",
@@ -62,10 +62,11 @@
 
     queries.push({
       tab: "performance",
+      queryType: "maximum",
       title: "Maximum Response Time By Check, Last 120 Minutes",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
+        eventCollection: Pingpong.collection,
         analysisType: "maximum",
         targetProperty: "request.duration",
         timeframe: "last_120_minutes",
@@ -77,11 +78,11 @@
 
     queries.push({
       tab: "performance",
+      queryType: "average",
       title: "Average Response Time All Checks, Last 120 Minutes",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
-        analysisType: "average",
+        eventCollection: Pingpong.collection,
         targetProperty: "request.duration",
         timeframe: "last_120_minutes",
         interval: "minutely",
@@ -93,11 +94,11 @@
 
     queries.push({
       tab: "status",
+      queryType: "count",
       title: "Response Status Count, Last 120 Minutes",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
-        analysisType: "count",
+        eventCollection: Pingpong.collection,
         timeframe: "last_120_minutes",
         interval: "minutely",
         groupBy: "response.status"
@@ -107,11 +108,11 @@
 
     queries.push({
       tab: "status",
+      queryType: "count",
       title: "Response Status Count, Last 48 Hours",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
-        analysisType: "count",
+        eventCollection: Pingpong.collection,
         timeframe: "last_48_hours",
         interval: "hourly",
         groupBy: "response.status"
@@ -121,11 +122,11 @@
 
     queries.push({
       tab: "status",
+      queryType: "count",
       title: "Failure Count By Check, Last 120 Minutes",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
-        analysisType: "count",
+        eventCollection: Pingpong.collection,
         timeframe: "last_120_minutes",
         interval: "minutely",
         groupBy: "check.name",
@@ -138,11 +139,11 @@
 
     queries.push({
       tab: "status",
+      queryType: "count",
       title: "Failure Count By Check, Last 48 Hours",
-      chartClass: Keen.Series,
-      collection: Pingpong.collection,
+      chartType: "linechart",
       queryParams: {
-        analysisType: "count",
+        eventCollection: Pingpong.collection,
         timeframe: "last_48_hours",
         interval: "hourly",
         groupBy: "check.name",
@@ -163,13 +164,20 @@
         if (query.run) {
           query.run(query, element);
         } else {
-          var obj = new query.chartClass(query.collection, query.queryParams);
+          var obj = new Keen.Query(query.queryType, query.queryParams);
           var viz = query.vizOptions || defaultVizOptions;
           viz.title = query.title;
           if (query.chartClass == Keen.Metric) {
             viz.label = query.title;
           }
-          obj.draw(element[0], viz);
+
+          var request = client.run(obj, function() {
+              this.draw(element[0], {
+                title: query.title,
+                chartType: query.chartType,
+                chartOptions: viz
+              });
+          });
         }
       }
     }
