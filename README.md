@@ -257,7 +257,7 @@ It's easy to add more visualizations, and you'll get the most use out of the das
 
 To add a query to the included HTML dashboard, just add a line to the `queries.json` file.
 
-```
+``` javascript
 queries.push({
   tab: "performance",
   title: "Average Response Time By Check, Last 120 Minutes",
