@@ -8,7 +8,7 @@
 
 Pingpong is an open-source monitoring framework for anything with a URL. Pingpong is especially well-suited for tracking performance and availability across families of servers.
 
-#### How does it work?
+#### How Does It Work?
 
 Pingpong makes HTTP requests to URLs you configure, as frequently as once per second. Pingpong turns data about each request and response into JSON, then logs it to a configurable destination.
 
@@ -240,7 +240,7 @@ It's easy to add more fields to the `environment` section in `config.yml`, or im
 
 Capturing all of these fields makes it possible to perform powerful grouping and filtering during analysis.
 
-#### The Pingpong dashboard
+#### The Pingpong Dashboard
 
 Here's a snapshot of a Pingpong [dashboard](http://api-pong.herokuapp.com) that shows the home page response time for popular API providers.
 
@@ -253,7 +253,7 @@ This dashboard uses most of Pingpong's default visualizations, such as:
 
 It's easy to add more visualizations, and you'll get the most use out of the dashboard by adding queries that answer the specific questions you have. Or simply by breaking charts out into groups that better represent your infrastructure.
 
-#### Adding a visualization
+#### Adding a Visualization
 
 To add a query to the included HTML dashboard, just add a line to the `queries.json` file.
 
@@ -296,7 +296,7 @@ This job will only run if the `PUSHPOP_FROM_EMAIL` and `PUSHPOP_TO_EMAIL` enviro
 
 Learn more by looking at [the job](jobs/detect_failures_job.rb) and its [template](jobs/detect_failures_job.html.erb).
 
-#### Rake tasks
+#### Rake Tasks
 
 Pingpong comes with a set of rake tasks to make various tasks easier. 
 
@@ -313,7 +313,7 @@ Pingpong comes with a set of rake tasks to make various tasks easier.
 (Protip: Substitute `heroku` for `foreman` to run any of these on a Heroku dyno)
 
 
-#### Additional options & recipes
+#### Additional Options & Recipes
 
 ##### Configuration
 
@@ -372,7 +372,7 @@ Each major component of Pingpong is pluggable.
 
 Once you've written an implementation for any of these components, simply replace the previous implementation's class name in `config.yml` with name of your component.
 
-##### Run in a worker
+##### Run in a Worker
 
 Pingpong can run checks in two ways:
 
