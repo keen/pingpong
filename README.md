@@ -10,15 +10,13 @@ Pingpong is an open-source monitoring framework for anything with a URL. Pingpon
 
 #### How Does It Work?
 
-Pingpong makes HTTP requests to URLs you configure, as frequently as once per second. Pingpong turns data about each request and response into JSON, then logs it to a configurable destination.
-
-The default destination is Keen IO's [analytics API](https://keen.io/docs/). Keen's API supports capturing events, running queries, and creating visualizations. Pingpong ships with an HTML dashboard built on Keen that shows the following metrics:
-
-+ HTTP response status breakdown by URL
-+ Response time breakdown by URL
-+ Errors and long-running requests
-
-Pingpong automatically captures most of the data you'd want about HTTP requests and responses, but it also makes it easy to add custom properties specific to your infrastructure.
++ Pingpong makes HTTP requests to URLs you configure, as frequently as once per second. Pingpong turns data about each request and response into JSON, then logs it to a configurable destination.
++ The default destination is Keen IO's [analytics API](https://keen.io/docs/). Keen's API supports capturing events, running queries, and creating visualizations.
++ Pingpong ships with an HTML dashboard built on Keen that shows the following metrics:
+  + HTTP response status breakdown by URL
+  + Response time breakdown by URL
+  + Errors and long-running requests
++ Pingpong automatically captures most of the data you'd want about HTTP requests and responses, but it also makes it easy to add custom properties specific to your infrastructure.
 
 **Now, choose your own adventure:**
 
@@ -26,7 +24,7 @@ Pingpong automatically captures most of the data you'd want about HTTP requests 
 + Read [the inspiration](#inspiration) behind Pingpong
 + Setup and deploy your own Pingpong app (keep reading!)
 
-#### Setup and Deployment
+#### Setup & Deployment
 
 Pingpong is open source and easy to install. Pingpong is written in Ruby and streamlined for deployment to one or more Heroku regions. That said, you can run it on any computer with Ruby, including your local machine.
 
@@ -86,9 +84,9 @@ This process adds a check to a `./checks.json` file, creating it if necessary. H
 
 You can add more checks at any time via the rake task, or simply edit the file by hand.
 
-**Step 4:** Setup Heroku and Keen IO
+**Step 4:** Set up Heroku and Keen IO
 
-This section assumes you're ok with 2 things - provisioning a Heroku app and adding the free `keen:developer` Heroku addon. That said, neither Keen nor Heroku are *required* to make Pingpong work - see the *Options and Recipes* section below for alternatives. For now, let's assume Heroku is ok.
+This section assumes you're already familiar with 2 concepts: provisioning a Heroku app and adding the free `keen:developer` Heroku addon. That said, neither Keen nor Heroku are *required* to make Pingpong work - see the *Options and Recipes* section below for alternatives. For now, let's assume Heroku is ok.
 
 **4a)** Create a new Heroku app and add the `keen` addon as follows:
 
