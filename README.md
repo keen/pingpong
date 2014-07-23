@@ -86,7 +86,7 @@ You can add more checks at any time via the rake task, or simply edit the file b
 
 **Step 4:** Set up Heroku and Keen IO
 
-This section assumes you're already familiar with 2 concepts: provisioning a Heroku app and adding the free `keen:developer` Heroku addon. That said, neither Keen nor Heroku are *required* to make Pingpong work - see the *Options and Recipes* section below for alternatives. For now, let's assume Heroku is ok.
+This section assumes you're already familiar with 2 concepts: provisioning a Heroku app and adding the free `keen:developer` Heroku addon. That said, neither Keen nor Heroku are *required* to make Pingpong work. For now, though, let's assume you're OK with Heroku.
 
 **4a)** Create a new Heroku app and add the `keen` addon as follows:
 
@@ -102,7 +102,7 @@ $ heroku plugins:install git://github.com/ddollar/heroku-config.git
 $ heroku config:pull
 ```
 
-You should now have a `.env` file in your app's directory, that contains the environment variables you need to read and write data from Keen IO:
+You should now have a `.env` file in your app's directory that contains the environment variables you need to read and write data from Keen IO:
 
 ```
 KEEN_PROJECT_ID=xxxxxxxxxxxxxxx
@@ -110,13 +110,15 @@ KEEN_READ_KEY=yyyyyyyyyyyyyyyyy
 KEEN_WRITE_KEY=zzzzzzzzzzzzzzzz
 ```
 
-Now, you're ready to start the web server locally using `foreman`, which will pick up the variables in the `.env` file. [foreman](https://github.com/ddollar/foreman) comes with the [Heroku toolbelt](https://toolbelt.heroku.com/).
+Now you're ready to start the web server locally using `foreman`, which will pick up the variables in the `.env` file. [foreman](https://github.com/ddollar/foreman) comes with the [Heroku toolbelt](https://toolbelt.heroku.com/).
 
 ```
 $ foreman start
 ```
 
 The Pingpong web interface should now be running on [localhost:5000](http://localhost:5000). Additionally, the checks you have configured should be running in the background of your web process. After a minute or so, you should start to see data appear on the Pingpong charts!
+
+![Pingpong Charts](http://cl.ly/image/2y2Z2I0Y3A2I/Screen%20Shot%202014-07-23%20at%2010.10.33%20AM.png)
 
 You're now ready to commit your changes and push your app to Heroku.
 
@@ -132,7 +134,7 @@ Once the deploy finishes, visit the URL for your application.
 $ heroku open
 ```
 
-You should again see the Pingpong dashboard. To make sure that your checks are running successfully on Heroku you can tail the output of the Heroku app:
+You should once again see the Pingpong dashboard. To make sure that your checks are running successfully on Heroku, you can tail the output of the Heroku app:
 
 ```
 $ heroku logs --tail
@@ -144,9 +146,9 @@ $ heroku logs --tail
 
 Every check requires the following properties:
 
-+ name: for display in charts and reports
-+ url: the fully qualified resource to check
-+ frequency: how often to sent the request, in seconds
++ name: For display in charts and reports
++ url: The fully qualified resource to check
++ frequency: How often to sent the request, in seconds
 
 Additionally, checks have some optional properties:
 
