@@ -290,7 +290,7 @@ Pushpop jobs are located in the [jobs](jobs/) directory. Here's a short descript
 
 ##### detect_failures_job
 
-This job runs once per minute, querying to see if the `response.successful` property of any check is `false`. If so, it sends one email for each failed check containing the name of the check and how many times it has failed.
+This job runs once per minute, querying to see if the `response.successful` property of any check is `false`. If so, it sends one email for each failed, which contains the name of the check and how many times it failed.
 
 This job will only run if the `PUSHPOP_FROM_EMAIL` and `PUSHPOP_TO_EMAIL` environment variables are set. Likewise, the included version uses the Pushpop [sendgrid plugin](https://github.com/keenlabs/pushpop#sendgrid), so you'll need to set the requisite environment variables for that as well.
 
@@ -300,17 +300,17 @@ Learn more by looking at [the job](jobs/detect_failures_job.rb) and its [templat
 
 Pingpong comes with a set of rake tasks to make various tasks easier. 
 
-+ `foreman run rake checks:add` - Add a check to checks.json
++ `foreman run rake checks:add` - Add a check to `checks.json`
 + `foreman run rake checks:run` - Run checks in an endless while loop. Useful for workers.
 + `foreman run rake checks:run_once` - Run checks once, and don't log the response. Useful for testing.
-+ `foreman run rake checks:run_once[key=value]` - Run a subset of checks once, only those whose 'key' equals 'value' (e.g. name=Google)
++ `foreman run rake checks:run_once[key=value]` - Run a subset of checks once, only those whose 'key' equals 'value' (e.g., name=Google)
 + `foreman run rake keen:workbench` - Print the Keen IO workbench URL for the configured project. The workbench lets you do data exploration and generates JavaScript for adding queries to your dashboard.
-+ `foreman run rake keen:count` - Print counts grouped by check name
-+ `foreman run rake keen:duration` - Print average durations grouped by check name
++ `foreman run rake keen:count` - Print counts grouped by check name.
++ `foreman run rake keen:duration` - Print average durations grouped by check name.
 + `foreman run rake keen:extract` - Extract 100 recent checks. Note: The Keen API stores data at full resolution, and you have access to all historical data via the [extraction resource](https://keen.io/docs/data-analysis/extractions/).
 + `foreman run rake keen:delete` - Delete the collection of checks (Use with caution! Requires `KEEN_MASTER_KEY` to be set.)
 
-(Protip: Substitute `heroku` for `foreman` to run any of these on a Heroku dyno)
+(*Protip*: Substitute `heroku` for `foreman` to run any of these on a Heroku dyno.)
 
 
 #### Additional Options & Recipes
@@ -319,11 +319,11 @@ Pingpong comes with a set of rake tasks to make various tasks easier.
 
 See `config.yml` for an idea of what can be configured with settings. Examples include timeouts, pluggable components, and environment properties. 
 
-##### Save a URL's JSON response body
+##### Save a URL's JSON Response Body
 
 If a configured check returns JSON, you can save that JSON into the request body. This allows you to monitor and analyze not only the success or failure of web calls, but also the values they can return.
 
-To add this to a check, simple set the `save_body` property to true.
+To add this to a check, simply set the `save_body` property to `true`:
 
 ``` json
 {
@@ -363,12 +363,12 @@ Now you can visualize temperature over time by using `response.body.currently.te
 
 ##### Pluggability
 
-Each major component of Pingpong is pluggable.
+Each major component of Pingpong is pluggable:
 
-+ `CheckSource`: contains the list of checks to run. The default implementation is `JsonCheckSource`.
-+ `CheckRunner`: schedules the checks and runs them. The default implementation is `EventmachineCheckRunner`.
-+ `CheckMarshaller`: transforms a check and its result into the JSON payload to be logged. The efault implementation is `EnvironmentAwareCheckMarshaller`.
-+ `CheckLogger`: logs the JSON payload from the `CheckMarshaller`. The default implementation is `KeenCheckLogger`.
++ `CheckSource`: Contains the list of checks to run. The default implementation is `JsonCheckSource`.
++ `CheckRunner`: Schedules the checks and runs them. The default implementation is `EventmachineCheckRunner`.
++ `CheckMarshaller`: Transforms a check and its result into the JSON payload to be logged. The default implementation is `EnvironmentAwareCheckMarshaller`.
++ `CheckLogger`: Logs the JSON payload from the `CheckMarshaller`. The default implementation is `KeenCheckLogger`.
 
 Once you've written an implementation for any of these components, simply replace the previous implementation's class name in `config.yml` with name of your component.
 
@@ -401,7 +401,9 @@ $ heroku config:add SKIP_CHECKS=1
 
 ##### Multiple Datacenters
 
-Running from multiple datacenters can give you a better idea of latencies across the globe. Let's say you already have a Pingpong Heroku app running in the US and you'd also like to run checks the EU.
+Running Pingpong from multiple datacenters can give you a better idea of latencies across the globe.
+
+Let's say you already have a Pingpong Heroku app running in the US, and you'd also like to run checks the EU.
 
 First, create a new Heroku app in the EU:
 
@@ -415,13 +417,13 @@ Next, push your Keen IO credentials up to the new app:
 $ heroku config:push --app my-pingpong-app-eu
 ```
 
-Next, set the `REGION` environment variable:
+Then, set the `REGION` environment variable:
 
 ```
 $ heroku config:add REGION=heroku-eu-west-1
 ```
 
-As you can see in `config.yml`, Pingpong will include the `REGION` in the JSON payload for each check, making it easy to do analysis on in the future.
+As you can see in `config.yml`, Pingpong will include the `REGION` in the JSON payload for each check, making it easy to do analysis in the future.
 
 Now, tell git about the new Heroku EU git remote, and push your Pingpong codebase to the new app:
 
@@ -432,7 +434,7 @@ $ git push heroku-eu master
 
 That's it! You should now have events from both datacenters going to the same Keen IO project. At this time, you might want to add a new chart to your dashboard that shows the latency from each datacenter.
 
-##### Use a different collection name locally
+##### Use a Different Collection Name Locally
 
 Specify `KEEN_COLLECTION` as an environment variable to change the [Keen IO event collection name](https://keen.io/docs/event-data-modeling/event-data-intro/#event-collections) to which events get logged. The default is simply `checks`.
 
