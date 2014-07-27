@@ -436,9 +436,9 @@ That's it! You should now have events from both datacenters going to the same Ke
 
 ##### Use a Different Collection Name Locally
 
-Specify `KEEN_COLLECTION` as an environment variable to change the [Keen IO event collection name](https://keen.io/docs/event-data-modeling/event-data-intro/#event-collections) to which events get logged. The default is simply `checks`.
+To change the [Keen IO event collection name](https://keen.io/docs/event-data-modeling/event-data-intro/#event-collections) where events get logged, specify KEEN_COLLECTION as an environment variable. The default is simply `checks`.
 
-You might want to do this locally to avoid checks from your development environment intermixing with those happening in production. (Note you can also use the `environment` namespace for this too.)
+You might want to do this locally to avoid checks from your development environment intermixing with those happening in production. (Note that you can also use the `environment` namespace for this, too.)
 
 You can also use `KEEN_COLLECTION` to break checks into multiple collections for any reason.
 
@@ -448,7 +448,7 @@ Set the `HTTP_USERNAME` and `HTTP_PASSWORD` environment variables to enable HTTP
 
 #### Inspiration
 
-Pingpong was developed in-house at Keen IO to answer a few simple, but important, questions about our web and API infrastructure:
+Pingpong was developed in-house at Keen IO to answer a few simple, but important questions about our web and API infrastructure:
 
 + Are any API servers or server processes slower than others?
 + Are any web pages or API calls slow? Are any experiencing errors?
@@ -456,33 +456,33 @@ Pingpong was developed in-house at Keen IO to answer a few simple, but important
 + What's the latency to each DC from a client in the US? In Europe?
 + How much latency does using SSL add?
 
-Pingpong runs all day, every day from multiple data centers around the world, helping our team understand current performance and study long term trends. To date, Pingpong has run over 19,693,312 checks in production!
+Pingpong runs all day, every day from multiple data centers around the world, helping our team understand current performance and study long-term trends. To date, Pingpong has run over 19,693,312 checks in production!
 
-While agent-based application monitoring tools like New Relic are also useful (we're big fans!), some things need to be measured from a real client exactly 1 Internet away. Additionally, few monitoring tools allow drill-downs over custom dimensions, or give the ability to create dashboards from arbitrary queries.
+While agent-based application monitoring tools like New Relic are also useful (we're big fans!), some things need to be measured from a real client exactly 1 Internet away. Additionally, few monitoring tools allow drill-downs over custom dimensions, or provide the ability to create dashboards from arbitrary queries.
 
 
-#### Helpful links
+#### Helpful Links
 
 + [Keen IO docs](https://keen.io)
 + [Keen IO Heroku add-on](https://addons.heroku.com/keen)
 
 #### Event Limits
 
-If you're using the Keen IO backend to store events, there is a limit on the number of monthly events you can send for free. Currently that limit is 50,000. The [$20/month plan](https://keen.io/pricing) doubles that limit to 100,000.
+If you're using the Keen IO backend to store events, there's a limit on the number of monthly events you can send for free. Currently, that limit is 50,000 events/month. The [$20/month plan](https://keen.io/pricing) doubles that limit to 100,000.
 
 ##### More Events
 
-As an early Pingpong user you're helping us find bugs and test out new features. That's worth something, right? We think so, and we're happy to throw some extra events your way. Just [email us](mailto:team@keen.io?subject=Pingpong Events) your project ID and we'll get you hooked up.
+As an early Pingpong user, you're helping us find bugs and test out new features. That's worth something, right? We think so, and we're happy to throw some extra events your way. Just [email us](mailto:team@keen.io?subject=Pingpong Events) your project ID and we'll get you hooked up.
 
 #### Contributing
 
-Contributions are very welcome. Here are some ideas for features:
+Contributions are very welcome. Here are some ideas for new features:
 
-##### Wishlist
+##### Wish List
 
-+ More tabs & queries & visualizations on the dashboard
++ More tabs and queries and visualizations on the dashboard
 + Create a table that shows slow recent checks and their full response bodies (using [extractions](https://keen.io/docs/data-analysis/extractions/))
-+ Templates or builders for common `checks.json` patterns (multi-dc, many ports on same server, etc)
++ Templates or builders for common `checks.json` patterns (multi-DC, many ports on same server, etc)
 + Support for more back-ends and front-ends
 + ~~Support for HTTP POST~~
 
@@ -495,7 +495,7 @@ $ bundle exec rake spec
 ##### Contributors
 
 + Josh Dzielak - [@dzello](https://twitter.com/dzello)
-+ Justin Johhson - [@elof](https://twitter.com/elof)
++ Justin Johnson - [@elof](https://twitter.com/elof)
 + Micah Wolfe - [@micahwolfe](https://twitter.com/forzalupo)
 + Cory Watson - [@gphat](https://twitter.com/gphat)
 + Loren Siebert - [@lorensiebert](https://twitter.com/lorensiebert)
