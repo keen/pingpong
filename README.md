@@ -482,6 +482,7 @@ Contributions are very welcome. Here are some ideas for new features:
 
 + More tabs and queries and visualizations on the dashboard
 + Create a table that shows slow recent checks and their full response bodies (using [extractions](https://keen.io/docs/data-analysis/extractions/))
++ More default alerts
 + Templates or builders for common `checks.json` patterns (multi-DC, many ports on same server, etc)
 + Support for more back-ends and front-ends
 + ~~Support for HTTP POST~~
