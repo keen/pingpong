@@ -21,15 +21,15 @@ namespace :checks do
     name = STDIN.gets.chomp
     puts 'How often, in seconds, to run this check? (leave blank for 60)'
     frequency = STDIN.gets.chomp
-    puts 'What HTTP Method? (GET or POST, leave blank for GET)'
+    puts 'What HTTP Method? (GET or POST or DELETE, leave blank for GET)'
     method = STDIN.gets.chomp
     if method == nil || method == ''
       method = 'GET'
     end
 
     data = nil
-    if method.upcase == 'POST'
-      puts 'What data to POST?'
+    if method.upcase == 'POST' || method.upcase == 'DELETE'
+      puts "What data to #{method.upcase}?"
       data = STDIN.gets.chomp
     end
 

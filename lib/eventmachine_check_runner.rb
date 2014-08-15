@@ -23,6 +23,8 @@ class EventmachineCheckRunner
         em.get :head => headers
       when 'POST'
         em.post :body => check.data, :head => headers
+      when 'DELETE'
+        em.delete :body => check.data, :head => headers
       else
         # Note that this was vetted earlier, so this is just a conservative check
         raise "Invalid HTTP method '#{check.method}'"

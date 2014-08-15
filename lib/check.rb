@@ -29,7 +29,7 @@ class Check
     raise "Check 'name' is required." unless self.name
     raise "Check 'url' is required." unless self.url
     raise "Check 'frequency' is required." unless self.frequency
-    raise "Check 'method' must be one of POST or GET." unless ["POST", "GET"].include? self.method
+    raise "Check 'method' must be one of POST or GET or DELETE." unless ["POST", "GET", "DELETE"].include? self.method
     raise "Check 'data' is required for POST method." if self.method == "POST" && self.data == nil
   end
 

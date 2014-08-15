@@ -1,4 +1,11 @@
 {
   "checks": [
+    {
+      "name": "the delete",
+      "url": "http://dzello.ngrok.com/",
+      "frequency": 5,
+      "method": "DELETE",
+      "data": null
+    }
   ]
 }
