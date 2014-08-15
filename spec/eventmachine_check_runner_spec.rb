@@ -111,10 +111,13 @@ describe EventmachineCheckRunner do
       http = EventmachineCheckRunner.run_check(PingpongConfig, check) do
         begin
           # also check that it's picking up our settings
-          expect(config[:check_runner_connect_timeout]).to eq(15)
-          expect(http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@connect_timeout)).to eq(15)
-          expect(config[:check_runner_inactivity_timeout]).to eq(60)
-          expect(http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@inactivity_timeout)).to eq(60)
+          connect_timeout = config[:check_runner_connect_timeout]
+          expect(connect_timeout).to_not be_nil
+          expect(http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@connect_timeout)).to eq(connect_timeout)
+
+          inactive_timeout = config[:check_runner_inactivity_timeout]
+          expect(inactive_timeout).to_not be_nil
+          expect(http.instance_variable_get(:@conn).instance_variable_get(:@connopts).instance_variable_get(:@inactivity_timeout)).to eq(inactive_timeout)
         rescue => exception
           failed_exception = exception
         ensure
