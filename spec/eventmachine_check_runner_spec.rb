@@ -71,6 +71,40 @@ describe EventmachineCheckRunner do
     expect(failed_exception).to be_nil
   end
 
+  it 'includes http custom headers' do
+    now = Time.now
+    Time.stub(:now).and_return(now)
+    stub_request(:get, check_url).
+      to_return(:status => 200, :body => 'ok')
+
+    check.headers = {'Accept' => 'text/plain', 'Host' => 'bark.meow' }
+
+    actually_ran = false
+    failed_exception = nil
+    EM.run {
+      http = EventmachineCheckRunner.run_check(PingpongConfig, check) do |start_time, duration, response|
+        begin
+          expect(WebMock).to have_requested(:get, check_url).with(:headers => {'Accept' => 'text/plain', 'Host' => 'bark.meow' })
+
+          expect(start_time).to eq(now)
+          expect(duration).to eq(0)
+          expect(response[:status]).to eq(200)
+          expect(response[:http_status]).to eq(200)
+          expect(response[:content_length]).to eq('ok'.length)
+          expect(response[:timed_out]).to be_false
+          expect(response[:successful]).to be_true
+        rescue => exception
+          failed_exception = exception
+        ensure
+          actually_ran = true
+          EM.stop
+        end
+      end
+    }
+    expect(actually_ran).to be_true
+    expect(failed_exception).to be_nil
+  end
+
   it 'sets timed_out to true and successful to false if status is 0' do
     now = Time.now
     Time.stub(:now).and_return(now)

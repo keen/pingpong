@@ -5,6 +5,7 @@ class Check
 
   attr_accessor :name
   attr_accessor :url
+  attr_accessor :headers
   attr_accessor :frequency
   attr_accessor :method
   attr_accessor :data
@@ -17,6 +18,7 @@ class Check
   def initialize(options)
     self.name = options[:name]
     self.url = options[:url]
+    self.headers = options[:headers]
     self.frequency = options[:frequency]
     self.method = (options[:method] || "GET").upcase
     self.data = options[:data]
@@ -36,6 +38,7 @@ class Check
   def to_hash
     { :name => self.name,
       :url => self.url,
+      :headers => self.headers,
       :frequency => self.frequency,
       :method => self.method,
       :data => self.data,
