@@ -2,7 +2,7 @@
 <img align="center" src="http://f.cl.ly/items/3C2j1v2T360u1s23170P/pingpong-square.png"> 
 </p>
 
-<img src="https://travis-ci.org/keenlabs/pingpong.png?branch=master&foo=bar" alt="Pingpong Build Status">
+<img src="https://travis-ci.org/keen/pingpong.png?branch=master&foo=bar" alt="Pingpong Build Status">
 
 #### Easy & Powerful HTTP Request-Response Analytics
 
@@ -496,10 +496,13 @@ $ bundle exec rake spec
 
 ##### Contributors
 
-+ Josh Dzielak - [@dzello](https://twitter.com/dzello)
-+ Justin Johnson - [@elof](https://twitter.com/elof)
-+ Micah Wolfe - [@micahwolfe](https://twitter.com/forzalupo)
-+ Cory Watson - [@gphat](https://twitter.com/gphat)
-+ Loren Siebert - [@lorensiebert](https://twitter.com/lorensiebert)
++ Josh Dzielak - [@dzello](https://github.com/dzello)
++ Justin Johnson - [@elof](https://github.com/elof)
++ Micah Wolfe - [@micahwolfe](https://github.com/forzalupo)
++ Cory Watson - [@gphat](https://github.com/gphat)
++ Loren Siebert - [@lorensiebert](https://github.com/loren)
++ Alex Kleissner - [@hex337](https://github.com/hex337)
++ Mariano Vallés - [@zucaritask](https://github.com/zucaritask)
+
 
 If you contribute, add your name to this list!
