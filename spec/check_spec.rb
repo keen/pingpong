@@ -5,6 +5,7 @@ describe Check do
     Check.new(
       :name => 'foo',
       :url => 'http://keen.io',
+      :headers => {:'Accept' => 'application/json'},
       :frequency => 60,
       :save_body => true,
       :http_username => 'borg',
@@ -46,6 +47,7 @@ describe Check do
       expect(check.to_hash).to eq({
         :name => "foo",
         :url => "http://keen.io",
+        :headers => {:'Accept' => 'application/json'},
         :save_body => true,
         :frequency => 60,
         :method => "GET",

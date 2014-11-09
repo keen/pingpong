@@ -11,7 +11,7 @@ class EventmachineCheckRunner
       start_time = Time.now
       em = EventMachine::HttpRequest.new(check.url, em_http_options(config))
 
-      headers = {}
+      headers = check.headers || {}
       if check.http_username && check.http_password
         headers[:authorization] = [check.http_username, check.http_password]
       end
