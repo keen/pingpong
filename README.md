@@ -446,6 +446,23 @@ You can also use `KEEN_COLLECTION` to break checks into multiple collections for
 
 Set the `HTTP_USERNAME` and `HTTP_PASSWORD` environment variables to enable HTTP authentication for the dashboard. Off by default.
 
+#### Custom Headers
+
+Set the `headers` property of a check to a hash of headers you'd like included with the request. For example:
+
+``` json
+{
+  "checks": [
+    {
+      "name": "JSON API Check",
+      "url": "http://example.com/api",
+      "frequency": 5,
+      "headers": { "Accept": "application/json" },
+      "method": "GET"
+    }
+  ]
+}
+```
 #### Inspiration
 
 Pingpong was developed in-house at Keen IO to answer a few simple, but important questions about our web and API infrastructure:
