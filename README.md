@@ -18,6 +18,10 @@ Pingpong is an open-source monitoring framework for anything with a URL. Pingpon
   + Errors and long-running requests
 + Pingpong automatically captures most of the data you'd want about HTTP requests and responses, but it also makes it easy to add custom properties specific to your infrastructure.
 
+Here's an example dashboard that measures the response time of popular API providers:
+
+![Pingpong Dashboard](http://f.cl.ly/items/273v2H2m160l073v3l0h/Screen%20Shot%202014-02-09%20at%209.55.18%20PM.png)
+
 **Now, choose your own adventure:**
 
 + See a [live Pingpong instance](http://api-pong.herokuapp.com) that tracks the response time of popular API providers
