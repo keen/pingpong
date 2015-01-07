@@ -23,10 +23,12 @@
   this.queries = [];
 
   // wait for charting library to be available
-  Keen.onChartsReady(function() {
+  Keen.ready(function() {
 
     // push each query onto the array, specifying the anchor name of the tab you want it to show up in
     // at the end, each query will be drawn, and wired up to refresh as often as you specify (default 1 minute)
+
+    // Do the 
 
     // Performance Tab
 

@@ -17,45 +17,18 @@
         \./checks.json
       file directly.
 
-  %ul.nav.nav-pills.nav-stacked
-    %li.active
-      %a(href="#performance" data-toggle="tab") Performance
-    %li
-      %a(href="#status" data-toggle="tab") Status
-    %li
-      %a(href="#custom" data-toggle="tab") Custom
-    %li
-      %a(href="#links" data-toggle="tab") Links
-
-  %div.tab-content
-    #performance.tab-pane.active
-    #status.tab-pane
-    #custom.tab-pane
-      .heads-up
-        %h1 Add other checks here!
-        %p.lead Just specify the "custom" tab when adding a query to queries.js.
-    #links.tab-pane
-      .link-container
-        %h2
-          Pingpong Links
-        %br
-        %p
-          Here's a few resources to help you get the most out of Pingpong.
-        %br
-        %ul
-          %li
-            %a(target="_blank" href="https://github.com/keenlabs/pingpong")
-              Pingpong Documentation
-            %p
-              Learn how to setup checks, extend this dashboard, and more.
-          %li
-            %a(target="_blank" href="https://keen.io/project/#{@config[:keen][:project_id]}/workbench")
-              Keen IO Workbench
-            %p
-              Explore your Pingpong data, and discover new charts to add to your dashboard
-          %li
-            %a(target="_blank" href="https://keen.io/docs")
-              Keen IO API Documentation
-            %p
-              See everything you can do with Keen IO.
-
+  %div#check-container.container.center-block
+    - @checks.each do |check|
+      .panel.panel-default
+        .panel-heading
+          %h3.panel-title
+            %a{ :href => "/check/#{check[:name]}" }
+              = check[:name]
+        .panel-body
+          .container
+            .row
+              .col-md-6{:style => "vertical-align:middle"}
+                = check[:url]
+              .col-md-6.pull-right
+                %center
+                  .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "70"}}.to_json}"}, :width => "400", :height => "70"}

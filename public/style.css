@@ -22,66 +22,15 @@ body {
   margin: 46px 0;
 }
 
-aside {
-  position: fixed;
-  top: 0;
-  left: 0;
-  bottom: 0;
-  overflow: hidden;
-  background: black;
-  z-index: 2000;
-  color: #888;
-}
-
-aside .info {
-  position: absolute;
-  bottom: 0;
-  padding: 10px 20px;
-  text-align: right;
-}
-
 .main {
-  position: relative;
   /*min-width: 1280px;*/
   max-width: 2200px;
-  margin-left: 200px;
 }
 
 .heads-up {
   width: 500px;
   margin: 200px auto 0;
   text-align: center;
-}
-
-.nav-stacked {
-  position: fixed;
-  left: 0;
-  top: 200px;
-  z-index: 5000;
-  text-align: right;
-  font-weight: bold;
-}
-.nav-stacked>li>a {
-  border-radius: 0;
-  padding-right: 20px;
-  color: #00afd7;
-}
-
-.nav-stacked>li>a:hover {
-  background-color: #222;
-  color: #aaa;
-}
-
-.nav-pills>li.active>a, .nav-pills>li.active>a:hover {
-  background-color: #00afd7;
-}
-
-.nav-stacked li+li {
-  margin: 0;
-}
-
-aside, .nav-stacked {
-  width: 200px;
 }
 
 .link-container {
@@ -93,4 +42,53 @@ aside, .nav-stacked {
   top: 5px;
   right: 5px;
   padding: 4px 10px;
+}
+
+.Canvas
+{
+  font: 10pt Georgia;
+  background-color:#ECECEC;
+  color:#000000;
+  border:solid 1px #CECECE;
+}
+.ObjectBrace
+{
+  color:#00AA00;
+  font-weight:bold;
+}
+.ArrayBrace
+{
+  color:#0033FF;
+  font-weight:bold;
+}
+.PropertyName
+{
+  color:#CC0000;
+  font-weight:bold;
+}
+.String
+{
+  color:#007777;
+}
+.Number
+{
+  color:#AA00AA;
+}
+.Boolean
+{
+  color:#0000FF;
+}
+.Function
+{
+  color:#AA6633;
+  text-decoration:italic;
+}
+.Null
+{
+  color:#0000FF;
+}
+.Comma
+{
+  color:#000000;
+  font-weight:bold;
 }
