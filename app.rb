@@ -2,10 +2,17 @@ $stdout.sync = true
 
 require 'sinatra'
 require 'sinatra/reloader' if development?
+require 'sinatra/activerecord'
+require 'rack-flash'
 require 'haml'
 
 require './pingpong_config'
 config = PingpongConfig
+
+enable :sessions
+use Rack::Flash
+
+set :database_file, "database.yml"
 
 if http_username = config[:http_username]
   use Rack::Auth::Basic, "Pingpong Pros Only!" do |username, password|
@@ -15,44 +22,48 @@ end
 
 get '/' do
   @config = config
+  @notice = flash[:notice]
 
-  @checks = 
-    [
-      {
-        name: "WebRootSSL",
-        url: "https://keen.io/",
-        frequency: 15,
-        custom: {
-          ssl: true,
-          vhost: "web",
-          resource: "index",
-          lb: true
-        }
-      },
-      {
-        name: "dal05-app-0002-APIExtraction",
-        url: "http://50.97.86.169:8009/3.0/projects/52f4849573f4bb7410000004/queries/extraction?api_key=927CC81EE9AD959A07EE61028B356C39&event_collection=logins&latest=100",
-        frequency: 15,
-        custom: {
-          ssl: false,
-          vhost: "api",
-          resource: "extraction",
-          dc: "dal05",
-          lb: false,
-          storm: true
-        }
-      }
-    ]
+  @checks = Check.all
 
   haml :index
 end
 
-get '/check/:name' do
+get '/check/new' do
+  @config = config
+  @error = flash[:error]
+
+  haml :new
+end
+
+post '/check/create' do
+  check = Check.new
+  check.name = params[:name]
+  check.url = params[:url]
+  check.method = params[:method]
+  check.frequency = params[:frequency]
+  check.custom_properties = params[:custom_properties]
+  check.data = params[:data]
+  check.http_username = params[:http_username]
+  check.http_password = params[:http_password]
+
+  if check.save
+    flash[:notice] = "Created a new check: #{params[:name]}"
+    redirect '/'
+  else
+    flash[:error] = "Could not save the new check."
+    redirect '/check/new'
+  end
+end
+
+get '/check/:check_id/show' do
   @config = config
 
   @check = {
+    id: 1,
     name: "WebRootSSL",
     url: "https://keen.io/",
+    method: "get",
     frequency: 15,
     custom: {
       ssl: true,
@@ -63,21 +74,4 @@ get '/check/:name' do
   }
 
   haml :check
-end
-
-unless config['skip_checks']
-  Thread.new {
-    config.check_scheduler.run(config)
-  }
-end
-
-unless config['skip_pushpop']
-  require 'pushpop'
-  Dir.glob("#{File.dirname(__FILE__)}/jobs/**/*.rb").each { |file|
-    require file
-  }
-  Pushpop.schedule
-  Thread.new {
-    Clockwork.manager.run
-  }
 end

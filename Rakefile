@@ -1,5 +1,6 @@
 $stdout.sync = true
 require 'bundler'
+require 'sinatra/activerecord/rake'
 
 begin
   require 'rspec/core/rake_task'
@@ -8,6 +9,12 @@ begin
     t.pattern = 'spec/**/*_spec.rb'
   end
 rescue LoadError
+end
+
+namespace :db do
+  task :load_config do
+    require './app'
+  end
 end
 
 namespace :checks do
