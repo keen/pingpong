@@ -1,2 +1,4 @@
 .env
 log
+
+db/*.sqlite3
