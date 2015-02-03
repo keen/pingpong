@@ -92,3 +92,17 @@ body {
   color:#000000;
   font-weight:bold;
 }
+
+.navbar-header .logo-container {
+  line-height: 50px;
+  padding-left: 5px;
+  text-align: center;
+}
+
+.navbar-header .nav-logo {
+  color: white;
+  display: inline-block;
+  font-size: 1.5em;
+  line-height: 1;
+  vertical-align: middle;
+}

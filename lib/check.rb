@@ -5,4 +5,8 @@ class Check < ActiveRecord::Base
   validates :name, presence: true
   validates :url, presence: true
   validates :method, presence: true
+
+  def to_hash
+    self.attributes.to_options
+  end
 end

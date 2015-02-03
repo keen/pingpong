@@ -106,6 +106,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  dotenv
   em-http-request
   foreman
   haml

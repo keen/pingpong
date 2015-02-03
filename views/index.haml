@@ -25,10 +25,12 @@
     - else
       - @checks.each do |check|
         .panel.panel-default
-          .panel-heading
+          .panel-heading.clearfix
             %h3.panel-title
-              %a{ :href => "/check/#{check.id}/show" }
+              %a.pull-left{:href => "/check/#{check.id}/show"}
                 = check.name
+              %a.pull-right{:href => "/check/#{check.id}/edit"}
+                %span.glyphicon.glyphicon-pencil{:alt => "edit"}
           .panel-body
             .container
               .row

@@ -34,15 +34,18 @@
         console.log("Keen IO environment variables are not set. Queries will not be run.");
       }
 
-  %body{:style => "padding-top: 70px;"}
+  %body{:style => "padding-top: 68px;"}
     %div.navbar.navbar-inverse.navbar-fixed-top{ :role => "navigation" }
       %div.container-fluid
         %div.navbar-header
-          Logo
-        %div.navbar-right
+          .logo-container
+            .nav-logo Pingpong
+        %div.navbar-right{:style => "padding-top: 5px;padding-right: 5px;"}
           %ul.nav.nav-pills
             %li
               %a{:href => "/"} Home
+            %li
+              %a{:href => "/check/new"} New Check
 
     - if @notice
       %div{:class => "alert alert-info", :role => "alert"}

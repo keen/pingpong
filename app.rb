@@ -23,6 +23,7 @@ end
 get '/' do
   @config = config
   @notice = flash[:notice]
+  @error = flash[:error]
 
   @checks = Check.all
 
@@ -38,14 +39,7 @@ end
 
 post '/check/create' do
   check = Check.new
-  check.name = params[:name]
-  check.url = params[:url]
-  check.method = params[:method]
-  check.frequency = params[:frequency]
-  check.custom_properties = params[:custom_properties]
-  check.data = params[:data]
-  check.http_username = params[:http_username]
-  check.http_password = params[:http_password]
+  update_check(check, params)
 
   if check.save
     flash[:notice] = "Created a new check: #{params[:name]}"
@@ -57,21 +51,54 @@ post '/check/create' do
 end
 
 get '/check/:check_id/show' do
+  @notice = flash[:notice]
   @config = config
-
-  @check = {
-    id: 1,
-    name: "WebRootSSL",
-    url: "https://keen.io/",
-    method: "get",
-    frequency: 15,
-    custom: {
-      ssl: true,
-      vhost: "web",
-      resource: "index",
-      lb: true
-    }
-  }
+  @check = Check.find(params[:check_id])
 
   haml :check
+end
+
+get '/check/:check_id/edit' do
+  @config = config
+  @check = Check.find(params[:check_id])
+
+  haml :edit
+end
+
+post '/check/:check_id/update' do
+  check = Check.find(params[:check_id])
+  check = update_check(check, params)
+
+  if check.nil?
+    flash[:error] = "No such check to edit."
+    redirect '/'
+  else
+    check.save!
+    flash[:notice] = "Updated check: #{check.name}."
+    redirect '/check/' + check.id.to_s + '/show'
+  end
+end
+
+def update_check(check, params)
+  check.name = params[:name]
+  check.url = params[:url]
+  check.method = params[:method]
+  check.frequency = params[:frequency]
+  check.custom_properties = params[:custom_properties]
+  check.data = params[:data]
+  check.http_username = params[:http_username]
+  check.http_password = params[:http_password]
+
+  check
+end
+
+unless config['skip_pushpop']
+  require 'pushpop'
+  Dir.glob("#{File.dirname(__FILE__)}/jobs/**/*.rb").each { |file|
+    require file
+  }
+  Pushpop.schedule
+  Thread.new {
+    Clockwork.manager.run
+  }
 end
