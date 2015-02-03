@@ -1,0 +1,92 @@
+header, section, footer
+  +center-div(1000px, $gutter)
+  +breakpoint(x-sm)
+    +center-div(1000px, $gutter / 2)
+  +breakpoint(med)
+    +center-div(1000px, $gutter / 2)
+
+article#main
+  >div
+    +clearfix
+  .center, .left, .right
+    padding-top: 3em
+    padding-bottom: 3em
+    +clearfix
+    &.deeper-http
+      padding-top: 5em
+  .center
+    figure.img
+      margin: 0 auto
+      width: 100%
+      img
+        max-width: 100%
+    .content
+      width: 100%
+      margin: 0 auto 1em auto
+      max-width: 600px
+    &.embiggen
+      .content
+        max-width: 940px
+  .left, .right
+    figure.img
+      width: 40%
+      img
+        max-width: 100%
+    .content
+      width: 50%
+  .left
+    div.content
+      float: right
+    figure.img
+      float: left
+  .right
+    div.content
+      float: left
+    figure.img
+      float: right
+
++breakpoint(med)
+  article#main
+    >div
+    .center, .left, .right
+      width: auto
+      figure.img
+        display: none
+      figure.ico
+        float: left
+        margin-left: -130px
+      .content
+        width: auto
+        margin-left: 150px
+        text-align: left
+    .deeper-http.embiggen .content
+      margin-left: 0
++breakpoint(sm)
+  article#main
+    >div
+    .center, .left, .right
+      width: auto
+      position: relative
+      padding-top: 0
+      padding-bottom: 1em
+      figure.img
+        display: none
+      figure.ico
+        float: left
+        margin-left: 0
+        width: 30px
+        height: 30px
+        position: absolute
+      .content
+        width: auto
+        margin: 0
+        h2, h3
+          padding-left: 50px
+          font-size: em(24px)
+          line-height: 1.3
+    .deeper-http.embiggen .content
+      margin-left: 0
+      h2
+        padding-left: 0
+        font-size: em(36px)
+        line-height: 1.2

@@ -1,0 +1,30 @@
+/**
+ * Applied to a parent tag, this will create a grid of equally spaced child elements. All items should be the same height. Best for image thumbnails.
+ *
+ * @author Gabe Martin
+ *
+ * @requires is-true
+ *
+ * @param {Number} $cols (2) - desired number of columns
+ * @param {Percentage} $parent_width_adjust (98.9%) - adjust the parent container
+ * @param {Percentage} $child_width_adjust (49%) - adjust the child containers
+ *
+ */
+@mixin justifygrid($cols: 2, $parent_width_adjust: 98.9%) {
+  text-align: justify;
+  list-style: none;
+  padding: 0;
+  > * {
+    display: inline-block;
+    margin: 0;
+    width: floor( $parent_width_adjust / $cols );
+    text-align: left;
+  }
+  &:after {
+    content: "";
+    display: inline-block;
+    width: 100%;
+  }
+}
+
+// width: ( 98% / $cols );

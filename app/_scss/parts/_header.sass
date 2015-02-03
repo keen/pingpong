@@ -1,0 +1,121 @@
+header
+  background-color: $blue
+  background: $blue url("/img/header_balls.png") bottom center repeat-x
+  color: $white
+  margin-bottom: 3em
+  position: relative
+  +reverse-breakpoint(med)
+    padding-top: 100px
+  *
+    display: inline-block
+  a
+    color: $white
+    text-decoration: none
+  nav
+    +clearfix
+    +reverse-breakpoint(med)
+      position: fixed
+      background-color: $blue
+      left: 0
+      right: 0
+      top: 0
+      padding-bottom: 20px
+      z-index: 9999
+    figure
+      padding-top: 40px
+      float: left
+      +reverse-breakpoint(med)
+        padding-left: 20px
+        padding-top: 20px
+    ul
+      float: left
+      +striplist
+      margin: 0 0 0 20px
+      padding-top: 50px
+      +reverse-breakpoint(med)
+        padding-top: 30px
+      li
+        margin-right: 10px
+        margin-left: 10px
+  h1
+    display: block
+    padding: 80px 0 20px 0
+    margin: 0
+    font-size: 10em
+    line-height: 1
+    text-align: center
+    img
+      max-width: 100%
+  p
+    text-align: center
+    font-size: 2em
+    display: block
+    padding-bottom: 80px
+    margin: 0
+    color: $white
+  .free_project
+    float: right
+    padding-top: 37px
+    +reverse-breakpoint(med)
+      position: fixed
+      top: 0
+      right: 20px
+      padding-top: 17px
+      z-index: 99999
+    a
+      background-color: lighten($blue, 5)
+      line-height: 44px
+      padding: 0 20px
+      border-radius: 4px
+      transition-duration: .2s
+      &:hover
+        background-color: lighten($blue, 8)
+  .source-code-btn
+    text-align: center
+    display: block
+    position: relative
+    a
+      text-decoration: none
+      margin: 0 auto
+      background-color: $text_color
+      color: $white
+      padding: 0 30px
+      line-height: 66px
+      transform: translateY(33px)
+      display: block
+      max-width: 300px
+      border-radius: 4px
+    figure.github_widget
+      position: absolute
+      display: block
+      bottom: -70px
+      left: 0
+      right: 0
++breakpoint(med)
+  header
+    nav
+      figure.logo
+        float: none
+        display: block
+      ul
+        padding: 20px 0 0 0
+        margin: 0
+        li
+          margin-left: 0
+          margin-right: 20px
+    .free_project
+      position: absolute
+      top: 40px
+      right: 20px
+      padding: 0
+      +breakpoint(sm)
+        display: none
+
++breakpoint(med)
+  header
+    p
+      padding-bottom: 30px
+
++breakpoint(sm)
+  header
+    text-align: center

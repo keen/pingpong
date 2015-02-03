@@ -1,0 +1,51 @@
+$gutter: 40px;
+$halfgutter: $gutter / 2;
+
+// DEBUG
+html.debug {
+    &:before {
+        z-index: 999;
+        @include positions(auto, auto, 0px, 0px);
+        position: fixed;
+        width: 50px;
+        height: 50px;
+        line-height: 50px;
+        text-align: center;
+        display: block;
+        color: #fff;
+        font-size: 11px;
+        font-family: monospace;
+    }
+    @include breakpoint(lg) {
+        &:before { content: 'lg'; background-color: red; }
+        &:after { border-top: 3px solid red; }
+    }
+    @include breakpoint(med) {
+        &:before { content: 'med'; background-color: green; }
+        &:after { border-top: 3px solid green; }
+    }
+    @include breakpoint(med-sm) {
+        &:before { content: 'med-sm'; background-color: blue; }
+        &:after { border-top: 3px solid blue; }
+    }
+    @include breakpoint(sm) {
+        &:before { content: 'sm'; background-color: orange; }
+        &:after { border-top: 3px solid orange; }
+    }
+    @include breakpoint(x-sm) {
+        &:before { content: 'x-sm'; background-color: purple; }
+        &:after { border-top: 3px solid purple; }
+    }
+    #console {
+        z-index: 999;
+        position: fixed;
+        bottom: 0px;
+        left: 50px;
+        background-color: #0a323b;
+        color: #4dc940;
+        line-height: 15px;
+        padding: 10px 10px;
+        font-size: 11px;
+        font-family: monospace;
+    }
+}

@@ -1,0 +1,17 @@
+@import "parts/mixins";
+@import "parts/colors";
+@import "parts/normalize";
+@import "parts/base";
+@import "parts/layout";
+@import "parts/header";
+@import "parts/main";
+@import "parts/typography";
+@import "parts/get-the-source-code";
+@import "parts/plaincopy";
+@import "parts/cta-block";
+@import "parts/footer";
+body {
+    // this is the body tag
+    color: $dark_grey;
+    background-color: $white;
+}

@@ -1,0 +1,16 @@
+/**
+ * Hides text to make way for background image.
+ *
+ * @author Gabe Martin
+ *
+ */
+
+@mixin hide-text {
+  overflow: hidden;
+  &:before {
+    content: "";
+    display: block;
+    width: 0;
+    height: 100%;
+  }
+}

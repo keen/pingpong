@@ -1,0 +1,31 @@
+# Jekyll configuration precedence:
+# 1. Gruntfile task
+# 2. config.build.yml
+# 3. config.yml
+
+name        : PingPong
+description : Ping Pong website.
+baseurl     : http://am-temp-preview.s3.amazonaws.com
+devurl     	: http://pingpong.amdevel.com  # could this be based on same string?
+produrl     : http://pingpong.com  # could this be based on same string?
+giturl      : git@github.com:archermalmo/masterplate.git
+job_number  : '45106' # deprecated. Can use job numbers.
+port_number  : '45106'
+author:
+  name: Gabe Martin
+  email: gmartin@archermalmo.com
+
+
+
+exclude: ['css', 'js']
+include: ['.htaccess']
+
+# _config.build.yml sets future and show_drafts to false on `grunt build`
+future: true
+show_drafts: true
+
+# Markdown library
+markdown: redcarpet
+#   extensions: ['fenced_code_blocks', 'smart']
+
+pygments: true

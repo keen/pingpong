@@ -1,0 +1,105 @@
+---
+
+-   name: 3336
+    description: "3336<sup>&reg;</sup> WP is a broad-spectrum systemic fungicide with preventive and curative properties. The original formulation is compatible with drench or spray applications over a wide range of ornamental settings."
+    benefits:
+        -   benefit: Botrytis
+        -   benefit: Cercospora
+        -   benefit: powdery mildew
+        -   benefit: Rhizoctonia
+        -   benefit: Thielaviopsis
+    uses:
+        -   use: Annual and perennial flowers
+        -   use: bedding plants
+        -   use: deciduous and evergreen trees and shrubs
+        -   use: foliage plants
+        -   use: groundcovers
+    epa_reg: 59639-128
+    formulation: granule
+    hrac: 14
+    rei: 12 hours
+    active_ingr: flumioxazin (0.25%)
+    chem_family: N-phenylphthalimide
+    package_size: 50 lb bag
+
+-   name: Affirm WDG
+    description: "Affirm&trade; WDG is a concentrated, easy-to-mix water dispersible granule formulation that delivers excellent disease control."
+    benefits:
+        -   benefit: Botrytis
+        -   benefit: powdery mildew
+        -   benefit: Rhizoctonia
+    uses:
+        -   use: Edibles
+        -   use: ornamentals
+    epa_reg: 59639-128
+    formulation: granule
+    hrac: 14
+    rei: 12 hours
+    active_ingr: flumioxazin (0.25%)
+    chem_family: N-phenylphthalimide
+    package_size: 50 lb bag
+
+-   name: Alude
+    description: "A systemic fungicide, AludeTM provides effective control of various plant diseases."
+    benefits:
+        -   benefit: Bacterial blight
+        -   benefit: downy mildew
+        -   benefit: fire blight
+        -   benefit: Phytophthora and Pythium spp
+    uses:
+        -   use: Annual and perennial flowers
+        -   use: bedding plants
+        -   use: deciduous and evergreen trees and shrubs
+        -   use: foliage plants
+        -   use: groundcovers
+        -   use: vegetable transplants
+    epa_reg: 59639-128
+    formulation: granule
+    hrac: 14
+    rei: 12 hours
+    active_ingr: flumioxazin (0.25%)
+    chem_family: N-phenylphthalimide
+    package_size: 50 lb bag
+
+-   name: Cuproxat
+    description: "Cuproxat<sup>&reg;</sup> premium tri-basic copper fungicide is engineered with uniform,sub-micron particles which deliver better plant coverage and protection against fungal and bacterial diseases."
+    benefits:
+        -   benefit: Anthracnose
+        -   benefit: Botrytis
+        -   benefit: dieback
+        -   benefit: downy mildew
+        -   benefit: leaf spot
+        -   benefit: powdery mildew
+        -   benefit: scab
+        -   benefit: Septoria leaf spot
+        -   benefit: Volutella leaf blight
+    uses:
+        -   use: Greenhouse
+        -   use: shade crops
+        -   use: ornamentals
+    epa_reg: 59639-128
+    formulation: granule
+    hrac: 14
+    rei: 12 hours
+    active_ingr: flumioxazin (0.25%)
+    chem_family: N-phenylphthalimide
+    package_size: 50 lb bag
+
+-   name: Protect
+    description: "Protect&trade; DF provides excellent control of a variety of important plant diseases."
+    benefits:
+        -   benefit: Botrytis
+        -   benefit: Cercospora (see label for complete list)
+    uses:
+        -   use: Field
+        -   use: greenhouse
+        -   use: groundcovers and herbaceous plants
+        -   use: nursery
+        -   use: ornamental and shade trees
+    epa_reg: 59639-128
+    formulation: granule
+    hrac: 14
+    rei: 12 hours
+    active_ingr: flumioxazin (0.25%)
+    chem_family: N-phenylphthalimide
+    package_size: 50 lb bag
