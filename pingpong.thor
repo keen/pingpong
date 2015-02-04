@@ -5,11 +5,11 @@ class PingPong < Thor
   def setup
     # lets create the migration file
     t = Time.new()
-    fileName = "db/migrate/#{t.strftime("%Y%m%d%H%M%S")}_create_checks.rb"
+    fileName = "db/migrate/#{t.strftime("%Y%m%d%H%M%S")}_create_checks_and_incidents.rb"
 
     create_file fileName do
 <<TEMPLATE
-class CreateChecks < ActiveRecord::Migration
+class CreateChecksAndIncidents < ActiveRecord::Migration
   def change
     create_table(:checks) do |t|
       t.string :name
@@ -27,6 +27,16 @@ class CreateChecks < ActiveRecord::Migration
     end
 
     add_index :checks, :name, unique: true
+
+    create_table(:incidents) do |t|
+      t.integer :check_id
+      t.string :incident_type
+      t.text :info
+
+      t.timestamps
+    end
+
+    add_index :incidents, :check_id
   end
 end
 TEMPLATE

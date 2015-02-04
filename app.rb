@@ -92,13 +92,17 @@ def update_check(check, params)
   check
 end
 
-unless config['skip_pushpop']
-  require 'pushpop'
-  Dir.glob("#{File.dirname(__FILE__)}/jobs/**/*.rb").each { |file|
-    require file
-  }
-  Pushpop.schedule
-  Thread.new {
-    Clockwork.manager.run
-  }
+# This first check makes sure we don't run his when doing
+# migrations or other rake tasks.
+if File.split($0).last != 'rake'
+  unless config['skip_pushpop']
+    require 'pushpop'
+    Dir.glob("#{File.dirname(__FILE__)}/jobs/**/*.rb").each { |file|
+      require file
+    }
+    Pushpop.schedule
+    Thread.new {
+      Clockwork.manager.run
+    }
+  end
 end

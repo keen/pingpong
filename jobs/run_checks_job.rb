@@ -21,7 +21,6 @@ job do
   every 1.minute
 
   step 'get checks to process' do
-    puts "HELLO THERE"
     time = Time.now
     minute = time.min + (time.hour * 60)
 

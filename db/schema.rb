@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150122183444) do
+ActiveRecord::Schema.define(version: 20150203160731) do
 
   create_table "checks", force: true do |t|
     t.string   "name"
@@ -28,5 +28,15 @@ ActiveRecord::Schema.define(version: 20150122183444) do
   end
 
   add_index "checks", ["name"], name: "index_checks_on_name", unique: true
+
+  create_table "incidents", force: true do |t|
+    t.integer  "check_id"
+    t.string   "incident_type"
+    t.text     "info"
+    t.datetime "created_at"
+    t.datetime "updated_at"
+  end
+
+  add_index "incidents", ["check_id"], name: "index_incidents_on_check_id"
 
 end
