@@ -54,7 +54,8 @@
       %div{:class => "alert alert-warning", :role => "alert"}
         = @error
 
-    = yield
+    .container
+      = yield
 
     %script(src="/queries.js")
     :javascript

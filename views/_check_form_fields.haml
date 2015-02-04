@@ -1,21 +1,12 @@
 .container
   .row
-    .col-md-2
-    .col-md-8
+    .col-md-6
       .input-group
         %label Name
         %input{:type => "text", :name => "name", :id => "name", :class => "form-control", :placeholder => "ie Data Center Keep Alive", :value => "#{@check.name if !@check.nil?}"}
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
       .input-group
         %label Url
         %input{:type => "text", :name => "url", :id => "url", :class => "form-control", :placeholder => "ie www.google.com/api", :value => "#{@check.url if !@check.nil?}"}
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
       .input-group
         %label Method
         %select{:name => "method", :id => "method", :class => "form-control"}
@@ -23,53 +14,44 @@
           %option{:value => "POST"} post
           %option{:value => "PUT"} put
           %option{:value => "DELETE"} delete
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
       .input-group
         %label Frequency (in minutes)
         %input{:type => "text", :name => "frequency", :id => "frequency", :class => "form-control", :placeholder => "1", :value => "#{@check.frequency if !@check.nil?}"}
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
       .input-group
         %label Http Username (optional)
         %input{:type => "text", :name => "http_username", :id => "http_username", :class => "form-control", :value => "#{@check.http_username if !@check.nil?}"}
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
-      .input-group
+      #http_password_group.input-group{:style => "display:none;"}
         %label Http Password (optional)
         %input{:type => "text", :name => "http_password", :id => "http_password", :class => "form-control", :value => "#{@check.http_password if !@check.nil?}"}
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
+    .col-md-6
       .input-group
-        %label Custom Properties (json string)
-        %textarea{:name => "custom_properties", :id => "custom_properties", :class => "form-control", :rows => 10, :cols => 30}
+        %label Custom Properties (JSON)
+        %textarea{:name => "custom_properties", :id => "custom_properties", :class => "form-control", :rows => 6, :cols => 30}
           = @check.custom_properties if !@check.nil?
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
       .input-group
-        %label Data (json string)
-        %textarea{:name => "data", :id => "data", :class => "form-control", :rows => 10, :cols => 30}
+        %label Data (JSON)
+        %textarea{:name => "data", :id => "data", :class => "form-control", :rows => 6, :cols => 30}
           = @check.data if !@check.nil?
-    .col-md-2
-  .row
-    .col-md-2
-    .col-md-8
+  .row{:style => "padding-top:5px;"}
+    .col-md-6
+    .col-md-6
       .input-group
-        %input{:type => "submit"}
-    .col-md-2
+        %input.btn.btn-primary{:type => "submit"}
 
-  - if !@check.nil?
-    :javascript
-      $(document).ready(function() {
-        $("#method").val("#{@check.method}");
-      });
+- if !@check.nil?
+  :javascript
+    $(document).ready(function() {
+      $("#method").val("#{@check.method}");
+    });
+
+:javascript
+  $("#http_username").focusout(function() {
+    if ($(this).val() != "") {
+      $("#http_password_group").css("display", "inline-block");
+      $("#http_password").focus();
+    }
+    else {
+      $("#http_password_group").css("display", "none");
+      $("#custom_properties").focus();
+    }
+  });

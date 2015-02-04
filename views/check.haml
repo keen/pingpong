@@ -1,32 +1,31 @@
-.container
-  %h2= @check[:name]
+%h2= @check[:name]
 
-  .container-fluid
-    .row
-      .col-sm-8
-        .chart-wrapper
-          .chart-title
-            %strong Average Response Time
-          .chart-stage
-            #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
-      .col-sm-4
-        .chart-wrapper
-          .chart-title
-            %strong Response Codes
-          .chart-stage
-            #grid-1-2.chart-container{:data => {:querytype => "count", :charttype => "donut", :name => @check[:name], :groupby => "response.status", :timeframe => "last_48_hours", :chartoptions => "#{{}.to_json}"}}
-    .row
-      .col-sm-3.col-md-2
-      .col-sm-12.col-md-8
-        .chart-wrapper
-          .chart-title
-            %strong Last 10 Checks
-          .chart-stage
-            #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10}}
-            %pre#extraction-src{:style => "display:none"}
-      .col-sm-3.col-md-2
-      / end of three
-  %hr
-    %p.small.text-muted
-      Built with ♥ by
-      %a{:href => "https://keen.io"} Keen IO
+.container-fluid
+  .row
+    .col-sm-8
+      .chart-wrapper
+        .chart-title
+          %strong Average Response Time
+        .chart-stage
+          #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
+    .col-sm-4
+      .chart-wrapper
+        .chart-title
+          %strong Response Codes
+        .chart-stage
+          #grid-1-2.chart-container{:data => {:querytype => "count", :charttype => "donut", :name => @check[:name], :groupby => "response.status", :timeframe => "last_48_hours", :chartoptions => "#{{}.to_json}"}}
+  .row
+    .col-sm-3.col-md-2
+    .col-sm-12.col-md-8
+      .chart-wrapper
+        .chart-title
+          %strong Last 10 Checks
+        .chart-stage
+          #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10}}
+          %pre#extraction-src{:style => "display:none"}
+    .col-sm-3.col-md-2
+    / end of three
+%hr
+  %p.small.text-muted
+    Built with ♥ by
+    %a{:href => "https://keen.io"} Keen IO

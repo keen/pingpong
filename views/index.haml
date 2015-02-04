@@ -1,36 +1,35 @@
-.container
-  .alert.alert-info.update-on
-    Auto-update ON
-  - unless @config.properties[:keen][:project_id]
-    .alert.alert-warning
-      Warning: Keen IO environment variables are not set. No visualizations will be drawn. See
-      %a(href="https://github.com/keen/pingpong")
-        the Pingpong documentation
-      for setup information.
-  - if @checks.empty?
-    .alert.alert-warning
-      Warning: No checks. Add a check
-      %a{:href => "/check/new"}
-        here
-      or use the CLI with the 
-      %code
-        pingpong check new
-      command.
+.alert.alert-info.update-on
+  Auto-update ON
+- unless @config.properties[:keen][:project_id]
+  .alert.alert-warning
+    Warning: Keen IO environment variables are not set. No visualizations will be drawn. See
+    %a(href="https://github.com/keen/pingpong")
+      the Pingpong documentation
+    for setup information.
+- if @checks.empty?
+  .alert.alert-warning
+    Warning: No checks. Add a check
+    %a{:href => "/check/new"}
+      here
+    or use the CLI with the 
+    %code
+      pingpong check new
+    command.
 
-  %div#check-container.container.center-block
-    - @checks.each do |check|
-      .panel.panel-default
-        .panel-heading.clearfix
-          %h3.panel-title
-            %a.pull-left{:href => "/check/#{check.id}/show"}
-              = check.name
-            %a.pull-right{:href => "/check/#{check.id}/edit"}
-              %span.glyphicon.glyphicon-pencil{:alt => "edit"}
-        .panel-body
-          .container
-            .row
-              .col-md-6{:style => "vertical-align:middle"}
-                = check.url
-              .col-md-6.pull-right
-                %center
-                  .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check.name, :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "70"}}.to_json}"}, :width => "400", :height => "70"}
+%div#check-container.container.center-block
+  - @checks.each do |check|
+    .panel.panel-default
+      .panel-heading.clearfix
+        %h3.panel-title
+          %a.pull-left{:href => "/check/#{check.id}/show"}
+            = check.name
+          %a.pull-right{:href => "/check/#{check.id}/edit"}
+            %span.glyphicon.glyphicon-pencil{:alt => "edit"}
+      .panel-body
+        .container
+          .row
+            .col-md-6{:style => "vertical-align:middle"}
+              = check.url
+            .col-md-6.pull-right
+              %center
+                .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check.name, :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "70"}}.to_json}"}, :width => "400", :height => "70"}
