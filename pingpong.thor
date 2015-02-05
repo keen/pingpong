@@ -1,4 +1,4 @@
-class PingPong < Thor
+class Pingpong < Thor
   include Thor::Actions
 
   desc "setup", "Creates the initial migration for checks and applies it."
@@ -30,8 +30,9 @@ class CreateChecksAndIncidents < ActiveRecord::Migration
 
     create_table(:incidents) do |t|
       t.integer :check_id
-      t.string :incident_type
+      t.integer :incident_type
       t.text :info
+      t.text :check_response
 
       t.timestamps
     end

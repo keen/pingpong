@@ -6,7 +6,11 @@ class Check < ActiveRecord::Base
   validates :url, presence: true
   validates :method, presence: true
 
+  has_many :incidents
+
   def to_hash
     self.attributes.to_options
   end
+
+
 end
