@@ -10,13 +10,17 @@
       .input-group
         %label Method
         %select{:name => "method", :id => "method", :class => "form-control"}
-          %option{:value => "GET"} get
-          %option{:value => "POST"} post
-          %option{:value => "PUT"} put
-          %option{:value => "DELETE"} delete
+          %option{:value => "GET"} GET
+          %option{:value => "POST"} POST
+          %option{:value => "DELETE"} DELETE
       .input-group
         %label Frequency (in minutes)
         %input{:type => "text", :name => "frequency", :id => "frequency", :class => "form-control", :placeholder => "1", :value => "#{@check.frequency if !@check.nil?}"}
+      .input-group
+        %label Save Body
+        %select{:name => "save_body", :id => "save_body", :class => "form-control"}
+          %option{:value => "false"} false
+          %option{:value => "true"} true
       .input-group
         %label Http Username (optional)
         %input{:type => "text", :name => "http_username", :id => "http_username", :class => "form-control", :value => "#{@check.http_username if !@check.nil?}"}
@@ -42,6 +46,7 @@
   :javascript
     $(document).ready(function() {
       $("#method").val("#{@check.method}");
+      $("#save_body").val("#{@check.save_body.to_s}");
     });
 
 :javascript

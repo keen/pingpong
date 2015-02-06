@@ -140,7 +140,7 @@ Every check requires the following properties:
 
 + name: for display in charts and reports
 + url: the fully qualified resource to check
-+ frequency: how often to sent the request, in seconds
++ frequency: how often to sent the request, in minutes
 
 Additionally, checks have some optional properties:
 
@@ -148,36 +148,23 @@ Additionally, checks have some optional properties:
 + http_username: Username for HTTP authentication
 + http_password: Password for HTTP authentication
 
-Checks can also have any number of custom properties, which is very useful for grouping & drill-down analysis later. Place any custom properties in the `custom` namespace of the check JSON.
+Checks can also have any number of custom properties, which is very useful for grouping & drill-down analysis later. Place any custom properties in the `custom` field.
 
-Here's a few example checks with custom properties:
+Here's an example of custom properties:
 
 ``` json
 {
-  "checks": [{
-    "name": "Keen IO Web",
-    "url": "https://keen.io/",
-    "frequency": "30",
-    "custom": {
-      "server_role": "web",
-      "is_https": true
-    }
-  }, 
-  {
-    "name": "Keen IO API",
-    "url": "https://api.keen.io/",
-    "frequency": "60",
-    "custom": {
-      "server_role": "api",
-      "is_https": true
-    }
-  }]
+  "server_role": "web",
+  "is_https": true
+}
+
+{
+  "server_role": "api",
+  "is_https": true
 }
 ```
 
 `server_role` and `is_https` are custom properties and are included each time the results of a check are recorded.
-
-By default checks are sourced from the `checks.json` file in the project directory. However, you can implement your own `CheckSource` and specify it in `config.yml` as well.
 
 #### HTTP Request & Response as an Event
 
@@ -241,36 +228,9 @@ Here's a snapshot of a Pingpong [dashboard](http://api-pong.herokuapp.com) that 
 This dashboard uses most of Pingpong's default visualizations, such as:
 
 + Average response time by check by minute, last 120 minutes
-+ Count of checks, grouped by status code, last 120 minutes
++ Color coded checks based on current check status
 
-It's easy to add more visualizations, and you'll get the most use out of the dashboard by adding queries that answer the specific questions you have. Or simply by breaking charts out into groups that better represent your infrastructure.
-
-#### Adding a visualization
-
-To add a query to the included HTML dashboard, just add a line to the `queries.json` file.
-
-```
-queries.push({
-  tab: "performance",
-  title: "Average Response Time By Check, Last 120 Minutes",
-  chartClass: Keen.Series,
-  collection: Pingpong.collection,
-  queryParams: {
-    analysisType: "average",
-    targetProperty: "request.duration",
-    timeframe: "last_120_minutes",
-    interval: "minutely",
-    groupBy: "check.name"
-  },
-  refreshEvery: 60
-});
-
-```
-
-`tab` refers to which tab you'd like the visualization placed in. You can create new tabs in `index.haml`. `queryParams` are the parameters that will be used to make the call to Keen IO. See available options in the Keen IO [JS SDK](https://keen.io/docs) docs. `refreshEvery` describes the invterval at which the visualization will be frefrehed.
-
-The queries object is just there for convenience. Since the full Keen IO JavaScript SDK is on the page, you can
-create any other visualizations you want as well.
+Clicking on any of the checks gives you a more detailed view of that check's vitals.
 
 #### Reporting and Alerting
 
@@ -317,17 +277,6 @@ If a configured check returns JSON, you can save that JSON into the request body
 
 To add this to a check, simple set the `save_body` property to true.
 
-``` json
-{
-  "checks": [{
-    "name": "SF-Weather",
-    "url": "https://api.forecast.io/forecast/95246bae8ab684243397323235f9f131/37.8267,-122.423?exclude=minutely,hourly,daily,flags",
-    "frequency": 300,
-    "save_body": true
-  }]
-}
-```
-
 This example grabs the weather from the [Forecast.io API](https://developer.forecast.io/) as JSON. The weather data will be merged into the response body under the key `response.body`. Here's an example check response event (some fields omitted for clarity):
 
 ``` json
@@ -357,8 +306,7 @@ Now you can visualize temperature over time by using `response.body.currently.te
 
 Each major component of Pingpong is pluggable.
 
-+ `CheckSource`: contains the list of checks to run. The default implementation is `JsonCheckSource`.
-+ `CheckRunner`: schedules the checks and runs them. The default implementation is `EventmachineCheckRunner`.
++ Checks get run by a [pushpop](https://github.com/pushpop-project/pushpop) job in `jobs/run_checks_job.rb`
 + `CheckMarshaller`: transforms a check and its result into the JSON payload to be logged. The efault implementation is `EnvironmentAwareCheckMarshaller`.
 + `CheckLogger`: logs the JSON payload from the `CheckMarshaller`. The default implementation is `KeenCheckLogger`.
 

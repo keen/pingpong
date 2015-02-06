@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150203160731) do
+ActiveRecord::Schema.define(version: 20150205120227) do
 
   create_table "checks", force: true do |t|
     t.string   "name"
@@ -19,7 +19,7 @@ ActiveRecord::Schema.define(version: 20150203160731) do
     t.integer  "frequency"
     t.string   "method"
     t.text     "data"
-    t.text     "save_body"
+    t.boolean  "save_body"
     t.string   "http_username"
     t.string   "http_password"
     t.text     "custom_properties"
@@ -31,8 +31,9 @@ ActiveRecord::Schema.define(version: 20150203160731) do
 
   create_table "incidents", force: true do |t|
     t.integer  "check_id"
-    t.string   "incident_type"
+    t.integer  "incident_type"
     t.text     "info"
+    t.text     "check_response"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

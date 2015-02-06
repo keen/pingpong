@@ -86,6 +86,7 @@ def update_check(check, params)
   check.frequency = params[:frequency]
   check.custom_properties = params[:custom_properties]
   check.data = params[:data]
+  check.save_body = params[:save_body] == 'true'
   check.http_username = params[:http_username]
   check.http_password = params[:http_password]
 
