@@ -1,0 +1,4 @@
+.container
+  %h2 Update Check '#{@check.name}'
+  %form#new_check{:method => 'post', :action => "/check/#{@check.id}/update"}
+    = haml :_check_form_fields

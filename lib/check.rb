@@ -1,48 +1,50 @@
-require 'forwardable'
+class Check < ActiveRecord::Base
+  serialize :custom_properties, JSON
+  serialize :data, JSON
 
-class Check
-  extend Forwardable
+  store :incident_checking, accessors: [:response_times, :response_codes], coder: JSON
 
-  attr_accessor :name
-  attr_accessor :url
-  attr_accessor :headers
-  attr_accessor :frequency
-  attr_accessor :method
-  attr_accessor :data
-  attr_accessor :save_body
-  attr_accessor :http_username
-  attr_accessor :http_password
+  validates :name, presence: true
+  validates :url, presence: true
+  validates :frequency, presence: true
+  validates :method, presence: true
+  validate :post_must_have_data, on: :create
 
-  attr_accessor :custom_properties
+  has_many :incidents
 
-  def initialize(options)
-    self.name = options[:name]
-    self.url = options[:url]
-    self.headers = options[:headers]
-    self.frequency = options[:frequency]
-    self.method = (options[:method] || "GET").upcase
-    self.data = options[:data]
-    self.save_body = options[:save_body]
-    self.http_username = options[:http_username]
-    self.http_password = options[:http_password]
+  def post_must_have_data
+    if self.method == "POST"
+      errors.add(:data, "Must have data for a post body.") unless !self.data.empty?
+    end
+  end
 
-    self.custom_properties = options[:custom]
+  def add_response_time(time)
+    if self.response_times
+      self.response_times.push(time)
+      self.response_times = self.response_times.slice(-30, 30) if self.response_times.size > 30
+    else
+      self.response_times = [time]
+    end
+  end
 
-    raise "Check 'name' is required." unless self.name
-    raise "Check 'url' is required." unless self.url
-    raise "Check 'frequency' is required." unless self.frequency
-    raise "Check 'method' must be one of POST or GET or DELETE." unless ["POST", "GET", "DELETE"].include? self.method
-    raise "Check 'data' is required for POST method." if self.method == "POST" && self.data == nil
+  def add_response_code(code)
+    if self.response_codes
+      self.response_codes.push(code)
+      self.response_codes = self.response_codes.slice(-30, 30) if self.response_codes.size > 30
+    else
+      self.response_codes = [code]
+    end
   end
 
   def to_hash
-    { :name => self.name,
-      :url => self.url,
-      :headers => self.headers,
-      :frequency => self.frequency,
-      :method => self.method,
-      :data => self.data,
-      :save_body => self.save_body,
-      :custom => self.custom_properties }
+    attrs = self.attributes
+    attrs.delete("incident_checking")
+    attrs.delete("created_at")
+    attrs.delete("updated_at")
+    attrs.delete("http_username")
+    attrs.delete("http_password")
+
+    attrs.to_options
   end
+
 end

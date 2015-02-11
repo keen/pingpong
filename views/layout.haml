@@ -2,12 +2,16 @@
 %html(lang="en")
   %head
     %title Pingpong - custom HTTP monitoring
-    %script(src="https://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.js")
+    %script(src="https://cdnjs.cloudflare.com/ajax/libs/jquery/1.10.2/jquery.min.js")
+    %script(src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
+    %script(src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.js")
+    %script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js")
+    %script(src="/jq-json-formatter.js")
     %link(href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet")
     %link(href="/style.css" rel="stylesheet")
-    %script(src="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/js/bootstrap.min.js")
+    %link(href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.css" rel="stylesheet")
     :javascript
-      !function(a,b){if(void 0===b[a]){b["_"+a]={},b[a]=function(c){b["_"+a].clients=b["_"+a].clients||{},b["_"+a].clients[c.projectId]=this,this._config=c},b[a].ready=function(c){b["_"+a].ready=b["_"+a].ready||[],b["_"+a].ready.push(c)};for(var c=["addEvent","setGlobalProperties","trackExternalLink","on"],d=0;d<c.length;d++){var e=c[d],f=function(a){return function(){return this["_"+a]=this["_"+a]||[],this["_"+a].push(arguments),this}};b[a].prototype[e]=f(e)}var g=document.createElement("script");g.type="text/javascript",g.async=!0,g.src="https://d26b395fwzu5fz.cloudfront.net/3.0.0/keen.min.js?a=b";var h=document.getElementsByTagName("script")[0];h.parentNode.insertBefore(g,h)}}("Keen",this);
+      !function(a,b){a("Keen","https://d26b395fwzu5fz.cloudfront.net/3.1.0/keen.min.js",b)}(function(a,b,c){var d,e,f;c["_"+a]={},c[a]=function(b){c["_"+a].clients=c["_"+a].clients||{},c["_"+a].clients[b.projectId]=this,this._config=b},c[a].ready=function(b){c["_"+a].ready=c["_"+a].ready||[],c["_"+a].ready.push(b)},d=["addEvent","setGlobalProperties","trackExternalLink","on"];for(var g=0;g<d.length;g++){var h=d[g],i=function(a){return function(){return this["_"+a]=this["_"+a]||[],this["_"+a].push(arguments),this}};c[a].prototype[h]=i(h)}e=document.createElement("script"),e.async=!0,e.src=b,f=document.getElementsByTagName("script")[0],f.parentNode.insertBefore(e,f)},this);
 
       var projectId = "#{@config.properties[:keen][:project_id]}";
       var readKey = "#{@config.properties[:keen][:read_key]}";
@@ -30,9 +34,28 @@
         console.log("Keen IO environment variables are not set. Queries will not be run.");
       }
 
-  %body
-    = haml(:aside)
-    = yield
+  %body{:style => "padding-top: 68px;"}
+    %div.navbar.navbar-inverse.navbar-fixed-top{ :role => "navigation" }
+      %div.container-fluid
+        %div.navbar-header
+          .logo-container
+            .nav-logo Pingpong
+        %div.navbar-right{:style => "padding-top: 5px;padding-right: 5px;"}
+          %ul.nav.nav-pills
+            %li
+              %a{:href => "/"} Home
+            %li
+              %a{:href => "/check/new"} New Check
+
+    - if @notice
+      %div{:class => "alert alert-info", :role => "alert"}
+        = @notice
+    - if @error
+      %div{:class => "alert alert-warning", :role => "alert"}
+        = @error
+
+    .container
+      = yield
 
     %script(src="/queries.js")
     :javascript
@@ -47,3 +70,53 @@
           $('html,body').scrollTop(scrollmem);
         });
       });
+
+:javascript
+  $(document).ready(function() {
+    Keen.ready(function() {
+      $.each($(".extraction-container"), function(key, value) {
+        var name = $(this).data("name");
+
+        var query = new Keen.Query("extraction", {
+          eventCollection: Pingpong.collection,
+          timeframe: $(this).data("timeframe"),
+          latest: $(this).data("latest"),
+          filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
+        });
+
+        client.run(query, function(response) {
+          $(value).css("font-family", "monospace");
+          $(value).css("white-space", "pre");
+
+          $("#extraction-src").text(JSON.stringify(response.result));
+          $(value).jsonFormat("#extraction-src");
+        });
+      });
+
+      $.each($(".chart-container"), function(key, value) {
+        var name = $(this).data("name");
+        var targetProperty = $(this).data("targetproperty") || null;
+        var interval = $(this).data("interval") || null;
+        var queryType = $(this).data("querytype") || null;
+        var groupBy = $(this).data("groupby") || null;
+        var chartOptions = $(this).data("chartoptions") || null;
+
+        var query = new Keen.Query(queryType, {
+          eventCollection: Pingpong.collection,
+          timeframe: $(this).data("timeframe"),
+          targetProperty: targetProperty,
+          interval: interval,
+          groupBy: groupBy,
+          filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
+        });
+
+        var chart = client.draw(query, value, {
+          library: "c3",
+          chartType: $(this).data("charttype"),
+          width: $(this).width(),
+          height: $(this).height(),
+          chartOptions: chartOptions
+        });
+      });
+    });
+  });

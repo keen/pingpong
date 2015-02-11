@@ -1,0 +1,4 @@
+.container
+  %h2 Create a New Check
+  %form#new_check{:method => 'post', :action => '/check/create'}
+    = haml :_check_form_fields
