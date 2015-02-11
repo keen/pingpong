@@ -22,6 +22,7 @@ class CreateChecksAndIncidents < ActiveRecord::Migration
       t.string :http_password
 
       t.text :custom_properties
+      t.text :incident_checking
 
       t.timestamps
     end

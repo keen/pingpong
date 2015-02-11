@@ -1,4 +1,5 @@
 require 'webmock/rspec'
+require 'sinatra/activerecord'
 
 $: << File.join(File.dirname(__FILE__), 'lib')
 

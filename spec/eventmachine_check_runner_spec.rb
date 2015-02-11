@@ -2,8 +2,8 @@ require 'spec_helper'
 
 describe EventmachineCheckRunner do
   let(:check_url) { 'http://bark.meow' }
-  let(:check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10, :save_body => true) }
-  let(:no_body_check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10) }
+  let(:check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10, :save_body => true, :method => "GET") }
+  let(:no_body_check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10, :method => "GET") }
   let(:config) { PingpongConfig }
 
   it 'runs the check with eventmachine' do

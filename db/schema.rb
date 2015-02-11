@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150205120227) do
+ActiveRecord::Schema.define(version: 20150209143252) do
 
   create_table "checks", force: true do |t|
     t.string   "name"
@@ -23,6 +23,7 @@ ActiveRecord::Schema.define(version: 20150205120227) do
     t.string   "http_username"
     t.string   "http_password"
     t.text     "custom_properties"
+    t.text     "incident_checking"
     t.datetime "created_at"
     t.datetime "updated_at"
   end
