@@ -35,7 +35,7 @@ Pingpong is open source and easy to install. Pingpong is written in Ruby and str
 **Step 1:** Clone or fork this repository
 
 ```
-$ git clone git@github.com:keenlabs/pingpong.git
+$ git clone git@github.com:keen/pingpong.git
 $ cd pingpong
 ```
 
@@ -47,12 +47,20 @@ $ bundle install
 
 If you don't have the `bundle` command, first `gem install bundler`.
 
-**Step 3:** Add your first check
-
-At minimum a _check_ has a name, a URL, and a frequency (how often to 'check'). Pingpong comes with an interactive rake task that makes adding checks easy. Run:
+**Step 3:** Set up database tables
 
 ```
-$ bundle exec rake checks:add
+$ thor pingpong:setup
+```
+
+This will create one migration for two tables, `checks` and `incidents`, then run the migration. The default database driver is sqlite, but you can configure something else in `database.yml`.
+
+**Step 4:** Add your first check
+
+At minimum a _check_ has a name, a URL, and a frequency (how often to 'check'). Pingpong comes with two ways to create a check, via a web ui or the pingpong cli. If you want to use the web ui, skip to step 6 to boot up the server, otherwise, follow along.
+
+```
+$ pingpong check add
 ```
 
 Answer the prompts with a site you'd like to check. We'll use Google as an example.
@@ -64,35 +72,21 @@ http://google.com
 Give this check a name:
 Google
 
-How often, in seconds, to run this check? (leave blank for 60)
-30
+How often, in minutes, to run this check? (leave blank for 1)
+5
 
 What HTTP Method? (GET or POST or DELETE, leave blank for GET)
 ```
 
 **Note**: Entering POST or DELETE as the Method will ask you for data to be posted.
 
-This process adds a check to a `./checks.json` file, creating it if necessary. Here's what that file looks like after we add the check:
+You can add more checks at any time via the pingpong cli or the web ui.
 
-``` json
-{
-  "checks": [{
-    "name" : "Google",
-    "url" : "http://google.com/",
-    "frequency": 30
-    "method": "GET",
-    "data": null
-  }]
-}
-```
-
-You can add more checks at any time via the rake task, or simply edit the file by hand.
-
-**Step 4:** Set up Heroku and Keen IO
+**Step 5:** Setup Heroku and Keen IO
 
 This section assumes you're already familiar with 2 concepts: provisioning a Heroku app and adding the free `keen:developer` Heroku addon. That said, neither Keen nor Heroku are *required* to make Pingpong work. For now, though, let's assume you're OK with Heroku.
 
-**4a)** Create a new Heroku app and add the `keen` addon as follows:
+**5a)** Create a new Heroku app and add the `keen` addon as follows:
 
 ```
 $ heroku apps:create
@@ -122,13 +116,9 @@ $ foreman start
 
 The Pingpong web interface should now be running on [localhost:5000](http://localhost:5000). Additionally, the checks you have configured should be running in the background of your web process. After a minute or so, you should start to see data appear on the Pingpong charts!
 
-![Pingpong Charts](http://cl.ly/image/2y2Z2I0Y3A2I/Screen%20Shot%202014-07-23%20at%2010.10.33%20AM.png)
-
-You're now ready to commit your changes and push your app to Heroku.
+You're now ready to push your app to Heroku.
 
 ```
-$ git add checks.json
-$ git commit -am 'Added my checks'
 $ git push heroku master
 ```
 
@@ -150,9 +140,9 @@ $ heroku logs --tail
 
 Every check requires the following properties:
 
-+ name: For display in charts and reports
-+ url: The fully qualified resource to check
-+ frequency: How often to sent the request, in seconds
++ name: for display in charts and reports
++ url: the fully qualified resource to check
++ frequency: how often to sent the request, in minutes
 
 Additionally, checks have some optional properties:
 
@@ -160,36 +150,23 @@ Additionally, checks have some optional properties:
 + http_username: Username for HTTP authentication
 + http_password: Password for HTTP authentication
 
-Checks can also have any number of custom properties, which is very useful for grouping & drill-down analysis later. Place any custom properties in the `custom` namespace of the check JSON.
+Checks can also have any number of custom properties, which is very useful for grouping & drill-down analysis later. Place any custom properties in the `custom` field.
 
-Here's a few example checks with custom properties:
+Here's an example of custom properties:
 
 ``` json
 {
-  "checks": [{
-    "name": "Keen IO Web",
-    "url": "https://keen.io/",
-    "frequency": "30",
-    "custom": {
-      "server_role": "web",
-      "is_https": true
-    }
-  }, 
-  {
-    "name": "Keen IO API",
-    "url": "https://api.keen.io/",
-    "frequency": "60",
-    "custom": {
-      "server_role": "api",
-      "is_https": true
-    }
-  }]
+  "server_role": "web",
+  "is_https": true
+}
+
+{
+  "server_role": "api",
+  "is_https": true
 }
 ```
 
 `server_role` and `is_https` are custom properties and are included each time the results of a check are recorded.
-
-By default checks are sourced from the `checks.json` file in the project directory. However, you can implement your own `CheckSource` and specify it in `config.yml` as well.
 
 #### HTTP Request & Response as an Event
 
@@ -253,36 +230,9 @@ Here's a snapshot of a Pingpong [dashboard](http://api-pong.herokuapp.com) that 
 This dashboard uses most of Pingpong's default visualizations, such as:
 
 + Average response time by check by minute, last 120 minutes
-+ Count of checks, grouped by status code, last 120 minutes
++ Color coded checks based on current check status
 
-It's easy to add more visualizations, and you'll get the most use out of the dashboard by adding queries that answer the specific questions you have. Or simply by breaking charts out into groups that better represent your infrastructure.
-
-#### Adding a Visualization
-
-To add a query to the included HTML dashboard, just add a line to the `queries.json` file.
-
-``` javascript
-queries.push({
-  tab: "performance",
-  title: "Average Response Time By Check, Last 120 Minutes",
-  chartClass: Keen.Series,
-  collection: Pingpong.collection,
-  queryParams: {
-    analysisType: "average",
-    targetProperty: "request.duration",
-    timeframe: "last_120_minutes",
-    interval: "minutely",
-    groupBy: "check.name"
-  },
-  refreshEvery: 60
-});
-
-```
-
-`tab` refers to which tab you'd like the visualization placed in. You can create new tabs in `index.haml`. `queryParams` are the parameters that will be used to make the call to Keen IO. See available options in the Keen IO [JS SDK](https://keen.io/docs) docs. `refreshEvery` describes the invterval at which the visualization will be frefrehed.
-
-The queries object is just there for convenience. Since the full Keen IO JavaScript SDK is on the page, you can
-create any other visualizations you want as well.
+Clicking on any of the checks gives you a more detailed view of that check's vitals.
 
 #### Reporting and Alerting
 
@@ -329,17 +279,6 @@ If a configured check returns JSON, you can save that JSON into the request body
 
 To add this to a check, simply set the `save_body` property to `true`:
 
-``` json
-{
-  "checks": [{
-    "name": "SF-Weather",
-    "url": "https://api.forecast.io/forecast/95246bae8ab684243397323235f9f131/37.8267,-122.423?exclude=minutely,hourly,daily,flags",
-    "frequency": 300,
-    "save_body": true
-  }]
-}
-```
-
 This example grabs the weather from the [Forecast.io API](https://developer.forecast.io/) as JSON. The weather data will be merged into the response body under the key `response.body`. Here's an example check response event (some fields omitted for clarity):
 
 ``` json
@@ -369,10 +308,9 @@ Now you can visualize temperature over time by using `response.body.currently.te
 
 Each major component of Pingpong is pluggable:
 
-+ `CheckSource`: Contains the list of checks to run. The default implementation is `JsonCheckSource`.
-+ `CheckRunner`: Schedules the checks and runs them. The default implementation is `EventmachineCheckRunner`.
-+ `CheckMarshaller`: Transforms a check and its result into the JSON payload to be logged. The default implementation is `EnvironmentAwareCheckMarshaller`.
-+ `CheckLogger`: Logs the JSON payload from the `CheckMarshaller`. The default implementation is `KeenCheckLogger`.
++ Checks get run by a [pushpop](https://github.com/pushpop-project/pushpop) job in `jobs/run_checks_job.rb`
++ `CheckMarshaller`: transforms a check and its result into the JSON payload to be logged. The efault implementation is `EnvironmentAwareCheckMarshaller`.
++ `CheckLogger`: logs the JSON payload from the `CheckMarshaller`. The default implementation is `KeenCheckLogger`.
 
 Once you've written an implementation for any of these components, simply replace the previous implementation's class name in `config.yml` with name of your component.
 

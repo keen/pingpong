@@ -21,6 +21,11 @@ class EnvironmentAwareCheckMarshaller
 
       remove_nils(properties)
 
+      # handle the incident checking stuff
+      check.add_response_time(duration)
+      check.add_response_code(response[:status])
+      check.save
+
       properties
     end
 

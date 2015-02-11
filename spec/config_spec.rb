@@ -12,8 +12,4 @@ describe PingpongConfig do
   it 'should have a check logger' do
     PingpongConfig.check_logger.should == KeenCheckLogger
   end
-
-  it 'should have a check source' do
-    PingpongConfig.check_source.should == JsonCheckSource
-  end
 end
