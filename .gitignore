@@ -1,5 +1,0 @@
-.env
-log
-
-db/*.sqlite3
-db/migrate/*
