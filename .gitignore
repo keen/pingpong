@@ -1,0 +1,8 @@
+.env
+log
+
+db/*.sqlite3
+db/migrate/*
+checks.json
+db
+Gemfile.lock
