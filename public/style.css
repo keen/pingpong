@@ -106,3 +106,7 @@ body {
   line-height: 1;
   vertical-align: middle;
 }
+
+p.help-block ul li {
+  color: #f33;
+}
