@@ -1,4 +1,260 @@
-<!DOCTYPE html> <!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]--> <!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]--> <!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]--> <!--[if gt IE 8]> <!--> <html class="no-js "> <!--<![endif]--> <head> <meta charset=utf-8> <meta http-equiv=X-UA-Compatible content="IE=edge"> <title>PingPong - Open-source analytics for anything with a URL.</title> <meta name=description content=""> <meta name=viewport content="width=device-width, initial-scale=1"> <link rel=stylesheet href=https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.css> <link rel=stylesheet type=text/css href=//cloud.typography.com/6614852/780066/css/fonts.css> <link rel=stylesheet href=css/main.35ce.css> </head> <body> <!--[if lt IE 8]> <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p> <![endif]--> <header> <nav> <figure class=logo> <img src=img/logo.e042.png alt="PingPong logo"> </figure> <ul> <li> <a href=About.html>About</a> </li> <li> <a href=Team.html>Team</a> </li> <li> <a href=Community.html>Community</a> </li> <li> <a href=Support.html>Support</a> </li> </ul> </nav> <div class=free_project> <a href=#>Create a Free Project</a> </div> <h1> <img src=img/pingpong.ea65.png alt=""> </h1> <p>Open-source analytics for anything with a URL.</p> <div class=source-code-btn> <a href=#>Get the source code &rarr;</a> <figure class=github_widget> <img src=img/fpo_github_widget.4eba.png alt="FPO: Github Widget"> </figure> </div> </header> <article id=main> <section class="deeper-http center embiggen"> <div class=content> <h2>Get deeper HTTP request data every second.</h2> <p>Track real-time performance and availability across multiple API servers to see the what, when, and how behind your system performance. So you can understand why.</p> </div> <div id=my_chart> </div> </section> <section class=shifting-blocks> <div class=left> <figure class=img> <img src=img/chart_02_new.8c56.png alt=""> </figure> <div class=content> <figure class=ico> <img src=img/icon_fast.850a.png alt=icon> </figure> <h3>Check fast, check often</h3> <p>Pingpong sends HTTP requests to URLs you configure as frequently as once per second. It turns data about each request and response into JSON, then logs it to a custom destination. Your default data store is Keen IO, but it’s simple to set up another backend.</p> </div> </div> <div class=right> <figure class=img> <img src=img/chart_03_new.cee0.png alt=""> </figure> <div class=content> <figure class=ico> <img src=img/icon_vitals.d53e.png alt=icon> </figure> <h3>Know your vitals</h3> <p>Pingpong ships with Dashboards, an HTML visualization kit that lets you see and arrange your most critical response data. Built on the Keen IO analytics API, Dashboards is super-flexible and ready to be skinned, tweaked, and embedded anywhere.</p> </div> </div> <div class=left> <figure class=img> <img src=img/chart_04_new.f514.png alt=""> </figure> <div class=content> <figure class=ico> <img src=img/icon_insight.6bc7.png alt=icon> </figure> <h3>Get deep application insight</h3> <p>Pingpong isn’t just a pretty face. It’s powerful, high-detail reporting to help you get to the root of any performance issues in your system fast. Spot errors easily and track long-running requests measured from a real client exactly 1 Internet away.</p> </div> </div> <div class="center control-with-command-line"> <div class=content> <figure class=ico> <img src=img/icon_command_line.8716.png alt=icon> </figure> <h2>Control with command line</h2> <p>If you live in the command line, you’ll love Pingpong. Create instant HTTP requests, script entire workflows, and integrate with other tools and resources as fast as you can Bash.</p> </div> <figure class=img> <img src=img/cli_example.83df.png alt=""> </figure> </div> <div class=right> <figure class=img> <img src=img/chart_05_new.aaf6.png alt=""> </figure> <div class=content> <figure class=ico> <img src=img/icon_custom.c887.png alt=icon> </figure> <h3>Add custom properties</h3> <p>Pingpong captures most of the data you'd want about HTTP requests and responses. To beef up or slim down your data stream, adding custom properties specific to your infrastructure is simple.</p> </div> </div> <div class="left clone-notifications"> <div class="content clone"> <figure class=ico> <img src=img/icon_clone.5467.png alt=icon> </figure> <h3>Clone and deploy</h3> <p>Written in Ruby, Pingpong is easy to install and ready for deployment to one or more Heroku regions. That said, you can run it on any computer with Ruby, even your local machine. It can be up and running in less than five minutes.</p> </div> <div class="content notifications"> <figure class=ico> <img src=img/icon_instant.672f.png alt=icon> </figure> <h3>Get instant notifications</h3> <p>When you go down, you need to know now. That’s why Pingpong is integrated with Pushpop, a clean-cut scheduling and reporting framework also built by Keen IO. With it, you can set custom parameters to know exactly when anything is down, up, fast, slow, and more.</p> </div> </div> </section> <section class="get-the-source-code button"> <a href=#>Get the source code &rarr;</a> <figure class=github_widget> <img src=img/fpo_github_widget.4eba.png alt="FPO: Github Widget"> </figure> </section> <section class=built-to-answer> <div class=plaincopy> <h2>Built to answer our own questions.</h2> <p>Pingpong was developed in-house at Keen IO to answer a few simple, but important, questions about our web and API infrastructure. You might be curious about these things, too:</p> <aside class=talk-bubble> <ul> <li>Are any API servers or server processes slower than others?</li> <li>Are any web pages or API calls slow? Are any experiencing errors?</li> <li>Have any processes failed, or become unresponsive? Today? This month?</li> <li>What's the latency to each DC from a client in the US? In Europe?</li> <li>How much latency does using SSL add?</li> </ul> </aside> <p>Pingpong runs all day, every day from multiple data centers around the world. It helps our team understand real-time performance and study long-term trends. To date, Ping Pong has run over 20 million checks in production.</p> <p> <strong>Do you use Pingpong and Keen IO? Email contact@keen.io and we’ll hook you up with higher limits, just to say thanks.</strong> </p> <p>Pingpong is open source and licensed under MIT.</p> </div> </section> <section class="cta-block buttons"> <ul> <li> <a href=#>Pingpong Github</a> </li> <li> <a href=#>Keen IO Docs</a> </li> <li> <a href=#>Keen IO Heroku add-on</a> </li> </ul> </section> </article> <footer> <figure> <img src=img/footer.8ab0.png alt=Footer> </figure> </footer> <div id=console> </div> <script type=text/javascript>go();
+<!DOCTYPE html>
+<!--[if lt IE 7]>      <html class="no-js lt-ie9 lt-ie8 lt-ie7"> <![endif]-->
+<!--[if IE 7]>         <html class="no-js lt-ie9 lt-ie8"> <![endif]-->
+<!--[if IE 8]>         <html class="no-js lt-ie9"> <![endif]-->
+<!--[if gt IE 8]> <!--> <html class="no-js "> <!--<![endif]-->
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <title>PingPong - Open-source analytics for anything with a URL.</title>
+        <meta name="description" content="">
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.css">
+        <link rel="stylesheet" type="text/css" href="//cloud.typography.com/6614852/780066/css/fonts.css" />
+        
+        <link rel="stylesheet" href="css/main.1880.css">
+
+
+    </head>
+    <body> <!--[if lt IE 8]> <p class="browsehappy">You are using an <strong>outdated</strong> browser. Please <a href="http://browsehappy.com/">upgrade your browser</a> to improve your experience.</p> <![endif]-->
+
+<div class="bar"> </div>
+<nav>
+  <figure class="logo">
+    <svg class="keenLogo" xmlns="http://www.w3.org/2000/svg" version="1.1" x="0px" y="0px" viewBox="0 0 594 128" enable-background="new 0 0 594 128" xml:space="preserve">
+    <g class="icon">
+        <polygon class="red" fill="#F35757" points="59.811,73.135 66.859,85.34 49.275,115.863 140.807,115.863 147.814,128 28.045,128"/>
+        <polygon class="green" fill="#49C5B1" points="59.873,24.297 91.504,79.242 77.413,79.242 59.826,48.781 13.958,128 0,128"/>
+        <polygon class="blue" fill="#00AFD7" points="133.769,103.674 70.364,103.674 77.418,91.432 112.586,91.432 66.915,12.1 73.9,0"/>
+    </g>
+    <path class="text" fill="#546A7E" d="M246.12 94.163L216.29 57.373l27.704-27.484c1.199-1.195 1.782-2.475 1.782-3.91 0-2.906-2.496-5.453-5.341-5.453 -1.869 0-3.128 0.887-4.262 1.896l-43.89 44.996V26.094c0-3.07-2.498-5.568-5.568-5.568 -2.96 0-5.461 2.549-5.461 5.568v72.01c0 3.02 2.501 5.57 5.461 5.57 3.07 0 5.568-2.498 5.568-5.57V81.145l16.181-16.178 29.093 36.231c1.15 1.643 2.655 2.477 4.474 2.477 3.021 0 5.573-2.551 5.573-5.57C247.604 96.301 246.896 95.151 246.12 94.163zM309.211 71.702c0-15.379-9.767-30.948-28.434-30.948 -16.456 0-29.348 13.941-29.348 31.743v0.23c0 18.1 13.108 31.748 30.49 31.748 9.265 0 16.353-2.836 22.95-9.162 1.104-0.967 1.713-2.248 1.713-3.609 0-2.631-2.192-4.771-4.887-4.771 -1.466 0-2.503 0.719-3.195 1.293 -4.886 4.5-10.083 6.596-16.354 6.596 -10.378 0-18.167-7.188-19.675-18.006h41.627C306.917 76.815 309.211 74.52 309.211 71.702zM280.55 50.182c11.501 0 16.667 9.162 17.751 18.117h-35.831C263.956 57.574 271.266 50.182 280.55 50.182zM374.018 71.702c0-15.379-9.767-30.948-28.434-30.948 -16.454 0-29.344 13.941-29.344 31.743v0.23c0 18.1 13.107 31.748 30.486 31.748 9.263 0 16.351-2.836 22.95-9.164 1.103-0.965 1.71-2.246 1.71-3.607 0-2.631-2.193-4.771-4.889-4.771 -1.464 0-2.501 0.719-3.193 1.293 -4.886 4.5-10.082 6.596-16.352 6.596 -10.374 0-18.163-7.189-19.677-18.006h41.626C371.723 76.815 374.018 74.52 374.018 71.702zM345.357 50.182c11.497 0 16.662 9.162 17.749 18.117h-35.83C328.762 57.574 336.072 50.182 345.357 50.182zM414.734 40.754c-8.037 0-14.492 3.127-19.233 9.309V46.9c0-3.062-2.396-5.461-5.455-5.461 -2.945 0-5.342 2.449-5.342 5.461v51.319c0 3.059 2.396 5.455 5.455 5.455 3.045 0 5.342-2.346 5.342-5.455V68.271c0-10.312 6.874-17.514 16.717-17.514 9.606 0 15.342 6.291 15.342 16.826v30.635c0 3.059 2.398 5.455 5.461 5.455 2.999 0 5.348-2.396 5.348-5.455V65.414C438.369 50.434 429.092 40.754 414.734 40.754zM491.424 20.525c-2.958 0-5.457 2.549-5.457 5.568v72.01c0 3.02 2.499 5.57 5.457 5.57 3.072 0 5.572-2.498 5.572-5.57v-72.01C496.996 23.023 494.496 20.525 491.424 20.525zM552.307 19.725c-23.504 0-41.916 18.613-41.916 42.373v0.229c0 24.03 17.923 42.149 41.689 42.149 23.507 0 41.92-18.613 41.92-42.377v-0.227C594 37.844 576.076 19.725 552.307 19.725zM582.627 62.098v0.229c0 18.133-13.035 31.807-30.32 31.807 -17.411 0-30.541-13.773-30.541-32.036v-0.227c0-18.131 13.032-31.803 30.314-31.803C569.209 30.068 582.627 44.137 582.627 62.098z"/>
+</svg>
+
+  </figure>
+  <ul>
+    <li> <a href="About.html">About</a> </li>
+    <li> <a href="Team.html">Team</a> </li>
+    <li> <a href="Community.html">Community</a> </li>
+    <li> <a href="Support.html">Support</a> </li>
+  </ul>
+  <div class="free_project"> <a href="#">Create a Free Project</a> </div>
+</nav>
+
+<header id="hero">
+  <div class="dots"> <area> </area> </div>
+  <div class="intro">
+    <h1 class="paddle"> <img src="img/pingpong-paddle-1x.8640.png" alt=""> </h1>
+    <p>Open-source analytics for anything with a URL.</p>
+  </div>
+</header>
+
+<div class="source-code-btn">
+  <a href="#">Get the source code &rarr;</a>
+  <figure class="github_widget">
+    <img src="img/fpo_github_widget.61f8.png" alt="FPO: Github Widget">
+  </figure>
+</div>
+
+<article id="main">
+  <section class="deeper-http center embiggen">
+
+    <div class="block">
+      <div class="content">
+        <h2 class="big">Get deeper HTTP request data every second.</h2>
+        <p>Track real-time performance and availability across multiple API servers to see the what, when, and how behind your system performance. So you can understand why.</p>
+      </div>
+      <div id="my_chart"> </div>
+    </div>
+
+  </section>
+  <section class="shifting-blocks">
+
+    <div class="block grey-bg">
+      <figure class="ico"> <img src="img/icon_fast.850a.png" alt="icon"> </figure>
+      <h3>Check fast, check often</h3>
+      <div class="left" id="check-fast-check-often">
+        <figure class="img"> <img src="img/chart_02_new.58f4.png" alt=""> </figure>
+        <div class="content">
+          <p>Pingpong sends HTTP requests to URLs you configure as frequently as once per second. It turns data about each request and response into JSON, then logs it to a custom destination. Your default data store is Keen IO, but it’s simple to set up another backend.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block">
+      <figure class="ico"> <img src="img/icon_vitals.d53e.png" alt="icon"> </figure>
+      <h3>Know your vitals</h3>
+      <div class="right" id="know-your-vitals">
+        <figure class="img">
+
+          <svg version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px"
+             viewBox="0 0 319.7 218.1" enable-background="new 0 0 319.7 218.1" xml:space="preserve">
+          <circle fill="none" stroke="#F16473" stroke-width="40" stroke-miterlimit="10" cx="109" cy="109.1" r="89"/>
+          <line fill="none" stroke="#FFFFFF" stroke-width="5" stroke-miterlimit="10" x1="109" y1="0" x2="109" y2="42.3"/>
+          <path fill="#19C1E2" d="M277.5,73.7h-18.7c-1.6,0-3-1.3-3-3V52c0-1.7,1.4-3,3-3h18.7c1.6,0,3,1.3,3,3v18.7
+            C280.5,72.3,279.1,73.7,277.5,73.7z"/>
+          <text transform="matrix(1 0 0 1 295.1479 64.8564)" fill="#3E4A57" font-family="'Gotham A'" font-size="12">0</text>
+          <path fill="#F16373" d="M277.5,124.2h-18.7c-1.6,0-3-1.3-3-3v-18.7c0-1.7,1.4-3,3-3h18.7c1.6,0,3,1.3,3,3v18.7
+            C280.5,122.8,279.1,124.2,277.5,124.2z"/>
+          <text transform="matrix(1 0 0 1 295.1479 115.3564)" fill="#3E4A57" font-family="'Gotham A'" font-size="12">200</text>
+          <path fill="#ECAE51" d="M277.5,174.7h-18.7c-1.6,0-3-1.4-3-3V153c0-1.6,1.4-3,3-3h18.7c1.6,0,3,1.4,3,3v18.7
+            C280.5,173.3,279.1,174.7,277.5,174.7z"/>
+          <text transform="matrix(1 0 0 1 295.1479 165.8564)" fill="#3E4A57" font-family="'Gotham A'" font-size="12">500</text>
+          <text transform="matrix(1 0 0 1 64.3312 112.7233)" fill="#3E4A57" font-family="'Gotham A'" font-size="12">Count - checks</text>
+          <text transform="matrix(1 0 0 1 96.2322 201.5007)" fill="#FFFFFF" font-family="'Gotham A'" font-size="12">99%</text>
+          </svg>
+
+        </figure>
+        <div class="content">
+          <p>Pingpong ships with Dashboards, an HTML visualization kit that lets you see and arrange your most critical response data. Built on the Keen IO analytics API, Dashboards is super-flexible and ready to be skinned, tweaked, and embedded anywhere.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block grey-bg split">
+      <figure class="ico"> <img src="img/icon_insight.6bc7.png" alt="icon"> </figure>
+      <h3>Get deep application insight</h3>
+      <div class="left code-sample">
+        <figure class="img">
+          <code>
+          <tt>
+          [<br>
+          &nbsp;&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>"environment"</b>:&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"rack_env"</b>:&nbsp;"production",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"region"</b>:&nbsp;"heroku-eu-west-1",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"hostname"</b>:&nbsp;"e146005b-260b-490c-ba04-645d8",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"location"</b>:&nbsp;"Ireland"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>"keen"</b>:&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"timestamp"</b>:&nbsp;"2015-01-28T00:01:56.791z",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"created_at"</b>:&nbsp;"2015-01-28T00:01:56.791z",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"id"</b>:&nbsp;"54c82684085567a8f834d"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;},<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>"request"</b>:&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"duration"</b>:&nbsp;0.812621003,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<b>"sent_at"</b>:&nbsp;"2015-01-28&nbsp;00:01:55&nbsp;UTC"<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;}<br>
+          &nbsp;&nbsp;}<br>
+          ]
+          </tt>
+          </code>
+        </figure>
+        <div class="content">
+          <p>Pingpong isn’t just a pretty face. It’s powerful, high-detail reporting to help you get to the root of any performance issues in your system fast. Spot errors easily and track long-running requests measured from a real client  exactly 1 Internet away.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block black-bg">
+      <figure class="ico"> <img src="img/icon_command_line.8716.png" alt="icon"> </figure>
+      <h3 class="alt">Control with command line</h3>
+      <div class="center" id="control-with-command-line">
+        <div class="content">
+          <p>If you live in the command line, you’ll love Pingpong. Create instant HTTP requests, script entire workflows, and integrate with other tools and resources as fast as you can Bash.</p>
+        </div>
+        <figure class="img terminal">
+          <div class="window">
+            <div class="buttons">
+              <span class="red"> </span>
+              <span class="yellow"> </span>
+              <span class="green"> </span>
+            </div>
+            <div class="title">
+              alex &mdash; bash - &mdash; 87-39
+            </div>
+            <div class="screen">
+              <p>Keens-Macbook-Pro:~ alex$ <span class="blink"> <span class="cursor"> </span> </span> </p>
+            </div>
+          </div>
+        </figure>
+      </div>
+    </div>
+
+    <div class="block grey-bg split">
+      <figure class="ico"> <img src="img/icon_custom.74fa.png" alt="icon"> </figure>
+      <h3>Add custom properties</h3>
+      <div class="left code-sample" id="add-custom-properties">
+        <figure class="img">
+          <code> <tt>
+          <b>"check"</b>:&nbsp;{<br>
+          &nbsp;&nbsp;<b>"url"</b>:&nbsp;"https://keen.io/",<br>
+          &nbsp;&nbsp;<b>"frequency"</b>:&nbsp;15,<br>
+          &nbsp;&nbsp;<b>"name"</b>:&nbsp;"WebRootSSL",<br>
+          &nbsp;&nbsp;<b>"custom"</b>:&nbsp;{<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>"resource"</b>:&nbsp;"index",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>"vhost"</b>:&nbsp;"web",<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>"lb"</b>:&nbsp;true,<br>
+          &nbsp;&nbsp;&nbsp;&nbsp;<b>"ssl"</b>:&nbsp;true<br>
+          &nbsp;&nbsp;}<br>
+          },
+          </tt> </code>
+        </figure>
+        <div class="content">
+          <p>Pingpong captures most of the data you'd want about HTTP requests and responses. To beef up or slim down your data stream, adding custom properties specific to your infrastructure is simple.</p>
+        </div>
+      </div>
+    </div>
+
+    <div class="block columns">
+      <div class="left clone-notifications">
+        <div class="content clone">
+            <figure class="ico"> <img src="img/icon_clone.5467.png" alt="icon"> </figure>
+            <h3>Clone and deploy</h3>
+            <p>Written in Ruby, Pingpong is easy to install and ready for deployment to one or more Heroku regions. That said, you can run it on any computer with Ruby, even your local machine. It can be up and running in less than five minutes.</p>
+        </div>
+        <div class="content notifications">
+          <figure class="ico"> <img src="img/icon_instant.672f.png" alt="icon"> </figure>
+          <h3>Get instant notifications</h3>
+          <p>When you go down, you need to know now. That’s why Pingpong is integrated with Pushpop, a clean-cut scheduling and reporting framework also built by Keen IO. With it, you can set custom parameters to know exactly when anything is down, up, fast, slow, and more.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="get-the-source-code button">
+    <a href="#">Get the source code &rarr;</a>
+    <figure class="github_widget">
+      <img src="img/fpo_github_widget.61f8.png" alt="FPO: Github Widget">
+    </figure>
+  </section>
+
+  <section class="built-to-answer">
+    <div class="plaincopy">
+      <div class="embiggen centered">
+        <h2 class="big">Built to answer our own questions.</h2>
+        <p>Pingpong was developed in-house at Keen IO to answer a few simple, but important, questions about our web and API infrastructure. You might be curious about these things, too:</p>
+      </div>
+      <aside class="talk-bubble">
+        <ul>
+          <li> Are any API servers or server processes slower than others? </li>
+          <li> Are any web pages or API calls slow? Are any experiencing errors? </li>
+          <li> Have any processes failed, or become unresponsive? Today? This month? </li>
+          <li> What's the latency to each DC from a client in the US? In Europe? </li>
+          <li> How much latency does using SSL add? </li>
+        </ul>
+      </aside>
+      <p>Pingpong runs all day, every day from multiple data centers around the world. It helps our team understand real-time performance and study long-term trends. To date, Ping Pong has run over 20 million checks in production.</p>
+      <p> <strong>Do you use Pingpong and Keen IO? Email contact@keen.io and we’ll hook you up with higher limits, just to say thanks.</strong> </p>
+      <p>Pingpong is open source and licensed under MIT.</p>
+    </div>
+  </section>
+  <section class="cta-block buttons">
+    <ul>
+      <li> <a href="#">Pingpong Github </a> </li>
+      <li> <a href="#">Keen IO Docs</a> </li>
+      <li> <a href="#">Keen IO Heroku add-on</a> </li>
+    </ul>
+  </section>
+
+</article>
+
+    <footer>
+      <figure> <img src="img/footer.eca5.png" alt="Footer"> </figure>
+    </footer>
+
+    <div id="console"> </div>
+    <script type="text/javascript">
+      go();
       window.addEventListener('resize', go);
 
       function go(){
@@ -9,12 +265,28 @@
           x = w.innerWidth || e.clientWidth || g.clientWidth,
           y = w.innerHeight|| e.clientHeight|| g.clientHeight;
         document.getElementById("console").innerHTML = "width: " + x + "px<br>height: " + y + "px";
-      }</script> <!-- ================= jQuery disabled by default =================
+      }
+    </script>
+
+
+    <!-- ================= jQuery disabled by default ================= -->
 <script src="//ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"> </script>
 <script>window.jQuery || document.write('<script src="js/vendor/jquery-1.10.2.min.js"> <\/script>')</script>
---> <script src=https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js> </script> <script src=https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.js> </script> <script type=text/javascript>!function(a,b){a("Keen","http://d26b395fwzu5fz.cloudfront.net/3.2.2/keen.min.js",b)}(function(a,b,c){var d,e,f;c["_"+a]={},c[a]=function(b){c["_"+a].clients=c["_"+a].clients||{},c["_"+a].clients[b.projectId]=this,this._config=b},c[a].ready=function(b){c["_"+a].ready=c["_"+a].ready||[],c["_"+a].ready.push(b)},d=["addEvent","setGlobalProperties","trackExternalLink","on"];for(var g=0;g<d.length;g++){var h=d[g],i=function(a){return function(){return this["_"+a]=this["_"+a]||[],this["_"+a].push(arguments),this}};c[a].prototype[h]=i(h)}e=document.createElement("script"),e.async=!0,e.src=b,f=document.getElementsByTagName("script")[0],f.parentNode.insertBefore(e,f)},this);</script> <script src=js/script.5fa0.js> </script> <script>(function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
+
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js"> </script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.js"> </script>
+<script type="text/javascript">
+  !function(a,b){a("Keen","http://d26b395fwzu5fz.cloudfront.net/3.2.2/keen.min.js",b)}(function(a,b,c){var d,e,f;c["_"+a]={},c[a]=function(b){c["_"+a].clients=c["_"+a].clients||{},c["_"+a].clients[b.projectId]=this,this._config=b},c[a].ready=function(b){c["_"+a].ready=c["_"+a].ready||[],c["_"+a].ready.push(b)},d=["addEvent","setGlobalProperties","trackExternalLink","on"];for(var g=0;g<d.length;g++){var h=d[g],i=function(a){return function(){return this["_"+a]=this["_"+a]||[],this["_"+a].push(arguments),this}};c[a].prototype[h]=i(h)}e=document.createElement("script"),e.async=!0,e.src=b,f=document.getElementsByTagName("script")[0],f.parentNode.insertBefore(e,f)},this);
+</script>
+<script src="js/script.8696.js"> </script>
+<script>
+    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
     function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
     e=o.createElement(i);r=o.getElementsByTagName(i)[0];
     e.src='//www.google-analytics.com/analytics.js';
     r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-XXXXX-X');ga('send','pageview');</script> </body> </html>
+    ga('create','UA-XXXXX-X');ga('send','pageview');
+</script>
+  </body>
+</html>
