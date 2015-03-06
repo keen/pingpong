@@ -1,5 +1,20 @@
+@font-face {
+    font-family: 'GothamBook';
+    src: url('/fonts/GothamBook.eot');
+    src: url('/fonts/GothamBook.eot') format('embedded-opentype'),
+         url('/fonts/GothamBook.woff2') format('woff2'),
+         url('/fonts/GothamBook.woff') format('woff'),
+         url('/fonts/GothamBook.ttf') format('truetype'),
+         url('/fonts/GothamBook.svg#GothamBook') format('svg');
+}
+
 body {
-  min-width: 1280px;
+  padding-top: 115px;
+  font-family: 'GothamBook', sans-serif;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: 'GothamBook', sans-serif;
 }
 
 .tab-pane {
@@ -10,16 +25,6 @@ body {
   float: left;
   margin-left: 20px;
   margin-top: 0px;
-}
-
-.logo {
-  padding: 0px;
-  display: block;
-  width: 100%;
-}
-
-.logo img {
-  margin: 46px 0;
 }
 
 .main {
@@ -93,16 +98,48 @@ body {
   font-weight:bold;
 }
 
-.navbar-header .logo-container {
-  line-height: 50px;
-  padding-left: 5px;
-  text-align: center;
+.navbar {
+  height: 100px;
+  overflow: visible;
+  background-image: url('/header-bg.png');
+  background-size: 100% auto;
 }
 
-.navbar-header .nav-logo {
-  color: white;
+.navbar-right {
+  padding: 20px 4em;
+}
+
+.navbar-header .logo-container {
+  margin: 8px 0 0 4em;
+}
+
+.logo-container img {
+  width: auto;
+  height: 115px;
+}
+
+.nav-pills li a {
+  border: 1px solid #FFFFFF;
+  color: #FFFFFF;
+}
+
+.nav-pills li a:hover {
+  background-color: #FFFFFF;
+  color: #000000;
+}
+
+.status-icon {
   display: inline-block;
-  font-size: 1.5em;
-  line-height: 1;
-  vertical-align: middle;
+  width: 28px;
+  height: 28px;
+  background-image: url('good-icon.png');
+  background-repeat: no-repeat;
+}
+
+.status-icon.warning {
+  background-image: url('warning-icon.png');
+}
+
+.status-icon.error {
+  background-image: url('error-icon.png');
 }

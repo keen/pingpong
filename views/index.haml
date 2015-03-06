@@ -1,3 +1,52 @@
+:css
+  .status-icon {
+    display: inline-block;
+    color: hsl(120, 90%, 35%);
+    font-size: 200%;
+    text-align: center;
+  }
+  .status-icon.warning {
+    color: hsl(60, 100%, 40%);
+  }
+  .status-icon.error {
+    color: hsl(0, 90%, 50%);
+  }
+  .key-container {
+    text-align: center;
+  }
+  .check-list-header {
+    position: relative;
+  }
+  .check-list-header .lead-btn-container {
+    position: absolute;
+    bottom: 0;
+    margin-bottom: 5px;
+  }
+  .no-border {
+    border: none;
+  }
+  .nested-row {
+    margin: 0 !important;
+    padding: 0 !important;
+    border: none !important;
+  }
+  h2, h3 {
+    margin-top: 0;
+  }
+  h3 {
+    margin-bottom: 15px;
+  }
+  .row {
+    padding-top: 25px;
+    padding-bottom: 25px;
+    border-bottom: 1px solid hsl(0, 0%, 80%);
+  }
+  .last-incident {
+    font-size: 125%;
+    color: hsl(120, 90%, 35%);
+    font-style: italic;
+  }
+
 .alert.alert-info.update-on
   Auto-update ON
 - unless @config.properties[:keen][:project_id]
@@ -16,20 +65,49 @@
       pingpong check new
     command.
 
-%div#check-container.container.center-block
+%div#check-container
+  .row.check-list-header
+    .col-md-9.col-xs-6.lead-btn-container
+      %span.btn.btn-default.btn-lg.no-border
+        %span.glyphicon.glyphicon-th-list{:aria => {:hidden => "true"}}
+        Compact view
+    .col-md-3.col-xs-6.pull-right
+      .row.nested-row
+        .col-md-4.col-xs-4.key-container
+          %span.status-icon{:aria => {:hidden => "true"}}
+          <br/>
+          .span
+            Good
+        .col-md-4.col-xs-4.key-container
+          %span.status-icon.warning{:aria => {:hidden => "true"}}
+          <br/>
+          .span
+            Warning
+        .col-md-4.col-xs-4.key-container
+          %span.status-icon.error{:aria => {:hidden => "true"}}
+          <br/>
+          .span
+            Error
   - @checks.each do |check|
-    .panel.panel-default
-      .panel-heading.clearfix
-        %h3.panel-title
-          %a.pull-left{:href => "/check/#{check.id}/show"}
+    .row
+      .col-md-1
+        %span.status-icon{:aria => {:hidden => "true"}}
+      .col-md-5
+        %h2
+          %a{:href => "/check/#{check.id}/show"}
             = check.name
-          %a.pull-right{:href => "/check/#{check.id}/edit"}
-            %span.glyphicon.glyphicon-pencil{:alt => "edit"}
-      .panel-body
-        .container
-          .row
-            .col-md-6{:style => "vertical-align:middle"}
-              = check.url
-            .col-md-6.pull-right
-              %center
-                .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check.name, :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "70"}}.to_json}"}, :width => "400", :height => "70"}
+        %h3
+          = check.url
+        %p.last-incident
+          Last incident ended on:
+          <br/>
+          3/5/2015 at 2:30pm
+        %div
+          %button.btn.btn-default
+            Details
+      .col-md-5
+        .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check.name, :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "70"}}.to_json}"}, :width => "400", :height => "70"}
+      .col-md-1
+        %button.btn.btn-default
+          %span.glyphicon.glyphicon-pencil{:aria => {:hidden => "true"}}
+          Edit

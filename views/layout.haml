@@ -34,18 +34,20 @@
         console.log("Keen IO environment variables are not set. Queries will not be run.");
       }
 
-  %body{:style => "padding-top: 68px;"}
+  %body
     %div.navbar.navbar-inverse.navbar-fixed-top{ :role => "navigation" }
       %div.container-fluid
         %div.navbar-header
           .logo-container
-            .nav-logo Pingpong
-        %div.navbar-right{:style => "padding-top: 5px;padding-right: 5px;"}
+            .nav-logo
+              %a{:href => "/"}
+                %img{:src => "/logo.png", :alt => "Pingpong"}
+        %div.navbar-right
           %ul.nav.nav-pills
             %li
-              %a{:href => "/"} Home
-            %li
-              %a{:href => "/check/new"} New Check
+              %a.btn-lg{:href => "/check/new"}
+                %span.glyphicon.glyphicon-plus{:aria => {:hidden => "true"}}
+                Add new
 
     - if @notice
       %div{:class => "alert alert-info", :role => "alert"}
@@ -74,7 +76,7 @@
 :javascript
   $(document).ready(function() {
     Keen.ready(function() {
-      $.each($(".extraction-container"), function(key, value) {
+      $.each($(".extraction-container").last(), function(key, value) {
         var name = $(this).data("name");
 
         var query = new Keen.Query("extraction", {
@@ -85,11 +87,28 @@
         });
 
         client.run(query, function(response) {
-          $(value).css("font-family", "monospace");
-          $(value).css("white-space", "pre");
+          console.log(response);
+          
+          $.each(response.result, function(i, check) {
+            var checkHTML = '<div class="panel panel-default">'
+                + '<div class="panel-heading" role="tab" id="heading' + i +'">'
+                  + '<h3 class="panel-title">'
+                    + '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'" aria-expanded="true" aria-controls="collapse' + i +'">'
+                      + check.request.sent_at
+                    + '</a>'
+                  + '</h3>'
+                + '</div>'
+                + '<div id="collapse' + i +'" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading' + i +'">'
+                  + '<div class="panel-body">'
+                    + 'Status: ' + check.response.http_status + '<br/>'
+                    + 'Timed out: ' + check.response.timed_out
+                  + '</div>'
+                + '</div>'
+              + '</div>';
+            $(".extraction-container").append(checkHTML);
+          });
+          
 
-          $("#extraction-src").text(JSON.stringify(response.result));
-          $(value).jsonFormat("#extraction-src");
         });
       });
 
