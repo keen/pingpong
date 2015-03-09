@@ -35,8 +35,8 @@
       }
 
   %body
-    %div.navbar.navbar-inverse.navbar-fixed-top{ :role => "navigation" }
-      %div.container-fluid
+    %div.navbar.navbar-fixed-top{ :role => "navigation" }
+      %div.container
         %div.navbar-header
           .logo-container
             .nav-logo
@@ -45,9 +45,8 @@
         %div.navbar-right
           %ul.nav.nav-pills
             %li
-              %a.btn-lg{:href => "/check/new"}
-                %span.glyphicon.glyphicon-plus{:aria => {:hidden => "true"}}
-                Add new
+              %a.btn.btn-lg{:href => "/check/new"}
+                + Add new
 
     - if @notice
       %div{:class => "alert alert-info", :role => "alert"}
@@ -58,6 +57,11 @@
 
     .container
       = yield
+      
+    %hr
+    %p.small.text-muted
+      Built with &hearts; by
+      %a{:href => "https://keen.io"} Keen IO
 
     %script(src="/queries.js")
     :javascript
@@ -90,6 +94,10 @@
           console.log(response);
           
           $.each(response.result, function(i, check) {
+            var expanded = '';
+            if (i === 0) {
+              expanded = 'in';
+            }
             var checkHTML = '<div class="panel panel-default">'
                 + '<div class="panel-heading" role="tab" id="heading' + i +'">'
                   + '<h3 class="panel-title">'
@@ -98,17 +106,33 @@
                     + '</a>'
                   + '</h3>'
                 + '</div>'
-                + '<div id="collapse' + i +'" class="panel-collapse collapse in" role="tabpanel" aria-labelledby="heading' + i +'">'
-                  + '<div class="panel-body">'
-                    + 'Status: ' + check.response.http_status + '<br/>'
-                    + 'Timed out: ' + check.response.timed_out
+                + '<div id="collapse' + i +'" class="panel-collapse collapse ' + expanded + '" role="tabpanel" aria-labelledby="heading' + i +'">'
+                  + '<div class="panel-body">';
+                  
+            for (var key in check) {
+              checkHTML = checkHTML + '<div class="row">'
+                + '<div class="col-md-12 json-header">'
+                  + key + ':'
+                + '</div>'
+              + '</div>';
+              for (var key2 in check[key]) {
+                checkHTML = checkHTML + '<div class="row">'
+                  + '<div class="col-xs-3 json-key">'
+                    + key2
                   + '</div>'
+                  + '<div class="col-xs-9 json-value">'
+                    + check[key][key2]
+                  + '</div>'
+                + '</div>';
+              }
+            }
+            
+            checkHTML = checkHTML + '</div>'
                 + '</div>'
               + '</div>';
             $(".extraction-container").append(checkHTML);
           });
           
-
         });
       });
 
