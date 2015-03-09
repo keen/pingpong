@@ -210,6 +210,10 @@ a.block-link:hover {
   background-image: url('pencil-icon.png');
 }
 
+.extraction-container {
+  margin-top: 10px;
+}
+
 .status-icon {
   display: inline-block;
   width: 28px;
