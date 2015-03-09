@@ -79,7 +79,14 @@
 
 :javascript
   $(document).ready(function() {
+    var keenReadyFired = false;
     Keen.ready(function() {
+      //Prevent this from executing twice
+      if (keenReadyFired) {
+        return;
+      }
+      keenReadyFired = true;
+      
       $.each($(".extraction-container").last(), function(key, value) {
         var name = $(this).data("name");
 
@@ -91,8 +98,6 @@
         });
 
         client.run(query, function(response) {
-          console.log(response);
-          
           $.each(response.result, function(i, check) {
             var expanded = '';
             if (i === 0) {
