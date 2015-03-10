@@ -9,7 +9,7 @@
 }
 
 body {
-  padding-top: 115px;
+  /* padding-top: 115px; */
   font-family: 'GothamBook', sans-serif;
 }
 
@@ -52,21 +52,6 @@ h1, h2, h3, h4, h5, h6 {
   padding: 4px 10px;
 }
 
-.status-icon {
-  display: inline-block;
-  color: hsl(120, 90%, 35%);
-  font-size: 200%;
-  text-align: center;
-}
-
-.status-icon.warning {
-  color: hsl(60, 100%, 40%);
-}
-
-.status-icon.error {
-  color: hsl(0, 90%, 50%);
-}
-
 .no-border {
   border: none;
 }
@@ -93,55 +78,6 @@ a.block-link {
 
 a.block-link:hover {
   text-decoration: none;
-}
-
-.Canvas
-{
-  font: 10pt Georgia;
-  background-color:#ECECEC;
-  color:#000000;
-  border:solid 1px #CECECE;
-}
-.ObjectBrace
-{
-  color:#00AA00;
-  font-weight:bold;
-}
-.ArrayBrace
-{
-  color:#0033FF;
-  font-weight:bold;
-}
-.PropertyName
-{
-  color:#CC0000;
-  font-weight:bold;
-}
-.String
-{
-  color:#007777;
-}
-.Number
-{
-  color:#AA00AA;
-}
-.Boolean
-{
-  color:#0000FF;
-}
-.Function
-{
-  color:#AA6633;
-  text-decoration:italic;
-}
-.Null
-{
-  color:#0000FF;
-}
-.Comma
-{
-  color:#000000;
-  font-weight:bold;
 }
 
 .json-header {
@@ -172,7 +108,7 @@ a.block-link:hover {
 .navbar {
   height: 100px;
   overflow: visible;
-  background-color: #00AFD7;
+  background-color: #000000;
 }
 
 .navbar .container .row {
@@ -213,9 +149,10 @@ a.block-link:hover {
 
 .status-icon {
   display: inline-block;
-  width: 28px;
-  height: 28px;
+  width: 32px;
+  height: 32px;
   background-image: url('good-icon.png');
+  background-position: center;
   background-repeat: no-repeat;
   vertical-align: middle;
 }
@@ -226,6 +163,33 @@ a.block-link:hover {
 
 .status-icon.error {
   background-image: url('error-icon.png');
+}
+
+.status-circle {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  background-color: rgb(0, 165, 80);
+  border-radius: 50%;
+}
+
+.response-codes-header {
+  font-size: 125%;
+}
+
+.response-codes-container .row {
+  padding: 5px 0 5px 0;
+  border-style: solid;
+  border-color: rgb(232, 232, 232);
+  border-width: 0 0 1px 0;
+}
+
+.response-codes-container .row:first-of-type {
+  border-top-width: 1px;
+}
+
+.status-circle.error {
+  background-color: rgb(242, 86, 86);
 }
 
 #check-container h2 a {
@@ -247,6 +211,14 @@ footer {
   fill: #00AFD7 !important;
 }
 
+.lead-chart-container {
+  border-style: solid;
+  border-color: rgb(232, 232, 232);
+  border-width: 1px 0 1px 0;
+  padding: 30px;
+  background-color: rgb(247, 248, 248);
+}
+
 .lead-chart {
   height: 320px;
 }
@@ -264,6 +236,10 @@ a[data-toggle="collapse"] {
 a[data-toggle="collapse"]:hover {
   color: inherit;
   text-decoration: none;
+}
+
+#check_count {
+  width: 60px;
 }
 
 .compact h3, .compact .last-incident, .compact .details-btn, .compact .chart-container {
@@ -287,5 +263,11 @@ a[data-toggle="collapse"]:hover {
   
   .navbar-right {
     float: right!important;
+  }
+}
+
+@media (max-width: 991px) {
+  .chart-column {
+    padding-top: 30px;
   }
 }

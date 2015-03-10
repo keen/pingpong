@@ -83,7 +83,7 @@
             3/5/2015 at 2:30pm
           %button.btn.btn-default.details-btn
             Details
-      .col-md-5.col-xs-5
+      .col-md-5.col-xs-5.chart-column
         .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check.name, :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "180"}}.to_json}"}}
       .col-md-2.col-xs-2
         %a.btn.btn-default.pull-right{:href => "/check/#{check.id}/edit"}

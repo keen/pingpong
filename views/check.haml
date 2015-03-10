@@ -1,42 +1,39 @@
 :css
   .last-incident-container {
-    border: 1px solid hsl(0, 0%, 80%);
+    padding: 20px 25px;
+    border-top: 1px solid rgb(226, 228, 162);
+    background-color: rgb(250, 251, 218);
   }
-  .last-incident-container .incident-icon {
-    padding: 35px;
-    display: inline-block;
-    border-right: 1px solid hsl(0, 0%, 80%);
-  }
-  .last-incident-container .incident-text {
-    padding-left: 35px;
-    display: inline-block;
+  .detail-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(232, 232, 232);
+    margin-bottom: 15px;
   }
 
 .row
-  .col-md-6
+  .col-md-1.col-xs-1
+    %span.status-icon{:aria => {:hidden => "true"}}
+  .col-md-5.col-xs-5
     %h2
       = @check[:name]
-      %a.btn.btn-default{:href => "/check/#{@check[:id]}/edit"}
-        %span.icon.icon-pencil{:aria => {:hidden => "true"}}
-        Edit
     %h3= @check[:url]
     %p
       Frequency: 
       %span= @check[:frequency]
       minute
-  .col-md-6
-    .last-incident-container
-      .incident-icon
-        %span.status-icon{:aria => {:hidden => "true"}}
-      .incident-text
-        Last downtime:
-        <br/>
-        2:30pm on 3/5/2015
+  .col-md-4.col-xs-5.last-incident-container
+    Last downtime:
+    <br/>
+    2:30pm on 3/5/2015
+  .col-md-2.col-xs-2
+    %a.btn.btn-default.pull-right{:href => "/check/#{@check[:id]}/edit"}
+      %span.icon.icon-pencil{:aria => {:hidden => "true"}}
+      Edit
 .row
-  .col-sm-12
+  .col-sm-12.lead-chart-container
     .chart-wrapper
       .chart-title
-        %strong Average response time for the last 48 hours
+        %h4 Average response time for the last 48 hours
       .lead-chart
         #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
 .row
@@ -46,7 +43,7 @@
         %h2
           Detail view
 .row
-  .col-md-5.col-xs-6
+  .col-md-4.col-xs-6
     %span
       Showing last
       %select{:id => "check_count", :name => "check_count"}
@@ -61,13 +58,45 @@
     %button.btn.btn-default.pull-right{:type => "button"}
       Export JSON
 .row
-  .col-md-9
+  .col-md-8
     .chart-stage
       #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10}}
         .panel-group#accordion{:role => "tablist", :aria => {:multiselectable => "true"}}
-  .col-md-3
+  .col-md-4
     .chart-wrapper
-      .chart-title
-        %strong Response Codes
-      .chart-stage
-        #grid-1-2.chart-container{:data => {:querytype => "count", :charttype => "donut", :name => @check[:name], :groupby => "response.status", :timeframe => "last_48_hours", :chartoptions => "#{{}.to_json}"}}
+      .chart-title.response-codes-header
+        Response Codes
+      .chart-stage.response-codes-container
+        .row
+          .col-md-1.col-xs-1
+            %span.status-circle
+          .col-md-8.col-xs-8
+            %span.lead
+              200
+            <br/>
+            Successful
+          .col-md-3.col-xs-3
+            %span.lead
+              98%
+        .row
+          .col-md-1.col-xs-1
+            %span.status-circle.error
+          .col-md-8.col-xs-8
+            %span.lead
+              500
+            <br/>
+            Internal Server Error
+          .col-md-3.col-xs-3
+            %span.lead
+              1.8%
+        .row
+          .col-md-1.col-xs-1
+            %span.status-circle.error
+          .col-md-8.col-xs-8
+            %span.lead
+              404
+            <br/>
+            Not Found
+          .col-md-3.col-xs-3
+            %span.lead
+              0.2%
