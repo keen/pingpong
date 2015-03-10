@@ -12,49 +12,62 @@
     display: inline-block;
   }
 
-.container
-  .row
-    .col-md-6
-      %h2= @check[:name]
-      %h3= @check[:url]
-      %p
-        Frequency: 
-        %span= @check[:frequency]
-        minute
-        / TODO: Make conditional plural
-    .col-md-6
-      .last-incident-container
-        .incident-icon
-          %span.status-icon{:aria => {:hidden => "true"}}
-        .incident-text
-          Last downtime:
-          <br/>
-          2:30pm on 3/5/2015
-  .row
-    .col-sm-12
-      .chart-wrapper
-        .chart-title
-          %strong Average response time for the last 48 hours
-        .chart-stage
-          #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
-  .row
-    .col-md-12
-      .chart-wrapper
-        .chart-title
-          %h2
-            Detail view
-  .row
-    .col-md-10.col-xs-10
-      %span
-        Showing last
-        %select{:id => "check_count", :name => "check_count"}
-          %option{:value => "10"}
-            10
-        checks
-    .col-md-2.col-xs-2
-      %button.btn.btn-default{:type => "button"}
-        Export JSON
-  .row
+.row
+  .col-md-6
+    %h2
+      = @check[:name]
+      %a.btn.btn-default{:href => "/check/#{@check[:id]}/edit"}
+        %span.icon.icon-pencil{:aria => {:hidden => "true"}}
+        Edit
+    %h3= @check[:url]
+    %p
+      Frequency: 
+      %span= @check[:frequency]
+      minute
+  .col-md-6
+    .last-incident-container
+      .incident-icon
+        %span.status-icon{:aria => {:hidden => "true"}}
+      .incident-text
+        Last downtime:
+        <br/>
+        2:30pm on 3/5/2015
+.row
+  .col-sm-12
+    .chart-wrapper
+      .chart-title
+        %strong Average response time for the last 48 hours
+      .lead-chart
+        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
+.row
+  .col-md-12
+    .chart-wrapper
+      .chart-title
+        %h2
+          Detail view
+.row
+  .col-md-5.col-xs-6
+    %span
+      Showing last
+      %select{:id => "check_count", :name => "check_count"}
+        %option{:value => "10"}
+          10
+        %option{:value => "25"}
+          25
+        %option{:value => "50"}
+          50
+      checks
+  .col-md-4.col-xs-6
+    %button.btn.btn-default.pull-right{:type => "button"}
+      Export JSON
+.row
+  .col-md-9
     .chart-stage
       #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10}}
         .panel-group#accordion{:role => "tablist", :aria => {:multiselectable => "true"}}
+  .col-md-3
+    .chart-wrapper
+      .chart-title
+        %strong Response Codes
+      .chart-stage
+        #grid-1-2.chart-container{:data => {:querytype => "count", :charttype => "donut", :name => @check[:name], :groupby => "response.status", :timeframe => "last_48_hours", :chartoptions => "#{{}.to_json}"}}
