@@ -243,8 +243,8 @@ footer {
 }
 
 .chart-container .c3-bar {
-  stroke: rgb(90, 200, 95) !important;
-  fill: rgb(90, 200, 95) !important;
+  stroke: #00AFD7 !important;
+  fill: #00AFD7 !important;
 }
 
 .lead-chart {
