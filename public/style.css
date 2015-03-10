@@ -1,20 +1,10 @@
-@font-face {
-    font-family: 'GothamBook';
-    src: url('/fonts/GothamBook.eot');
-    src: url('/fonts/GothamBook.eot') format('embedded-opentype'),
-         url('/fonts/GothamBook.woff2') format('woff2'),
-         url('/fonts/GothamBook.woff') format('woff'),
-         url('/fonts/GothamBook.ttf') format('truetype'),
-         url('/fonts/GothamBook.svg#GothamBook') format('svg');
+body {
+  font-family: 'Raleway', sans-serif;
 }
 
-body {
-  /* padding-top: 115px; */
-  font-family: 'GothamBook', sans-serif;
-}
 
 h1, h2, h3, h4, h5, h6 {
-  font-family: 'GothamBook', sans-serif;
+  font-family: 'Raleway', sans-serif;
 }
 
 .btn {
@@ -133,6 +123,7 @@ a.block-link:hover {
   height: 12px;
   background-repeat: no-repeat;
   background-size: 100% 100%;
+   vertical-align: middle;
 }
 
 .icon.icon-hamburger {
@@ -141,6 +132,12 @@ a.block-link:hover {
 
 .icon.icon-pencil {
   background-image: url('pencil-icon.png');
+}
+
+.icon.icon-left-arrow {
+  width: 8px;
+  height: 8px;
+  background-image: url('left-arrow-icon.png');
 }
 
 .extraction-container {
