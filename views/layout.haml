@@ -9,8 +9,9 @@
     %script(src="/jq-json-formatter.js")
     %script(src="/jqBootstrapValidation.js")
     %link(href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet")
-    %link(href="/style.css" rel="stylesheet")
     %link(href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.css" rel="stylesheet")
+    %link(href="http://fonts.googleapis.com/css?family=Raleway" rel="stylesheet" type="text/css")
+    %link(href="/style.css" rel="stylesheet")
     :javascript
       !function(a,b){a("Keen","https://d26b395fwzu5fz.cloudfront.net/3.1.0/keen.min.js",b)}(function(a,b,c){var d,e,f;c["_"+a]={},c[a]=function(b){c["_"+a].clients=c["_"+a].clients||{},c["_"+a].clients[b.projectId]=this,this._config=b},c[a].ready=function(b){c["_"+a].ready=c["_"+a].ready||[],c["_"+a].ready.push(b)},d=["addEvent","setGlobalProperties","trackExternalLink","on"];for(var g=0;g<d.length;g++){var h=d[g],i=function(a){return function(){return this["_"+a]=this["_"+a]||[],this["_"+a].push(arguments),this}};c[a].prototype[h]=i(h)}e=document.createElement("script"),e.async=!0,e.src=b,f=document.getElementsByTagName("script")[0],f.parentNode.insertBefore(e,f)},this);
 
@@ -35,18 +36,24 @@
         console.log("Keen IO environment variables are not set. Queries will not be run.");
       }
 
-  %body{:style => "padding-top: 68px;"}
-    %div.navbar.navbar-inverse.navbar-fixed-top{ :role => "navigation" }
-      %div.container-fluid
-        %div.navbar-header
-          .logo-container
-            .nav-logo Pingpong
-        %div.navbar-right{:style => "padding-top: 5px;padding-right: 5px;"}
-          %ul.nav.nav-pills
-            %li
-              %a{:href => "/"} Home
-            %li
-              %a{:href => "/check/new"} New Check
+  %body
+    %div.navbar{ :role => "navigation" }
+      %div.container
+        .row
+          .col-md-8.col-xs-8
+            %div.navbar-header
+              .logo-container
+                .nav-logo
+                  %a{:href => "/"}
+                    %img{:src => "/logo.png", :alt => "Pingpong"}
+          .col-md-4.col-xs-4
+            %div.navbar-right
+              %ul.nav.nav-pills
+                %li
+                  %a.btn.btn-lg{:href => "/check/new"}
+                    +
+                    %span.no-mobile
+                      Add new
 
     - if @notice
       %div{:class => "alert alert-info", :role => "alert"}
@@ -57,6 +64,11 @@
 
     .container
       = yield
+    
+    %footer
+      %p.small.text-muted
+        Built with &hearts; by
+        %a{:href => "https://keen.io"} Keen IO
 
     %script(src="/queries.js")
     :javascript
@@ -77,8 +89,15 @@
     // This handles form validation
     $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 
+    var keenReadyFired = false;
     Keen.ready(function() {
-      $.each($(".extraction-container"), function(key, value) {
+      //Prevent this from executing twice
+      if (keenReadyFired) {
+        return;
+      }
+      keenReadyFired = true;
+      
+      $.each($(".extraction-container").last(), function(key, value) {
         var name = $(this).data("name");
 
         var query = new Keen.Query("extraction", {
@@ -89,11 +108,46 @@
         });
 
         client.run(query, function(response) {
-          $(value).css("font-family", "monospace");
-          $(value).css("white-space", "pre");
-
-          $("#extraction-src").text(JSON.stringify(response.result));
-          $(value).jsonFormat("#extraction-src");
+          $.each(response.result, function(i, check) {
+            var expanded = '';
+            if (i === 0) {
+              expanded = 'in';
+            }
+            var checkHTML = '<div class="panel panel-default">'
+                + '<div class="panel-heading" role="tab" id="heading' + i +'">'
+                  + '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'" aria-expanded="true" aria-controls="collapse' + i +'">'
+                    + '<h3 class="panel-title">'
+                      + '<span class="status-icon" aria-hidden="true"></span>' + check.request.sent_at
+                    + '</h3>'
+                  + '</a>'
+                + '</div>'
+                + '<div id="collapse' + i +'" class="panel-collapse collapse ' + expanded + '" role="tabpanel" aria-labelledby="heading' + i +'">'
+                  + '<div class="panel-body">';
+                  
+            for (var key in check) {
+              checkHTML = checkHTML + '<div class="row">'
+                + '<div class="col-md-12 json-header">'
+                  + key + ':'
+                + '</div>'
+              + '</div>';
+              for (var key2 in check[key]) {
+                checkHTML = checkHTML + '<div class="row">'
+                  + '<div class="col-xs-4 json-key">'
+                    + key2
+                  + '</div>'
+                  + '<div class="col-xs-8 json-value">'
+                    + check[key][key2]
+                  + '</div>'
+                + '</div>';
+              }
+            }
+            
+            checkHTML = checkHTML + '</div>'
+                + '</div>'
+              + '</div>';
+            $(".extraction-container").append(checkHTML);
+          });
+          
         });
       });
 
@@ -122,5 +176,14 @@
           chartOptions: chartOptions
         });
       });
+    });
+    
+    $('#toggle-compact').click(function() {
+      var body = $('body');
+      if (!$(body).hasClass('compact')) {
+        $(body).addClass('compact');
+      } else {
+        $(body).removeClass('compact');
+      }
     });
   });
