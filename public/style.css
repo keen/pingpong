@@ -141,7 +141,8 @@ a.block-link:hover {
 }
 
 .extraction-container {
-  margin-top: 10px;
+  border-top: 1px solid #DDDDDD;
+  margin-top: 15px;
 }
 
 .status-icon {
@@ -181,7 +182,7 @@ a.block-link:hover {
   border-width: 0 0 1px 0;
 }
 
-.response-codes-container .row:first-of-type {
+.response-codes-container .row:nth-child(2) {
   border-top-width: 1px;
 }
 
@@ -221,13 +222,25 @@ footer {
 }
 
 .panel-heading .status-icon {
-  margin-right: 10px;
+  margin-right: 28px;
 }
 
 a[data-toggle="collapse"] {
   color: inherit;
   display: block;
   text-decoration: none;
+  padding: 20px 20px;
+  background-image: url('expanded-icon.png');
+  background-repeat: no-repeat;
+  background-position: 96% center;
+}
+
+a[data-toggle="collapse"]:not(.collapsed) {
+  background-color: #F5F5F5;
+}
+
+a[data-toggle="collapse"].collapsed {
+  background-image: url('collapsed-icon.png');
 }
 
 a[data-toggle="collapse"]:hover {
@@ -266,5 +279,9 @@ a[data-toggle="collapse"]:hover {
 @media (max-width: 991px) {
   .chart-column {
     padding-top: 30px;
+  }
+  
+  .response-codes-container .row:nth-child(2) {
+    border-top-width: 0;
   }
 }

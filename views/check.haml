@@ -28,6 +28,41 @@
     margin-bottom: 5px;
     padding-left: 0;
   }
+  .response-codes-container {
+    margin-top: 15px;
+  }
+  .response-codes-container .row {
+    padding: 0;
+  }
+  .response-codes-container .col-md-1, .response-codes-container .col-md-6, .response-codes-container .col-md-5 {
+    padding: 2px;
+  }
+  .response-codes-container .col-md-1 {
+    padding: 15px 15px 15px 10px;
+  }
+  .response-codes-container .row .col-md-5 {
+    padding: 10px 15px;
+    text-align: center;
+    background-color: #F7F8F8;
+    font-weight: 500 !important;
+    font-size: 200%;
+  }
+  
+  
+  .padding-top {
+    padding-top: 35px;
+  }
+  .panel {
+    border-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    margin-bottom: 0;
+    border-width: 0;
+  }
+  .panel-default>.panel-heading{
+    background-color: #FFFFFF;
+    padding: 0;
+  }
 
 .row.check-list-header
   .col-md-9.col-xs-6.lead-btn-container
@@ -77,7 +112,7 @@
         %h4 Average response time for the last 48 hours
       .lead-chart
         #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
-.row
+.row.padding-top
   .col-md-12
     .chart-wrapper
       .chart-title
@@ -85,7 +120,7 @@
           Detail view
 .row
   .col-md-4.col-xs-6
-    %span
+    %span.lead
       Showing last
       %select{:id => "check_count", :name => "check_count"}
         %option{:value => "10"}
@@ -98,6 +133,10 @@
   .col-md-4.col-xs-6
     %button.btn.btn-default.pull-right{:type => "button"}
       Export JSON
+  .col-md-4.hidden-sm
+    .chart-title.response-codes-header
+      %span.lead
+        Response Codes
 .row
   .col-md-8
     .chart-stage
@@ -105,39 +144,40 @@
         .panel-group#accordion{:role => "tablist", :aria => {:multiselectable => "true"}}
   .col-md-4
     .chart-wrapper
-      .chart-title.response-codes-header
-        Response Codes
       .chart-stage.response-codes-container
+        .row.visible-sm.visible-xs
+          .col-md-12
+            Response Codes
         .row
           .col-md-1.col-xs-1
             %span.status-circle
-          .col-md-8.col-xs-8
+          .col-md-6.col-xs-6
             %span.lead
               200
             <br/>
             Successful
-          .col-md-3.col-xs-3
-            %span.lead
+          .col-md-5.col-xs-5
+            %span
               98%
         .row
           .col-md-1.col-xs-1
             %span.status-circle.error
-          .col-md-8.col-xs-8
+          .col-md-6.col-xs-6
             %span.lead
               500
             <br/>
             Internal Server Error
-          .col-md-3.col-xs-3
-            %span.lead
+          .col-md-5.col-xs-5
+            %span
               1.8%
         .row
           .col-md-1.col-xs-1
             %span.status-circle.error
-          .col-md-8.col-xs-8
+          .col-md-6.col-xs-6
             %span.lead
               404
             <br/>
             Not Found
-          .col-md-3.col-xs-3
-            %span.lead
+          .col-md-5.col-xs-5
+            %span
               0.2%
