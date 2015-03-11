@@ -16,6 +16,7 @@ class CreateChecksAndIncidents < ActiveRecord::Migration
       t.string :url
       t.integer :frequency
       t.string :method
+      t.text :headers
       t.text :data
       t.boolean :save_body
       t.string :http_username

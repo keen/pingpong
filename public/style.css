@@ -155,6 +155,10 @@ a.block-link:hover {
   vertical-align: middle;
 }
 
+p.help-block ul li {
+  color: #f33;
+}
+
 .status-icon.warning {
   background-image: url('warning-icon.png');
 }

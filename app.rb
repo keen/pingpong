@@ -40,7 +40,6 @@ end
 post '/check/create' do
   check = Check.new
   update_check(check, params)
-  puts(check.inspect)
 
   if check.save
     flash[:notice] = "Created a new check: #{params[:name]}"

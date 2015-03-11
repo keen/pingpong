@@ -7,6 +7,7 @@
     %script(src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.js")
     %script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js")
     %script(src="/jq-json-formatter.js")
+    %script(src="/jqBootstrapValidation.js")
     %link(href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet")
     %link(href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.css" rel="stylesheet")
     %link(href="http://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet" type="text/css")
@@ -85,6 +86,9 @@
 
 :javascript
   $(document).ready(function() {
+    // This handles form validation
+    $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
+
     var keenReadyFired = false;
     Keen.ready(function() {
       //Prevent this from executing twice

@@ -70,7 +70,7 @@
   - @checks.each do |check|
     .row
       .col-md-1.col-xs-1
-        %span.status-icon{:aria => {:hidden => "true"}}
+        %span{:class => "status-icon#{check.status_icon_css_text}", :aria => {:hidden => "true"}}
       .col-md-4.col-xs-4
         %a.block-link{:href => "/check/#{check.id}/show"}
           %h2
