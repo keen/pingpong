@@ -80,6 +80,18 @@ class Check < ActiveRecord::Base
     not self.incidents.empty? and self.incidents.last.is_bad?
   end
 
+  def status_icon_css_text
+    text = ""
+
+    if is_warn?
+      text = " warning"
+    elsif is_bad?
+      text = " error"
+    end
+
+    text
+  end
+
   private
   def check_for_response_time_incidents(response)
     issueFound = false

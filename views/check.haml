@@ -40,7 +40,7 @@
           Error
 .row
   .col-md-1.col-xs-1
-    %span.status-icon{:aria => {:hidden => "true"}}
+    %span{:class => "status-icon#{@check.status_icon_css_text}", :aria => {:hidden => "true"}}
   .col-md-5.col-xs-5
     %h2
       = @check[:name]
