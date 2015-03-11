@@ -24,4 +24,5 @@ group :development, :test do
   gem 'foreman'
   gem 'rspec'
   gem 'webmock'
+  gem 'factory_girl'
 end

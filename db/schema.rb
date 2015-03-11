@@ -11,13 +11,14 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20150212151545) do
+ActiveRecord::Schema.define(version: 20150213165611) do
 
   create_table "checks", force: true do |t|
     t.string   "name"
     t.string   "url"
     t.integer  "frequency"
     t.string   "method"
+    t.text     "headers"
     t.text     "data"
     t.boolean  "save_body"
     t.string   "http_username"
