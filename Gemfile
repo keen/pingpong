@@ -3,6 +3,7 @@ source 'http://rubygems.org'
 gem 'rake'
 gem 'thor'
 
+gem 'eventmachine', '1.0.4'
 gem 'sinatra'
 gem 'sinatra-reloader'
 gem 'sinatra-activerecord'
