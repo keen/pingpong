@@ -193,6 +193,10 @@ p.help-block ul li {
   background-color: rgb(242, 86, 86);
 }
 
+.status-circle.warning {
+  background-color: rgb(225, 231, 52);
+}
+
 #check-container h2 a {
   color: inherit;
 }
