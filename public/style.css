@@ -1,6 +1,6 @@
 /***** Layout markup *****/
 body {
-  font-family: 'Raleway', sans-serif;
+  font-family: Tahoma, Verdana, Segoe, sans-serif;
 }
 
 .navbar {
@@ -41,12 +41,12 @@ body {
 }
 
 footer {
-  padding: 15px;
+  padding: 40px 0 15px 0;
   text-align: center;
 }
 
 /***** Global styles *****/
-h1, h2, h3, h4, h5, h6 {
+h1, h2, h3, h4, h5, h6, .btn, .key-container, .lead, .json-header, .last-incident-container, .last-incident, .label, .response-codes-container .row .col-md-5 {
   font-family: 'Raleway', sans-serif;
 }
 
@@ -271,6 +271,11 @@ a.block-link:hover {
 
 .compact h3, .compact .last-incident, .compact .details-btn, .compact .chart-container {
   display: none;
+}
+
+.compact .row {
+  padding-top: 20px;
+  padding-bottom: 10px;
 }
 
 /***** Mobile styles *****/
