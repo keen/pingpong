@@ -7,6 +7,7 @@ body {
   height: 100px;
   background-color: #333333;
   overflow: visible;
+  border-radius: 0;
 }
 
 .navbar .container .row {
@@ -209,6 +210,7 @@ a.block-link:hover {
 
 .extraction-container a[data-toggle="collapse"]:not(.collapsed) {
   background-color: #F5F5F5;
+  background-position: 97% center;
 }
 
 .extraction-container a[data-toggle="collapse"].collapsed {
@@ -266,7 +268,8 @@ a.block-link:hover {
 }
 
 #check_count {
-  width: 60px;
+  display: inline-block;
+  width: 75px;
 }
 
 .compact h3, .compact .last-incident, .compact .details-btn, .compact .chart-container {
