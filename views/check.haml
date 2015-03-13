@@ -1,14 +1,8 @@
 :css
-  .key-container {
-    text-align: center;
-  }
-  .key-container .status-icon {
-    margin-left: 4px;
-  }
   .last-incident-container {
     padding: 20px 25px;
-    border-top: 1px solid rgb(226, 228, 162);
     background-color: rgb(250, 251, 218);
+    border-top: 1px solid rgb(226, 228, 162);
   }
   .detail-header {
     padding-bottom: 15px;
@@ -21,12 +15,6 @@
     padding-bottom: 15px;
     border-bottom: 1px solid hsl(0, 0%, 80%);
     margin-bottom: 35px;
-  }
-  .check-list-header .lead-btn-container {
-    position: absolute;
-    bottom: 0;
-    margin-bottom: 5px;
-    padding-left: 0;
   }
   .response-codes-container {
     margin-top: 15px;
@@ -42,24 +30,25 @@
   }
   .response-codes-container .row .col-md-5 {
     padding: 10px 15px;
-    text-align: center;
     background-color: #F7F8F8;
+    text-align: center;
     font-weight: 500 !important;
     font-size: 200%;
   }
-  
-  
   .padding-top {
     padding-top: 35px;
+  }
+  .no-left-margin {
+    margin-left: -30px;
   }
   .panel {
     border-radius: 0;
     border-left-width: 0;
     border-right-width: 0;
-    margin-bottom: 0;
     border-width: 0;
+    margin-bottom: 0;
   }
-  .panel-default>.panel-heading{
+  .panel-default>.panel-heading {
     background-color: #FFFFFF;
     padding: 0;
   }
@@ -89,7 +78,7 @@
 .row
   .col-md-1.col-xs-1
     %span{:class => "status-icon#{@check.status_icon_css_text}", :aria => {:hidden => "true"}}
-  .col-md-5.col-xs-5
+  .col-md-5.col-xs-5.no-left-margin
     %h2
       = @check[:name]
     %h3= @check[:url]
@@ -178,6 +167,6 @@
               404
             <br/>
             Not Found
-          .col-md-3.col-xs-3
-            %span.lead
+          .col-md-5.col-xs-5
+            %span
               0.2%
