@@ -1,4 +1,12 @@
-.container
-  %h2 Create a New Check
-  %form#new_check{:method => 'post', :action => '/check/create'}
-    = haml :_check_form_fields
+.row.header-row
+  .col-md-9.col-xs-6.lead-btn-container
+    %a.btn.btn-default.btn-lg.no-border{:href => "/"}
+      %span.icon.icon-left-arrow{:aria => {:hidden => "true"}}
+      Return to listing
+.row
+  .col-md-12
+    %h2 Create a New Check
+.row
+  .col-md-12
+    %form#new_check{:method => 'post', :action => '/check/create'}
+      = haml :_check_form_fields
