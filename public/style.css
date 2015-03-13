@@ -25,6 +25,10 @@ body {
   color: #333333;
 }
 
+.nav-pills>li>a {
+  border-radius: 0;
+}
+
 #btn-add-new {
   margin-top: 7px;
 }
@@ -58,6 +62,7 @@ h3 {
 
 .btn {
   text-transform: uppercase;
+  border-radius: 3px !important;
 }
 
 .no-border {
