@@ -307,4 +307,8 @@ a.block-link:hover {
   .response-codes-container .row:nth-child(2) {
     border-top-width: 0;
   }
+  
+  .no-left-margin {
+    margin-left: 0 !important;
+  }
 }
