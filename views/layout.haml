@@ -109,21 +109,15 @@
 
         client.run(query, function(response) {
           $.each(response.result, function(i, check) {
-            var collapseIn = '';
-            var collapsed = 'collapsed';
-            if (i === 0) {
-              collapseIn = 'in';
-              collapsed = '';
-            }
             var checkHTML = '<div class="panel panel-default">'
                 + '<div class="panel-heading" role="tab" id="heading' + i +'">'
-                  + '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'" aria-expanded="true" aria-controls="collapse' + i +'" class="' + collapsed + '">'
+                  + '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'" aria-expanded="true" aria-controls="collapse' + i +'" class="collapsed">'
                     + '<h3 class="panel-title">'
                       + '<span class="status-icon" aria-hidden="true"></span>' + check.request.sent_at
                     + '</h3>'
                   + '</a>'
                 + '</div>'
-                + '<div id="collapse' + i +'" class="panel-collapse collapse ' + collapseIn + '" role="tabpanel" aria-labelledby="heading' + i +'">'
+                + '<div id="collapse' + i +'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i +'">'
                   + '<div class="panel-body">';
                   
             for (var key in check) {
