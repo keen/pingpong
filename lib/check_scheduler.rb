@@ -39,7 +39,7 @@ class CheckScheduler
         end
       rescue => e
         config.logger.error("CheckRunningFailed for #{check.name}")
-        config.logger.error(e)
+        config.logger.error(e.inspect)
       end
     end
 

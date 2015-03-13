@@ -73,7 +73,7 @@
       .chart-title
         %h4 Average response time for the last 48 hours
       .lead-chart
-        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
+        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {type: 'timeseries', tick: {format: '%H:%M'}}}}.to_json}"}}
 .row
   .col-md-12
     .chart-wrapper
@@ -134,7 +134,6 @@
             responseCodes[value["response.status"]] = value.result;
           });
 
-          console.log(responseCodes);
           var keys = Object.keys(responseCodes).sort();
           var keyLength = keys.length
           var elem = $("#response-codes");
