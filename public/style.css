@@ -46,7 +46,7 @@ footer {
 }
 
 /***** Global styles *****/
-h1, h2, h3, h4, h5, h6, .btn, .key-container, .lead, .json-header, .last-incident-container, .last-incident, .label, .response-codes-container .row .col-md-5 {
+h1, h2, h3, h4, h5, h6, .btn, .key-container, .lead, .json-header, .last-incident-container, .last-incident, .label, .response-codes-container .row div:nth-child(3) {
   font-family: 'Raleway', sans-serif;
 }
 
