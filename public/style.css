@@ -69,6 +69,14 @@ h3 {
   border: none;
 }
 
+.header-row {
+  position: relative;
+  padding-top: 35px;
+  padding-bottom: 15px;
+  border-bottom: 1px solid hsl(0, 0%, 80%);
+  margin-bottom: 35px;
+}
+
 .key-container {
   text-align: center;
 }
@@ -76,7 +84,7 @@ h3 {
   margin-left: 4px;
 }
 
-.check-list-header .lead-btn-container {
+.header-row .lead-btn-container, .check-list-header .lead-btn-container {
   position: absolute;
   bottom: 0;
   margin-bottom: 5px;
@@ -87,6 +95,11 @@ h3 {
   padding: 0 !important;
   border: none !important;
   margin: 0 !important;
+}
+
+.bottom-row {
+  padding-bottom: 35px;
+  border-bottom: 1px solid hsl(0, 0%, 80%);
 }
 
 .icon {
