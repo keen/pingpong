@@ -70,19 +70,6 @@
         Built with &hearts; by
         %a{:href => "https://keen.io"} Keen IO
 
-    :javascript
-      // retain tab position on reload
-      $(function(){
-        var hash = window.location.hash;
-        hash && $('ul.nav a[href="' + hash + '"]').tab('show');
-        $('.nav-pills a').click(function (e) {
-          $(this).tab('show');
-          var scrollmem = $('body').scrollTop();
-          window.location.hash = this.hash;
-          $('html,body').scrollTop(scrollmem);
-        });
-      });
-
 :javascript
   $(document).ready(function() {
     // This handles form validation

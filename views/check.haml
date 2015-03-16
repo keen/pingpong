@@ -103,7 +103,7 @@
       .chart-title
         %h4 Average response time for the last 48 hours
       .lead-chart
-        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {type: 'timeseries', tick: {format: '%H:%M'}}}}.to_json}"}}
+        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {type: 'timeseries', tick: {format: '%b %d %H:%M'}}}}.to_json}"}}
 .row.padding-top
   .col-md-12
     .chart-wrapper
@@ -123,7 +123,7 @@
           50
       checks
   .col-md-4.col-xs-6
-    %button.btn.btn-default.pull-right{:type => "button"}
+    %button#export_btn.btn.btn-default.pull-right{:type => "button", :disabled => true}
       Export JSON
   .col-md-4.hidden-sm
     .chart-title.response-codes-header
@@ -141,6 +141,13 @@
 :javascript
   $(document).ready(function() {
     Keen.ready(function() {
+      $("#export_btn").removeAttr('disabled');
+      $("#export_btn").click(function() {
+        var latest = $("#check_count").val();
+        var url = "https://api.keen.io/3.0/projects/#{@config.properties[:keen][:project_id]}/queries/extraction?api_key=#{@config.properties[:keen][:read_key]}&event_collection=" + Pingpong.collection + "&filters%5B%5D%5Boperator%5D=eq&filters%5B%5D%5Bproperty_name%5D=check.name&filters%5B%5D%5Bproperty_value%5D=Testing&latest=" + String(latest) + "&timeframe=this_30_minutes&timezone=-25200"
+        window.location = url;
+      });
+
       var name = "#{@check.name}";
 
       var code_count = new Keen.Query("count", {
