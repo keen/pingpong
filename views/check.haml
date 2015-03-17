@@ -141,6 +141,22 @@
 :javascript
   $(document).ready(function() {
     Keen.ready(function() {
+      $("#check_count").change(function() {
+        var name = $("#checks-extraction").data("name");
+
+        var query = new Keen.Query("extraction", {
+          eventCollection: Pingpong.collection,
+          timeframe: $("#checks-extraction").data("timeframe"),
+          latest: $("#check_count").val(),
+          filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
+        });
+
+        client.run(query, function(err, response) {
+          var check = new Check($(".extraction-container"), response.result);
+          check.createHtml();
+        });
+      });
+
       $("#export_btn").removeAttr('disabled');
       $("#export_btn").click(function() {
         var latest = $("#check_count").val();

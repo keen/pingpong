@@ -8,6 +8,7 @@
     %script(src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.3/d3.min.js")
     %script(src="/jq-json-formatter.js")
     %script(src="/jqBootstrapValidation.js")
+    %script(src="/checks.js")
     %link(href="https://netdna.bootstrapcdn.com/bootstrap/3.0.0/css/bootstrap.min.css" rel="stylesheet")
     %link(href="https://cdnjs.cloudflare.com/ajax/libs/c3/0.4.8/c3.min.css" rel="stylesheet")
     %link(href="http://fonts.googleapis.com/css?family=Raleway:400,500" rel="stylesheet" type="text/css")
@@ -94,42 +95,8 @@
         });
 
         client.run(query, function(err, response) {
-          $.each(response.result, function(i, check) {
-            var checkHTML = '<div class="panel panel-default">'
-                + '<div class="panel-heading" role="tab" id="heading' + i +'">'
-                  + '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'" aria-expanded="true" aria-controls="collapse' + i +'" class="collapsed">'
-                    + '<h3 class="panel-title">'
-                      + '<span class="status-icon" aria-hidden="true"></span>' + check.request.sent_at
-                    + '</h3>'
-                  + '</a>'
-                + '</div>'
-                + '<div id="collapse' + i +'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i +'">'
-                  + '<div class="panel-body">';
-                  
-            for (var key in check) {
-              checkHTML = checkHTML + '<div class="row">'
-                + '<div class="col-md-12 json-header">'
-                  + key + ':'
-                + '</div>'
-              + '</div>';
-              for (var key2 in check[key]) {
-                checkHTML = checkHTML + '<div class="row">'
-                  + '<div class="col-xs-4 json-key">'
-                    + key2
-                  + '</div>'
-                  + '<div class="col-xs-8 json-value">'
-                    + check[key][key2]
-                  + '</div>'
-                + '</div>';
-              }
-            }
-            
-            checkHTML = checkHTML + '</div>'
-                + '</div>'
-              + '</div>';
-            $(".extraction-container").append(checkHTML);
-          });
-          
+          var check = new Check($(".extraction-container"), response.result);
+          check.createHtml();
         });
       });
 
