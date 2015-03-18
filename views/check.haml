@@ -68,6 +68,26 @@
         <br/>
         .span
           Error
+
+.modal.fade#incidents_modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{:type => "button", :aria => {:hidden => "true"}, :data => {:dismiss => "modal"}}
+          &times;
+        %h4.modal-title Incident History
+      .modal-body
+        - Incident.most_recent_for_check(@check, 5).each do |incident|
+          .panel{:class => "#{incident.is_warn? ? " panel-warning" : incident.is_bad? ? " panel-danger" : " panel-success"}"}
+            .panel-heading
+              .panel-title
+                Issue @
+                = incident.created_at.strftime("%l:%M%P on %Y-%-m-%-d")
+            .panel-body
+              = incident.info
+      .modal-footer
+        %button.btn.btn-default{:data => {:dismiss => "modal"}} Close
+
 .row
   .col-md-1.col-xs-1
     %span{:class => "status-icon#{@check.status_icon_css_text}", :aria => {:hidden => "true"}}
@@ -93,6 +113,8 @@
         Back to Normal:
       %br
       = @check.incidents.last.created_at.strftime("%l:%M%P on %Y-%-m-%-d")
+      %br
+      %a{:href => "#incidents_modal", :id => "incident_report", :data => {:toggle => "modal"}} Incident History
   .col-md-2.col-xs-2
     %a.btn.btn-default.pull-right{:href => "/check/#{@check[:id]}/edit"}
       %span.icon.icon-pencil{:aria => {:hidden => "true"}}
@@ -142,12 +164,15 @@
   $(document).ready(function() {
     Keen.ready(function() {
       $("#check_count").change(function() {
+        var latest = $("#check_count").val();
         var name = $("#checks-extraction").data("name");
+        // Make sure the timeframe has enough data points to pull
+        var timeframe = "this_" + String(latest * #{@check[:frequency]}) + "_minutes"
 
         var query = new Keen.Query("extraction", {
           eventCollection: Pingpong.collection,
-          timeframe: $("#checks-extraction").data("timeframe"),
-          latest: $("#check_count").val(),
+          timeframe: timeframe,
+          latest: latest,
           filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
         });
 
