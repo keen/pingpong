@@ -35,6 +35,10 @@ class Incident < ActiveRecord::Base
     self.incident_type == STATUS_BAD
   end
 
+  def status_icon_css_text
+    is_ok? ? "" : is_warn? ? " warning" : " error"
+  end
+
   private
   def self.createFromCheck(status, check, info, response)
     inc = Incident.new

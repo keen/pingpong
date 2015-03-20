@@ -95,7 +95,7 @@
         });
 
         client.run(query, function(err, response) {
-          var check = new Check($(".extraction-container"), response.result);
+          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD});
           check.createHtml();
         });
       });

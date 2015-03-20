@@ -75,16 +75,17 @@
       .modal-header
         %button.close{:type => "button", :aria => {:hidden => "true"}, :data => {:dismiss => "modal"}}
           &times;
-        %h4.modal-title Incident History
+        %h4.modal-title= "Incident History for #{@check.name}"
       .modal-body
-        - Incident.most_recent_for_check(@check, 5).each do |incident|
-          .panel{:class => "#{incident.is_warn? ? " panel-warning" : incident.is_bad? ? " panel-danger" : " panel-success"}"}
-            .panel-heading
-              .panel-title
-                Issue @
-                = incident.created_at.strftime("%l:%M%P on %Y-%-m-%-d")
-            .panel-body
-              = incident.info
+        .container
+          - Incident.most_recent_for_check(@check, 5).each do |incident|
+            .row
+              .col-md-2.col-xs-2
+                %span{:class => "status-icon#{incident.status_icon_css_text}", :aria => {:hidden => "true"}}
+              .col-md-4.col-xs-4
+                = incident.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
+              .col-md-6.col-xs-6
+                = incident.info
       .modal-footer
         %button.btn.btn-default{:data => {:dismiss => "modal"}} Close
 
@@ -112,7 +113,7 @@
       - else
         Back to Normal:
       %br
-      = @check.incidents.last.created_at.strftime("%l:%M%P on %Y-%-m-%-d")
+      = @check.incidents.last.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
       %br
       %a{:href => "#incidents_modal", :id => "incident_report", :data => {:toggle => "modal"}} Incident History
   .col-md-2.col-xs-2
@@ -177,7 +178,7 @@
         });
 
         client.run(query, function(err, response) {
-          var check = new Check($(".extraction-container"), response.result);
+          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD});
           check.createHtml();
         });
       });

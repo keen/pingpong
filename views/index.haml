@@ -74,7 +74,7 @@
               - else
                 Resolved On:
               %br
-              = check.incidents.last.created_at.strftime("%l:%M%P on %Y-%-m-%-d")
+              = check.incidents.last.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
           %button.btn.btn-default.details-btn
             Details
       .col-md-5.col-xs-5.chart-column
