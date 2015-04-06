@@ -7,6 +7,10 @@ class Incident < ActiveRecord::Base
   STATUS_WARN = 2
   STATUS_BAD = 3
 
+  scope :most_recent_for_check, ->(check, limit) {
+    where("check_id == ?", check.id).order('created_at desc').limit(limit)
+  }
+
   def self.create_bad_from_check(check, info, response)
     self.createFromCheck(STATUS_BAD, check, info, response)
   end
@@ -29,6 +33,10 @@ class Incident < ActiveRecord::Base
 
   def is_bad?
     self.incident_type == STATUS_BAD
+  end
+
+  def status_icon_css_text
+    is_ok? ? "" : is_warn? ? " warning" : " error"
   end
 
   private

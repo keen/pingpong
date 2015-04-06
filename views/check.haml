@@ -67,6 +67,27 @@
         <br/>
         .span
           Error
+
+.modal.fade#incidents_modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{:type => "button", :aria => {:hidden => "true"}, :data => {:dismiss => "modal"}}
+          &times;
+        %h4.modal-title= "Incident History for #{@check.name}"
+      .modal-body
+        .container
+          - Incident.most_recent_for_check(@check, 5).each do |incident|
+            .row
+              .col-md-2.col-xs-2
+                %span{:class => "status-icon#{incident.status_icon_css_text}", :aria => {:hidden => "true"}}
+              .col-md-4.col-xs-4
+                = incident.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
+              .col-md-6.col-xs-6
+                = incident.info
+      .modal-footer
+        %button.btn.btn-default{:data => {:dismiss => "modal"}} Close
+
 .row
   .col-md-1.col-xs-1
     %span{:class => "status-icon#{@check.status_icon_css_text}", :aria => {:hidden => "true"}}
@@ -78,10 +99,22 @@
       Frequency: 
       %span= @check[:frequency]
       minute
-  .col-md-4.col-xs-4.last-incident-container
-    Last downtime:
-    <br/>
-    2:30pm on 3/5/2015
+  - if !@check.incidents.empty?
+    .col-md-4.col-xs-5.last-incident-container
+      - if @check.is_warn?
+        Last Warning:
+        %br
+        = @check.incidents.last.info
+      - elsif @check.is_bad?
+        Last Error:
+        %br
+        = @check.incidents.last.info
+      - else
+        Back to Normal:
+      %br
+      = @check.incidents.last.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
+      %br
+      %a{:href => "#incidents_modal", :id => "incident_report", :data => {:toggle => "modal"}} Incident History
   .col-md-2.col-xs-2
     %a.btn.btn-default.pull-right{:href => "/check/#{@check[:id]}/edit"}
       %span.icon.icon-pencil{:aria => {:hidden => "true"}}
@@ -92,7 +125,7 @@
       .chart-title
         %h4 Average response time for the last 48 hours
       .lead-chart
-        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}}.to_json}"}}
+        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {type: 'timeseries', tick: {format: '%b %d %H:%M'}}}}.to_json}"}}
 .row.padding-top
   .col-md-12
     .chart-wrapper
@@ -112,7 +145,7 @@
           50
       checks
   .col-md-4.col-xs-6
-    %button.btn.btn-default.pull-right{:type => "button"}
+    %button#export_btn.btn.btn-default.pull-right{:type => "button", :disabled => true}
       Export JSON
   .col-md-4.hidden-sm
     .chart-title.response-codes-header
@@ -125,40 +158,96 @@
         .panel-group#accordion{:role => "tablist", :aria => {:multiselectable => "true"}}
   .col-md-4
     .chart-wrapper
-      .chart-stage.response-codes-container
-        .row.visible-sm.visible-xs
-          .col-md-12
-            Response Codes
-        .row
-          .col-md-1.col-xs-1
-            %span.status-circle
-          .col-md-6.col-xs-6
-            %span.lead
-              200
-            <br/>
-            Successful
-          .col-md-5.col-xs-5
-            %span
-              98%
-        .row
-          .col-md-1.col-xs-1
-            %span.status-circle.error
-          .col-md-6.col-xs-6
-            %span.lead
-              500
-            <br/>
-            Internal Server Error
-          .col-md-5.col-xs-5
-            %span
-              1.8%
-        .row
-          .col-md-1.col-xs-1
-            %span.status-circle.error
-          .col-md-6.col-xs-6
-            %span.lead
-              404
-            <br/>
-            Not Found
-          .col-md-5.col-xs-5
-            %span
-              0.2%
+      #response-codes.chart-stage.response-codes-container
+
+:javascript
+  $(document).ready(function() {
+    Keen.ready(function() {
+      $("#check_count").change(function() {
+        var latest = $("#check_count").val();
+        var name = $("#checks-extraction").data("name");
+        // Make sure the timeframe has enough data points to pull
+        var timeframe = "this_" + String(latest * #{@check[:frequency]}) + "_minutes"
+
+        var query = new Keen.Query("extraction", {
+          eventCollection: Pingpong.collection,
+          timeframe: timeframe,
+          latest: latest,
+          filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
+        });
+
+        client.run(query, function(err, response) {
+          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD});
+          check.createHtml();
+        });
+      });
+
+      $("#export_btn").removeAttr('disabled');
+      $("#export_btn").click(function() {
+        var latest = $("#check_count").val();
+        var url = "https://api.keen.io/3.0/projects/#{@config.properties[:keen][:project_id]}/queries/extraction?api_key=#{@config.properties[:keen][:read_key]}&event_collection=" + Pingpong.collection + "&filters%5B%5D%5Boperator%5D=eq&filters%5B%5D%5Bproperty_name%5D=check.name&filters%5B%5D%5Bproperty_value%5D=Testing&latest=" + String(latest) + "&timeframe=this_30_minutes&timezone=-25200"
+        window.location = url;
+      });
+
+      var name = "#{@check.name}";
+
+      var code_count = new Keen.Query("count", {
+        eventCollection: Pingpong.collection,
+        timeframe: "this_2_days",
+        targetProperty: "response.status",
+        groupBy: "response.status",
+        filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
+      });
+
+      // Lets build the response code table.
+      client.run(code_count, function(err, res) {
+        if (err) {
+          console.log("Error.");
+          console.log(err);
+        } else {
+          var codeMessages = {100: "Continue", 101: "Switching Protocols", 200: "OK", 201: "Created", 202: "Accepted", 203: "Non-Authoratative Information", 204: "No Content", 205: "Reset Content", 206: "Partial Content", 300: "Multiple Choices", 301: "Moved Permanently", 302: "Found", 303: "See Other", 304: "Not Modified", 305: "Use Proxy", 307: "Temporary Redirect", 400: "Bad Request", 401: "Unauthorized", 403: "Forbidden", 404: "Not Found", 405: "Method Not Allowed", 406: "Not Acceptable", 407: "Proxy Authentication Required", 408: "Request Timeout", 409: "Conflict", 410: "Gone", 500: "Internal Server Error", 501: "Not Implemented", 502: "Bad Gateway", 503: "Service Unavailable", 504: "Gateway Timeout"};
+          var totalResults = 0;
+          var responseCodes = {};
+
+          $.each(res.result, function(ndx, value) {
+            totalResults += value.result;
+            responseCodes[value["response.status"]] = value.result;
+          });
+
+          var keys = Object.keys(responseCodes).sort();
+          var keyLength = keys.length
+          var elem = $("#response-codes");
+
+          for (var ndx = 0; ndx < keyLength; ndx++) {
+            var circleText = "";
+
+            if (keys[ndx] >= 300 && keys[ndx] < 400) {
+              circleText = " warning";
+            } else if (keys[ndx] >= 400) {
+              circleText = " error";
+            }
+
+            var statusCircle = '<span class="status-circle' + circleText + '"></span>';
+            var row = '<div class="row">' +
+                        '<div class="col-md-1 col-xs-1">' +
+                        statusCircle +
+                        '</div>' +
+                        '<div class="col-md-8 col-xs-8">' +
+                          '<span class="lead">' +
+                          String(keys[ndx]) +
+                          '</span>' +
+                          '<br />' +
+                          codeMessages[keys[ndx]] +
+                        '</div>' +
+                        '<div class="col-md-1 col-xs-1">' +
+                          '<span class="lead">' +
+                          String(Math.round(parseFloat(parseFloat(responseCodes[keys[ndx]]) / parseFloat(totalResults) * 1000)) / 10) + "%" +
+                          '</span>' +
+                        '</div>';
+
+            elem.append(row);
+          }
+        }
+      });
+    });
+  });

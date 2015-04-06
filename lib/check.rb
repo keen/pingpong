@@ -19,8 +19,8 @@ class Check < ActiveRecord::Base
   MIN_CHECK_LENGTH = 5
 
   # TODO: make these configurable with defaults
-  MEAN_WARNING_THRESHOLD = 1.25
-  MEAN_TERRIBLE_THRESHOLD = 1.5
+  MEAN_WARN_THRESHOLD = 1.25
+  MEAN_BAD_THRESHOLD = 1.5
   STD_BAD_CUTOFF = 0.28
   STD_WARN_CUTOFF = 0.18
 
@@ -81,15 +81,8 @@ class Check < ActiveRecord::Base
   end
 
   def status_icon_css_text
-    text = ""
-
-    if is_warn?
-      text = " warning"
-    elsif is_bad?
-      text = " error"
-    end
-
-    text
+    return "" if self.incidents.empty?
+    return incidents.last.status_icon_css_text
   end
 
   private
@@ -108,10 +101,10 @@ class Check < ActiveRecord::Base
     oldTimesMean = allOldTimes.mean
 
     # compare the current time to the old mean
-    if self.response_times.last / oldTimesMean > MEAN_TERRIBLE_THRESHOLD
+    if self.response_times.last / oldTimesMean > MEAN_BAD_THRESHOLD
       create_bad("Response time was a lot higher than the mean.", response)
       issueFound = true
-    elsif self.response_times.last / oldTimesMean > MEAN_WARNING_THRESHOLD
+    elsif self.response_times.last / oldTimesMean > MEAN_WARN_THRESHOLD
       create_warn("Response time was higher than the mean.", response)
       issueFound = true
     end

@@ -65,10 +65,16 @@
             = check.name
           %h3
             = check.url
-          %p.last-incident
-            Last incident ended on:
-            <br/>
-            3/5/2015 at 2:30pm
+          - if !check.incidents.empty?
+            %p.last-incident
+              - if check.is_warn?
+                Warning On:
+              - elsif check.is_bad?
+                Error On:
+              - else
+                Resolved On:
+              %br
+              = check.incidents.last.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
           %button.btn.btn-default.details-btn
             Details
       .col-md-5.col-xs-5.chart-column
