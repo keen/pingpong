@@ -100,8 +100,8 @@
       Frequency: 
       %span= @check[:frequency]
       minute
-  - if !@check.incidents.empty?
-    .col-md-4.col-xs-5.last-incident-container
+  .col-md-4.col-xs-5.last-incident-container
+    - if !@check.incidents.empty?
       - if @check.is_warn?
         Last Warning:
         %br
