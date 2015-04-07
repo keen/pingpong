@@ -85,6 +85,11 @@ class Check < ActiveRecord::Base
     return incidents.last.status_icon_css_text
   end
 
+  def mean_time(ignore_recent=false)
+    allTimes = ignore_recent ? self.response_times : self.response_times.slice(0, 29)
+    allTimes.mean
+  end
+
   private
   def check_for_response_time_incidents(response)
     issueFound = false
