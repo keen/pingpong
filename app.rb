@@ -89,6 +89,7 @@ def update_check(check, params)
   check.save_body = params[:save_body] == 'true'
   check.http_username = params[:http_username]
   check.http_password = params[:http_password]
+  check.email_warn = params[:email_warn] == 'on'
 
   check
 end

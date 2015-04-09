@@ -34,6 +34,9 @@
       %label Http Password (optional)
       %input{:type => "text", :name => "http_password", :id => "http_password", :class => "form-control", :value => "#{@check.http_password if !@check.nil?}"}
   .col-md-6
+    .checkbox
+      %label
+        %input{:type => "checkbox", :name => "email_warn", :id => "email_warn", :checked => @check.try(:email_warn) ? @check.email_warn : false} Email about Warnings
     .form-group
       %label Custom Properties (JSON)
       %textarea{:name => "custom_properties", :id => "custom_properties", :class => "form-control", :rows => 6, :cols => 30}

@@ -24,8 +24,10 @@ class EnvironmentAwareCheckMarshaller
       # handle the incident checking stuff
       check.add_response_time(duration)
       check.add_response_code(response[:status])
-      check.check_for_incidents(response)
+      had_incident = check.check_for_incidents(response)
       check.save
+
+      properties[:had_incident] = had_incident
 
       properties
     end

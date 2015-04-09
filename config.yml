@@ -25,6 +25,11 @@ defaults: &defaults
   # by default a web worker will run pushpop jobs
   skip_pushpop: <%= ENV['SKIP_PUSHPOP'] %>
 
+  # be default don't send email
+  skip_email: <%= ENV['SKIP_EMAIL'] %>
+  to_email_address: <%= ENV['TO_EMAIL_ADDRESS'] %>
+  from_email_address: <%= ENV['FROM_EMAIL_ADDRESS'] %>
+
   # add http authentication
   http_username: <%= ENV['HTTP_USERNAME'] %>
   http_password: <%= ENV['HTTP_PASSWORD'] %>

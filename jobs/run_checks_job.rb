@@ -28,6 +28,8 @@ job do
   end
 
   step 'run checks' do |checks|
+    checks_with_incidents = []
+
     checks.each do |check|
       check_response = nil
 
@@ -37,6 +39,10 @@ job do
           check_response = response
           config.logger.info("CheckComplete, #{check.name}, #{duration}")
           config.logger.debug(response)
+
+          if check_response[:had_incident]
+            checks_with_incidents.push(check)
+          end
 
           begin
             config.check_logger.log(config,
@@ -51,6 +57,23 @@ job do
       rescue => e
         config.logger.info("Check running failed for #{check.name}.")
         config.logger.debug(check_response)
+      end
+    end
+
+    checks_with_incidents
+  end
+
+  step 'send emails' do |response, step_responses|
+    if !response.empty?
+      response.each do |check|
+        if (check.is_bad? && check.email_bad?) || (check.is_warn? && check.email_warn?)
+          # things here
+          incident = Incident.most_recent_for_check(check, 1).first
+          subject = incident.email_subject
+          message = incident.email_body
+
+          send_email(config.to_email_address, config.from_email_address, subject, message)
+        end
       end
     end
   end

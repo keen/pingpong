@@ -1,0 +1,36 @@
+{
+  "name": "Pingpong API Monitoring",
+  "description": "Get detailed information about your api end points and monitor their performance!",
+  "repository": "https://github.com/keen/pingpong",
+  "keywords": ["api", "monitoring", "keen io"],
+  "website": "https://github.com/keen/pingpong",
+  "addons": [
+    "heroku-postgresql",
+    "keen",
+    "sendgrid"
+  ],
+  "env": {
+    "TO_EMAIL_ADDRESS": {
+      "description": "The email address to send alerts to."
+    },
+    "FROM_EMAIL_ADDRESS": {
+      "description": "The from email address for alert emails."
+    },
+    "KEEN_COLLECTION": {
+      "description": "Name of the collection to store the checks in.",
+      "value": "checks",
+      "required": false
+    },
+    "HTTP_USERNAME": {
+      "description": "Optional: User name to access the site.",
+      "required": false
+    },
+    "HTTP_PASSWORD": {
+      "description": "Optional: Password to access the site.",
+      "required": false
+    }
+  },
+  "scripts": {
+    "postdeploy": "thor pingpong:setup"
+  },
+}

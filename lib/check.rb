@@ -6,6 +6,7 @@ class Check < ActiveRecord::Base
   serialize :headers, JSON
 
   store :incident_checking, accessors: [:response_times, :response_codes], coder: JSON
+  store :configurations, accessors: [:email_warn, :email_bad, :warn_thresh, :bad_thresh], coder: JSON
 
   validates :name, presence: true
   validates :url, presence: true
@@ -23,6 +24,8 @@ class Check < ActiveRecord::Base
   MEAN_BAD_THRESHOLD = 1.5
   STD_BAD_CUTOFF = 0.28
   STD_WARN_CUTOFF = 0.18
+
+  after_initialize :initialize_defaults, :if => :new_record?
 
   def post_must_have_data
     if self.method == "POST"
@@ -55,6 +58,8 @@ class Check < ActiveRecord::Base
     if !timeIncident && !codeIncident && ! self.is_ok?
       create_ok("Issue resolved.", response)
     end
+
+    timeIncident || codeIncident
   end
 
   def to_hash
@@ -181,5 +186,12 @@ class Check < ActiveRecord::Base
   def create_bad(message, response)
     return if last_incident_matches?(message)
     Incident.create_bad_from_check(self, message, response)
+  end
+
+  def initialize_defaults
+    self.email_warn = false
+    self.email_bad = true
+    self.warn_thresh = MEAN_WARN_THRESHOLD
+    self.bad_thresh = MEAN_BAD_THRESHOLD
   end
 end

@@ -16,7 +16,7 @@ gem 'keen'
 gem 'pushpop-keen'
 gem 'pushpop-sendgrid'
 
-gem 'sqlite3'
+gem 'pg'
 gem 'rack-flash3'
 
 gem 'dotenv'
