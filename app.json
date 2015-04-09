@@ -1,7 +1,7 @@
 {
   "name": "Pingpong API Monitoring",
   "description": "Get detailed information about your api end points and monitor their performance!",
-  "repository": "https://github.com/keen/pingpong",
+  "repository": "https://github.com/keen/pingpong/tree/ui-revamp",
   "keywords": ["api", "monitoring", "keen io"],
   "website": "https://github.com/keen/pingpong",
   "addons": [
@@ -32,5 +32,5 @@
   },
   "scripts": {
     "postdeploy": "thor pingpong:setup"
-  },
+  }
 }

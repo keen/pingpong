@@ -4,6 +4,8 @@
 
 <img src="https://travis-ci.org/keen/pingpong.png?branch=master&foo=bar" alt="Pingpong Build Status">
 
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
 #### Easy & Powerful HTTP Request-Response Analytics
 
 Pingpong is an open-source monitoring framework for anything with a URL. Pingpong is especially well-suited for tracking performance and availability across families of servers.
