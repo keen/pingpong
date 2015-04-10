@@ -43,6 +43,9 @@ GEM
     haml (4.0.5)
       tilt
     http_parser.rb (0.6.0)
+    httparty (0.13.3)
+      json (~> 1.8)
+      multi_xml (>= 0.5.2)
     i18n (0.6.9)
     json (1.8.1)
     keen (0.8.6)
@@ -53,7 +56,9 @@ GEM
     mime-types (2.3)
     minitest (5.3.4)
     multi_json (1.10.1)
+    multi_xml (0.5.5)
     pg (0.15.1)
+    pg (0.15.1-x64-mingw32)
     pushpop (0.1.1)
       clockwork
     pushpop-keen (0.1.1)
@@ -115,6 +120,7 @@ DEPENDENCIES
   factory_girl
   foreman
   haml
+  httparty
   keen
   multi_json
   pg

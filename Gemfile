@@ -20,6 +20,7 @@ gem 'pg'
 gem 'rack-flash3'
 
 gem 'dotenv'
+gem 'httparty'
 
 group :development, :test do
   gem 'foreman'

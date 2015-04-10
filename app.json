@@ -10,6 +10,9 @@
     "sendgrid"
   ],
   "env": {
+    "APP_NAME": {
+      "description": "The url name of your app. Needed to do the keepalive ping."
+    },
     "TO_EMAIL_ADDRESS": {
       "description": "The email address to send alerts to."
     },
