@@ -1,0 +1,2166 @@
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=breakpoint($point)
+  @if $point == lg
+    @media only screen and (min-width: 1080px)
+      @content
+  @else if $point == med
+    @media only screen and (min-width: 910px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (min-width: 740px)
+      @content
+  @else if $point == sm
+    @media only screen and (min-width: 666px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (min-width: 420px)
+      @content
+
+=reverse-breakpoint($point)
+  @if $point == lg
+    @media only screen and (max-width: 1079px)
+      @content
+  @else if $point == med
+    @media only screen and (max-width: 909px)
+      @content
+  @else if $point == med-sm
+    @media only screen and (max-width: 739px)
+      @content
+  @else if $point == sm
+    @media only screen and (max-width: 665px)
+      @content
+  @else if $point == x-sm
+    @media only screen and (max-width: 419px)
+      @content
+
+=vertical-breakpoint($point)
+  @if $point == tall
+    @media only screen and (max-height: 840px)
+      @content
+  @else if $point == med
+    @media only screen and (max-height: 760px)
+      @content
+  @else if $point == short
+    @media only screen and (max-height: 500px)
+      @content
+
+=retina($point)
+  @media only screen and (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    @content
+=center-div($width: 600px, $padding: 20px)
+  padding-left: calc(50% - #{$width}/2)
+  padding-right: calc(50% - #{$width}/2)
+  @media screen and (max-width: $width)
+    padding-left: $padding
+    padding-right: $padding
+// Cross browser clearfix.
+=clearfix
+  &
+    *zoom: 1
+  &:before,
+  &:after
+    content: ""
+    display: table
+  &:after
+    clear: both
+// Creates EM based on pixel/context input
+@function em($target-px, $context)
+  @return $target-px / $context * 1em
+@mixin flex($target, $context)
+  width: (($target/$context)*100%)
+=hide-text
+  overflow: hidden
+  &:before
+    content: ''
+    display: block
+    width: 0
+    height: 100%
+// Retina images. Use after setting standard resolution image.
+=image-2x($image, $width, $height)
+  @media (min--moz-device-pixel-ratio: 1.3), (-o-min-device-pixel-ratio: 2.6 / 2), (-webkit-min-device-pixel-ratio: 1.3), (min-device-pixel-ratio: 1.3), (min-resolution: 1.3dppx)
+    background-image: url($image)
+    background-size: $width $height
+// Apply to UL tag. Will create a grid of equally spaced items.
+// All items should be the same height. Best for image thumbnails.
+=justifygrid($cols: 2, $li_width_auto: 98.9%, $li_width_force: 49%)
+  text-align: justify
+  list-style: none
+  padding: 0
+  > *
+    display: inline-block
+    margin: 0
+    @if $li_width_force != 49%
+      width: $li_width_force
+    @else
+      width: floor($li_width_auto / $cols)
+    text-align: left
+  &:after
+    content: ""
+    display: inline-block
+    width: 100%
+=link-color($default: "blue", $hover: "red", $visited: "purple")
+  color: $default
+  &:hover
+    color: $hover
+  &:visited
+    color: $purple
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
+=positions($top: 0, $right: 0, $bottom: 0, $left: 0)
+  top: $top
+  right: $right
+  bottom: $bottom
+  left: $left
+// Removes bullets and padding from UL or OL tags.
+=striplist
+  padding: 0
+  list-style: none
