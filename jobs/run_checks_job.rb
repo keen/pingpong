@@ -64,19 +64,19 @@ job do
   end
 
   step 'send emails' do |response, step_responses|
-    config.logger.info("Checks with incidents: #{response.length}")
-
     if !response.empty?
       response.each do |check|
-        config.logger.info("Doing check '#{check.name}'.")
         if (check.is_bad? && check.email_bad?) || (check.is_warn? && check.email_warn?)
-          config.logger.info("Should send.")
           # things here
           incident = Incident.most_recent_for_check(check, 1).first
-          subject = incident.email_subject
-          message = incident.email_body
 
-          send_email(config.to_email_address, config.from_email_address, subject, message)
+          sendgrid do 
+            to config.properties[:to_email_address]
+            from config.properties[:from_email_address]
+            subject incident.email_subject
+            message incident.email_body
+            preview false
+          end
         end
       end
     end

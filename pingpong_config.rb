@@ -53,6 +53,3 @@ PingpongConfig.logger =            lambda {
                                     end
                                     logger
                                   }.call
-
-
-

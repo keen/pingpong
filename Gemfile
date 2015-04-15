@@ -13,6 +13,7 @@ gem 'multi_json'
 gem 'em-http-request'
 gem 'keen'
 
+gem 'pushpop'
 gem 'pushpop-keen'
 gem 'pushpop-sendgrid'
 

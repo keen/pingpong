@@ -124,6 +124,7 @@ DEPENDENCIES
   keen
   multi_json
   pg
+  pushpop
   pushpop-keen
   pushpop-sendgrid
   rack-flash3
