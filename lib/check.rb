@@ -91,6 +91,8 @@ class Check < ActiveRecord::Base
   end
 
   def mean_time(ignore_recent=false)
+    return 0 if self.response_times.nil? or self.response_times.empty?
+    
     allTimes = ignore_recent ? self.response_times : self.response_times.slice(0, 29)
     allTimes.mean
   end
