@@ -281,7 +281,7 @@ a.block-link:hover {
 .compact h3, .compact .last-incident, .compact .details-btn, .compact .chart-container {
   display: none;
 }
-.compact .row {
+.compact .row:not(.check-list-header) {
   padding-top: 20px;
   padding-bottom: 10px;
 }

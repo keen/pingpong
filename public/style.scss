@@ -291,7 +291,7 @@ a.block-link:hover {
     display: none;
   }
 
-  .row {
+  .row:not(.check-list-header) {
     padding-top: 20px;
     padding-bottom: 10px;
   }
