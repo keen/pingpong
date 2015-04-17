@@ -56,6 +56,7 @@ job do
         end
       rescue => e
         config.logger.info("Check running failed for #{check.name}.")
+        config.logger.info("  Error Message: #{e.message}")
         config.logger.debug(check_response)
       end
     end
@@ -63,20 +64,14 @@ job do
     checks_with_incidents
   end
 
-  step 'send emails' do |response, step_responses|
+  sendgrid 'send emails' do |response, step_responses|
     if !response.empty?
       response.each do |check|
         if (check.is_bad? && check.email_bad?) || (check.is_warn? && check.email_warn?)
           # things here
           incident = Incident.most_recent_for_check(check, 1).first
 
-          sendgrid do 
-            to config.properties[:to_email_address]
-            from config.properties[:from_email_address]
-            subject incident.email_subject
-            message incident.email_body
-            preview false
-          end
+          send_email config.properties[:to_email_address], config.properties[:from_email_address], incident.email_subject, incident.email_body, nil
         end
       end
     end
