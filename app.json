@@ -1,7 +1,7 @@
 {
   "name": "Pingpong API Monitoring",
   "description": "Get detailed information about your api end points and monitor their performance!",
-  "repository": "https://github.com/keen/pingpong/tree/ui-revamp",
+  "repository": "https://github.com/keen/pingpong/tree/6dbb7c0648ac36e4847b15a30bbda741e53787a0",
   "keywords": ["api", "monitoring", "keen io"],
   "website": "https://github.com/keen/pingpong",
   "addons": [
