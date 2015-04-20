@@ -20,10 +20,9 @@ gem 'pushpop-sendgrid'
 gem 'pg'
 gem 'rack-flash3'
 
+gem 'validate_url'
 gem 'dotenv'
 gem 'httparty'
-
-gem 'validate_url'
 
 group :development, :test do
   gem 'foreman'
