@@ -20,7 +20,6 @@ gem 'pushpop-sendgrid'
 gem 'pg'
 gem 'rack-flash3'
 
-gem 'validate_url'
 gem 'dotenv'
 gem 'httparty'
 

@@ -1,4 +1,5 @@
 require 'enumerable_std_deviation'
+require 'uri'
 
 class Check < ActiveRecord::Base
   serialize :custom_properties, JSON
@@ -9,10 +10,11 @@ class Check < ActiveRecord::Base
   store :configurations, accessors: [:email_warn, :email_bad, :warn_thresh, :bad_thresh], coder: JSON
 
   validates :name, presence: true
-  validates :url, url: {:allow_blank => false}
+  validates :url, presence: true
   validates :frequency, presence: true
   validates :method, presence: true
   validate :post_must_have_data, on: :create
+  validate :url_formatting, on: :create
 
   has_many :incidents, :dependent => :destroy
 
@@ -31,6 +33,19 @@ class Check < ActiveRecord::Base
     if self.method == "POST"
       errors.add(:data, "Must have data for a post body.") unless !self.data.empty?
     end
+  end
+
+  def url_formatting
+    uri = URI.parse(self.url)
+    if !uri
+    #if !url.kind_of?(URI::HTTP)
+      errors.add(:url, "Invalid url.")
+    end
+    if !url.start_with?("http")
+      errors.add(:url, "Url must start with http/https.")
+    end
+  rescue URI::InvalidURIError
+    errors.add(:url, "Invalid url.")
   end
 
   def add_response_time(time)
