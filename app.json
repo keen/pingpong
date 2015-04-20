@@ -1,6 +1,6 @@
 {
   "name": "Pingpong API Monitoring",
-  "description": "Get detailed information about your api end points and monitor their performance!",
+  "description": "Get detailed information about your api end points and monitor their performance.",
   "repository": "https://github.com/keen/pingpong/tree/ui-revamp",
   "keywords": ["api", "monitoring", "keen io"],
   "website": "https://github.com/keen/pingpong",
@@ -11,13 +11,16 @@
   ],
   "env": {
     "APP_NAME": {
-      "description": "The url name of your app. Needed to do the keepalive ping."
+      "description": "The url name of your app. Needed to do the keepalive ping.",
+      "value": ""
     },
     "TO_EMAIL_ADDRESS": {
-      "description": "The email address to send alerts to."
+      "description": "The email address to send alerts to.",
+      "value": ""
     },
     "FROM_EMAIL_ADDRESS": {
-      "description": "The from email address for alert emails."
+      "description": "The from email address for alert emails.",
+      "value": ""
     },
     "KEEN_COLLECTION": {
       "description": "Name of the collection to store the checks in.",
