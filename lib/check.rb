@@ -9,7 +9,7 @@ class Check < ActiveRecord::Base
   store :configurations, accessors: [:email_warn, :email_bad, :warn_thresh, :bad_thresh], coder: JSON
 
   validates :name, presence: true
-  validates :url, presence: true
+  validates :url, url: {:allow_blank => false}
   validates :frequency, presence: true
   validates :method, presence: true
   validate :post_must_have_data, on: :create

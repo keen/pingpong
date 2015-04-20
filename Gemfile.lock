@@ -105,6 +105,9 @@ GEM
     tilt (1.4.1)
     tzinfo (1.2.1)
       thread_safe (~> 0.1)
+    validate_url (1.0.0)
+      activemodel (>= 3.0.0)
+      addressable
     webmock (1.17.1)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
@@ -134,4 +137,5 @@ DEPENDENCIES
   sinatra-activerecord
   sinatra-reloader
   thor
+  validate_url
   webmock

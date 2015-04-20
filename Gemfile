@@ -23,6 +23,8 @@ gem 'rack-flash3'
 gem 'dotenv'
 gem 'httparty'
 
+gem 'validate_url'
+
 group :development, :test do
   gem 'foreman'
   gem 'rspec'
