@@ -100,22 +100,23 @@
       Frequency: 
       %span= @check[:frequency]
       minute
-  .col-md-4.col-xs-5.last-incident-container
+  .col-md-4.col-xs-5
     - if !@check.incidents.empty?
-      - if @check.is_warn?
-        Last Warning:
+      .last-incident-container
+        - if @check.is_warn?
+          Last Warning:
+          %br
+          = @check.incidents.last.info
+        - elsif @check.is_bad?
+          Last Error:
+          %br
+          = @check.incidents.last.info
+        - else
+          Back to Normal:
         %br
-        = @check.incidents.last.info
-      - elsif @check.is_bad?
-        Last Error:
+        = @check.incidents.last.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
         %br
-        = @check.incidents.last.info
-      - else
-        Back to Normal:
-      %br
-      = @check.incidents.last.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
-      %br
-      %a{:href => "#incidents_modal", :id => "incident_report", :data => {:toggle => "modal"}} Incident History
+        %a{:href => "#incidents_modal", :id => "incident_report", :data => {:toggle => "modal"}} Incident History
   .col-md-2.col-xs-2
     %a.btn.btn-default.pull-right{:href => "/check/#{@check[:id]}/edit"}
       %span.icon.icon-pencil{:aria => {:hidden => "true"}}
