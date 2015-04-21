@@ -25,12 +25,8 @@
 - if @checks.empty?
   .alert.alert-warning
     Warning: No checks. Add a check
-    %a{:href => "/check/new"}
-      here
-    or use the CLI with the 
-    %code
-      pingpong check new
-    command.
+    %a{:href => "/check/new"} here
+    = ". You should see the graphs populate within 30-45 minutes of collecting data."
 
 %div#check-container
   .row.check-list-header
