@@ -19,7 +19,7 @@ class Check < ActiveRecord::Base
   has_many :incidents, :dependent => :destroy
 
   # how many response times before we start checking for incidents
-  MIN_CHECK_LENGTH = 5
+  MIN_CHECK_LENGTH = 15
 
   # TODO: make these configurable with defaults
   MEAN_WARN_THRESHOLD = 1.25
