@@ -3,6 +3,9 @@ $stdout.sync = true
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/activerecord'
+# Adding this to make sure that Timezones get formatted correctly http://pivotallabs.com/utc-vs-ruby-activerecord-sinatra-heroku-and-postgres/
+Time.zone = 'UTC'
+ActiveRecord::Base.default_timezone = :utc
 require 'rack-flash'
 require 'haml'
 
