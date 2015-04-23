@@ -47,12 +47,17 @@ var Check = function() {
             + '</div>'
           + '</div>';
           for (var key2 in check[key]) {
+            var keyVal = check[key][key2];
+            if (keyVal == "") {
+              keyVal = "{}";
+            }
+
             checkHTML = checkHTML + '<div class="row">'
               + '<div class="col-xs-4 json-key">'
                 + key2
               + '</div>'
               + '<div class="col-xs-8 json-value">'
-                + check[key][key2]
+                + keyVal
               + '</div>'
             + '</div>';
           }
