@@ -219,6 +219,14 @@ a.block-link:hover {
     text-align: left;
   }
 
+  .json-value.warning {
+    background-color: $warningColor;
+  }
+
+  .json-value.error {
+    background-color: $errorColor;
+  }
+
   a[data-toggle="collapse"] {
     display: block;
     padding: 20px 20px;

@@ -175,6 +175,10 @@ a.block-link:hover {
     border-color: #DDDDDD;
     border-width: 0 0 1px 0;
     text-align: left; }
+  .extraction-container .json-value.warning {
+    background-color: #e2e541; }
+  .extraction-container .json-value.error {
+    background-color: #f25656; }
   .extraction-container a[data-toggle="collapse"] {
     display: block;
     padding: 20px 20px;
