@@ -20,7 +20,7 @@
     .form-group
       %label Frequency (in minutes)
       .controls
-        %input{:type => "number", :name => "frequency", :id => "frequency", :class => "form-control", :placeholder => "1", :value => "#{@check.frequency if !@check.nil?}", :required => ""}
+        %input{:type => "number", :name => "frequency", :id => "frequency", :class => "form-control", :value => "#{@check.frequency if !@check.nil?}", :required => ""}
         %p.help-block
     .form-group
       %label Save Body

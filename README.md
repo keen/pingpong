@@ -8,7 +8,9 @@
 
 #### Easy & Powerful HTTP Request-Response Analytics
 
-Pingpong is an open-source monitoring framework for anything with a URL. Pingpong is especially well-suited for tracking performance and availability across families of servers.
+Track real-time performance and availability across multiple API servers to see the what, when, and how behind your system performance. So you can understand why.
+
+![Pingpong Graph](http://keen.github.io/pingpong/img/chart_02_new.png)
 
 #### How Does It Work?
 

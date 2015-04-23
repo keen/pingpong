@@ -1,6 +1,6 @@
 module Enumerable
   def sum
-    self.inject(0){|accum, i| accum + i }
+    self.inject(0){|accum, i| accum + (i.is_a?(Numeric) ? i : 0) }
   end
 
   def mean

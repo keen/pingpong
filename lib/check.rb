@@ -112,6 +112,48 @@ class Check < ActiveRecord::Base
     allTimes.mean
   end
 
+  def index_timeframe
+    timeframe = "this_48_hours"
+
+    if ((Time.now - created_at) / 1.hour).round < 1
+      timeframe = "this_60_minutes"
+    elsif ((Time.now - created_at) / 1.hour).round < 2
+      timeframe = "this_120_minutes"
+    elsif ((Time.now - created_at) / 1.hour).round < 6
+      timeframe = "this_240_minutes"
+    elsif ((Time.now - created_at) / 1.hour).round < 24
+      timeframe = "this_24_hours"
+    end
+
+    timeframe
+  end
+
+  def show_timeframe
+    timeframe = "this_48_hours"
+
+    if ((Time.now - created_at) / 1.hour).round < 1
+      timeframe = "this_60_minutes"
+    elsif ((Time.now - created_at) / 1.hour).round < 2
+      timeframe = "this_120_minutes"
+    elsif ((Time.now - created_at) / 1.hour).round < 6
+      timeframe = "this_240_minutes"
+    elsif ((Time.now - created_at) / 1.hour).round < 24
+      timeframe = "this_24_hours"
+    end
+
+    timeframe
+  end
+
+  def timeframe_interval(timeframe)
+    interval = "hourly"
+
+    if timeframe.ends_with?("minutes")
+      interval = "minutely"
+    end
+
+    interval
+  end
+
   private
   def check_for_response_time_incidents(response)
     issueFound = false

@@ -74,7 +74,7 @@
           %button.btn.btn-default.details-btn
             Details
       .col-md-5.col-xs-5.chart-column
-        .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check.name, :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "180"}}.to_json}"}}
+        .chart-container{:data => {:querytype => "average", :charttype => "bar", :name => check.name, :groupby => "check.name", :timeframe => "#{check.index_timeframe}", :interval => "#{check.timeframe_interval(check.index_timeframe)}", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, axis: {x: {show: false}, y: {show: false}}, size: {width: "400", height: "180"}}.to_json}"}}
       .col-md-2.col-xs-2
         %a.btn.btn-default.pull-right{:href => "/check/#{check.id}/edit"}
           %span.icon.icon-pencil{:aria => {:hidden => "true"}}

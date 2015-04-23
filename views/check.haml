@@ -124,9 +124,9 @@
   .col-sm-12.lead-chart-container
     .chart-wrapper
       .chart-title
-        %h4 Average response time for the last 48 hours
+        %h4 Average Response Time
       .lead-chart
-        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "last_48_hours", :interval => "hourly", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, grid: {y: {lines: [{value: @check.mean_time, text: 'mean response time', position: 'end'}]}}, axis: {x: {type: 'timeseries', tick: {format: '%b %d %H:%M'}}}}.to_json}"}}
+        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "#{@check.show_timeframe}", :interval => "#{@check.timeframe_interval(@check.show_timeframe)}", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, grid: {y: {lines: [{value: @check.mean_time, text: 'mean response time', position: 'end'}]}}, axis: {x: {type: 'timeseries', tick: {format: '%b %d %H:%M'}}}}.to_json}"}}
 .row.padding-top
   .col-md-12
     .chart-wrapper
