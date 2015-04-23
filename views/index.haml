@@ -62,7 +62,7 @@
           %h3
             = check.url
           - if !check.incidents.empty?
-            %p.last-incident
+            %p{:class => "last-incident incident-text#{check.status_icon_css_text}"}
               - if check.is_warn?
                 Warning On:
               - elsif check.is_bad?

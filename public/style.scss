@@ -154,6 +154,18 @@ h3 {
   @include image-2x('error-icon@2x.png', 32px, 32px);
 }
 
+.incident-text {
+  color: $goodColor;
+}
+
+.warning.incident-text {
+  color: $warningColor;
+}
+
+.error.incident-text {
+  color: $errorColor;
+}
+
 .status-circle {
   display: inline-block;
   width: 10px;
