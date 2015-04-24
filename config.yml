@@ -2,11 +2,6 @@ defaults: &defaults
 
   check_scheduler: CheckScheduler
 
-  # what checks should be run?
-  check_source: JsonCheckSource
-  check_source_auto_reload: true
-  json_check_source_file: <%= ENV['CHECK_SOURCE_FILE'] || File.expand_path('../checks.json', __FILE__) %>
-
   # how should they be scheduled and run?
   check_runner: EventmachineCheckRunner
   check_runner_connect_timeout: 15
@@ -29,6 +24,11 @@ defaults: &defaults
 
   # by default a web worker will run pushpop jobs
   skip_pushpop: <%= ENV['SKIP_PUSHPOP'] %>
+
+  # be default don't send email
+  skip_email: <%= ENV['SKIP_EMAIL'] %>
+  to_email_address: <%= ENV['TO_EMAIL_ADDRESS'] %>
+  from_email_address: <%= ENV['FROM_EMAIL_ADDRESS'] %>
 
   # add http authentication
   http_username: <%= ENV['HTTP_USERNAME'] %>

@@ -1,0 +1,254 @@
+:css
+  .last-incident-container {
+    padding: 20px 25px;
+    background-color: rgb(250, 251, 218);
+    border-top: 1px solid rgb(226, 228, 162);
+  }
+  .detail-header {
+    padding-bottom: 15px;
+    border-bottom: 1px solid rgb(232, 232, 232);
+    margin-bottom: 15px;
+  }
+  .response-codes-container {
+    margin-top: 15px;
+  }
+  .response-codes-container .row {
+    padding: 0;
+  }
+  .response-codes-container .col-md-1, .response-codes-container .col-md-6, .response-codes-container .col-md-5 {
+    padding: 2px;
+  }
+  .response-codes-container .col-md-1 {
+    padding: 15px 15px 15px 10px;
+  }
+  .response-codes-container .row .col-md-5 {
+    padding: 10px 15px;
+    background-color: #F7F8F8;
+    text-align: center;
+    font-weight: 500 !important;
+    font-size: 200%;
+  }
+  .padding-top {
+    padding-top: 35px;
+  }
+  .no-left-margin {
+    margin-left: -30px;
+  }
+  .panel {
+    border-radius: 0;
+    border-left-width: 0;
+    border-right-width: 0;
+    border-width: 0;
+    margin-bottom: 0;
+  }
+  .panel-default>.panel-heading {
+    background-color: #FFFFFF;
+    padding: 0;
+  }
+
+.row.header-row
+  .col-md-9.col-xs-6.lead-btn-container
+    %a.btn.btn-default.btn-lg.no-border{:href => "/"}
+      &larr; Return to listing
+  .col-md-3.col-xs-6.pull-right
+    .row.nested-row
+      .col-md-4.col-xs-4.key-container
+        %span.status-icon{:aria => {:hidden => "true"}}
+        <br/>
+        .span
+          Good
+      .col-md-4.col-xs-4.key-container
+        %span.status-icon.warning{:aria => {:hidden => "true"}}
+        <br/>
+        .span
+          Warning
+      .col-md-4.col-xs-4.key-container
+        %span.status-icon.error{:aria => {:hidden => "true"}}
+        <br/>
+        .span
+          Error
+
+.modal.fade#incidents_modal
+  .modal-dialog
+    .modal-content
+      .modal-header
+        %button.close{:type => "button", :aria => {:hidden => "true"}, :data => {:dismiss => "modal"}}
+          &times;
+        %h4.modal-title= "Incident History for #{@check.name}"
+      .modal-body
+        .container
+          - Incident.most_recent_for_check(@check, 5).each do |incident|
+            .row
+              .col-md-2.col-xs-2
+                %span{:class => "status-icon#{incident.status_icon_css_text}", :aria => {:hidden => "true"}}
+              .col-md-4.col-xs-4
+                = incident.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
+              .col-md-6.col-xs-6
+                = incident.info
+      .modal-footer
+        %button.btn.btn-default{:data => {:dismiss => "modal"}} Close
+
+.row
+  .col-md-1.col-xs-1
+    %span{:class => "status-icon#{@check.status_icon_css_text}", :aria => {:hidden => "true"}}
+  .col-md-5.col-xs-5.no-left-margin
+    %h2
+      = @check[:name]
+    %h3= @check[:url]
+    %p
+      Frequency: 
+      %span= @check[:frequency]
+      minute
+  .col-md-4.col-xs-5
+    - if !@check.incidents.empty?
+      .last-incident-container
+        - if @check.is_warn?
+          Last Warning:
+          %br
+          = @check.incidents.last.info
+        - elsif @check.is_bad?
+          Last Error:
+          %br
+          = @check.incidents.last.info
+        - else
+          Back to Normal:
+        %br
+        = @check.incidents.last.created_at.localtime.strftime("%l:%M%P on %Y-%-m-%-d")
+        %br
+        %a{:href => "#incidents_modal", :id => "incident_report", :data => {:toggle => "modal"}} Incident History
+  .col-md-2.col-xs-2
+    %a.btn.btn-default.pull-right{:href => "/check/#{@check[:id]}/edit"}
+      %span.icon.icon-pencil{:aria => {:hidden => "true"}}
+      Edit
+.row
+  .col-sm-12.lead-chart-container
+    .chart-wrapper
+      .chart-title
+        %h4 Average Response Time
+      .lead-chart
+        #grid-1-1.chart-container{:data => {:querytype => "average", :charttype => "line", :name => @check[:name], :groupby => "check.name", :timeframe => "#{@check.show_timeframe}", :interval => "#{@check.timeframe_interval(@check.show_timeframe)}", :targetproperty => "request.duration", :chartoptions => "#{{legend: {show: false}, grid: {y: {lines: [{value: @check.mean_time, text: 'mean response time', position: 'end'}]}}, axis: {x: {type: 'timeseries', tick: {format: '%b %d %H:%M'}}}}.to_json}"}}
+.row.padding-top
+  .col-md-12
+    .chart-wrapper
+      .chart-title
+        %h2
+          Detail view
+.row
+  .col-md-4.col-xs-6
+    %span.lead
+      Showing last
+      %select.form-control{:id => "check_count", :name => "check_count"}
+        %option{:value => "10"}
+          10
+        %option{:value => "25"}
+          25
+        %option{:value => "50"}
+          50
+      checks
+  .col-md-4.col-xs-6
+    %button#export_btn.btn.btn-default.pull-right{:type => "button", :disabled => true}
+      Export JSON
+  .col-md-4.hidden-sm
+    .chart-title.response-codes-header
+      %span.lead
+        Response Codes
+.row
+  .col-md-8
+    .chart-stage
+      #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10}}
+        .panel-group#accordion{:role => "tablist", :aria => {:multiselectable => "true"}}
+  .col-md-4
+    .chart-wrapper
+      #response-codes.chart-stage.response-codes-container
+
+:javascript
+  $(document).ready(function() {
+    Keen.ready(function() {
+      $("#check_count").change(function() {
+        var latest = $("#check_count").val();
+        var name = $("#checks-extraction").data("name");
+        // Make sure the timeframe has enough data points to pull
+        var timeframe = "this_" + String(latest * #{@check[:frequency]}) + "_minutes"
+
+        var query = new Keen.Query("extraction", {
+          eventCollection: Pingpong.collection,
+          timeframe: timeframe,
+          latest: latest,
+          filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
+        });
+
+        client.run(query, function(err, response) {
+          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD});
+          check.createHtml();
+        });
+      });
+
+      $("#export_btn").removeAttr('disabled');
+      $("#export_btn").click(function() {
+        var latest = $("#check_count").val();
+        var url = "https://api.keen.io/3.0/projects/#{@config.properties[:keen][:project_id]}/queries/extraction?api_key=#{@config.properties[:keen][:read_key]}&event_collection=" + Pingpong.collection + "&filters%5B%5D%5Boperator%5D=eq&filters%5B%5D%5Bproperty_name%5D=check.name&filters%5B%5D%5Bproperty_value%5D=Testing&latest=" + String(latest) + "&timeframe=this_30_minutes&timezone=-25200"
+        window.location = url;
+      });
+
+      var name = "#{@check.name}";
+
+      var code_count = new Keen.Query("count", {
+        eventCollection: Pingpong.collection,
+        timeframe: "this_2_days",
+        targetProperty: "response.status",
+        groupBy: "response.status",
+        filters: [{"property_name":"check.name","operator":"eq","property_value":name}]
+      });
+
+      // Lets build the response code table.
+      client.run(code_count, function(err, res) {
+        if (err) {
+          console.log("Error.");
+          console.log(err);
+        } else {
+          var codeMessages = {100: "Continue", 101: "Switching Protocols", 200: "OK", 201: "Created", 202: "Accepted", 203: "Non-Authoratative Information", 204: "No Content", 205: "Reset Content", 206: "Partial Content", 300: "Multiple Choices", 301: "Moved Permanently", 302: "Found", 303: "See Other", 304: "Not Modified", 305: "Use Proxy", 307: "Temporary Redirect", 400: "Bad Request", 401: "Unauthorized", 403: "Forbidden", 404: "Not Found", 405: "Method Not Allowed", 406: "Not Acceptable", 407: "Proxy Authentication Required", 408: "Request Timeout", 409: "Conflict", 410: "Gone", 500: "Internal Server Error", 501: "Not Implemented", 502: "Bad Gateway", 503: "Service Unavailable", 504: "Gateway Timeout"};
+          var totalResults = 0;
+          var responseCodes = {};
+
+          $.each(res.result, function(ndx, value) {
+            totalResults += value.result;
+            responseCodes[value["response.status"]] = value.result;
+          });
+
+          var keys = Object.keys(responseCodes).sort();
+          var keyLength = keys.length
+          var elem = $("#response-codes");
+
+          for (var ndx = 0; ndx < keyLength; ndx++) {
+            var circleText = "";
+
+            if (keys[ndx] >= 300 && keys[ndx] < 400) {
+              circleText = " warning";
+            } else if (keys[ndx] >= 400) {
+              circleText = " error";
+            }
+
+            var statusCircle = '<span class="status-circle' + circleText + '"></span>';
+            var row = '<div class="row">' +
+                        '<div class="col-md-1 col-xs-1">' +
+                        statusCircle +
+                        '</div>' +
+                        '<div class="col-md-8 col-xs-8">' +
+                          '<span class="lead">' +
+                          String(keys[ndx]) +
+                          '</span>' +
+                          '<br />' +
+                          codeMessages[keys[ndx]] +
+                        '</div>' +
+                        '<div class="col-md-1 col-xs-1">' +
+                          '<span class="lead">' +
+                          String(Math.round(parseFloat(parseFloat(responseCodes[keys[ndx]]) / parseFloat(totalResults) * 1000)) / 10) + "%" +
+                          '</span>' +
+                        '</div>';
+
+            elem.append(row);
+          }
+        }
+      });
+    });
+  });
