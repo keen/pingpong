@@ -19,35 +19,49 @@ var Check = function() {
 
       var warnThreshold = this.percentWarn * responseMean;
       var badThreshold = this.percentBad * responseMean;
-      var hasBadTime = false;
-      var hasWarnTime = false;
-      var hasWarnCode = false;
-      var hasBadCode = false;
 
       $.each(this.checks, function(i, check) {
         var iconCss = "";
+        var hasBadTime = false;
+        var hasWarnTime = false;
+        var hasWarnCode = false;
+        var hasBadCode = false;
+
+        var message = "";
 
         if (check.request.duration > badThreshold) {
           iconCss = " error";
           hasBadTime = true;
+          message = message + "Very slow response time. "
         } else if (check.request.duration > warnThreshold) {
           iconCss = " warning";
           hasWarnTime = true;
+          message = message + "Slow response time. "
         }
 
         if (check.response.status >= 300 && check.response.status < 400) {
           iconCss = iconCss || " warning";
           hasWarnCode = true;
+          message = message + "300 status code. "
         } else if (check.response.status >= 400 && check.response.status < 600) {
           iconCss = iconCss || " error";
           hasBadCode = true;
+          message = message + "400/500 status code. "
         }
 
         var checkHTML = '<div class="panel panel-default">'
             + '<div class="panel-heading" role="tab" id="heading' + i +'">'
               + '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'" aria-expanded="true" aria-controls="collapse' + i +'" class="collapsed">'
                 + '<h3 class="panel-title">'
-                  + '<span class="status-icon' + iconCss + '" aria-hidden="true"></span>' + check.request.sent_at
+                  + '<div class="row">'
+                    + '<div class="col-xs-2">'
+                      + '<span class="status-icon' + iconCss + '" aria-hidden="true"></span>' 
+                    + '</div>'
+                    + '<div class="col-xs-10">'
+                      + check.request.sent_at
+                      + '<div class="error-message">' + message + '</div>'
+                    + '</div>'
+                  + '</div>'
                 + '</h3>'
               + '</a>'
             + '</div>'
