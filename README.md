@@ -14,7 +14,7 @@ Track real-time performance and availability across multiple API servers to see 
 
 #### How Does It Work?
 
-+ Pingpong makes HTTP requests to URLs you configure, as frequently as once per second. Pingpong turns data about each request and response into JSON, then logs it to a configurable destination.
++ Pingpong makes HTTP requests to URLs you configure, as frequently as once per minute. Pingpong turns data about each request and response into JSON.
 + The default destination is Keen IO's [analytics API](https://keen.io/docs/). Keen's API supports capturing events, running queries, and creating visualizations.
 + Pingpong ships with an HTML dashboard built on Keen that shows the following metrics:
   + HTTP response status breakdown by URL
@@ -22,14 +22,9 @@ Track real-time performance and availability across multiple API servers to see 
   + Errors and long-running requests
 + Pingpong automatically captures most of the data you'd want about HTTP requests and responses, but it also makes it easy to add custom properties specific to your infrastructure.
 
-Here's an example dashboard that measures the response time of popular API providers:
-
-![Pingpong Dashboard](http://f.cl.ly/items/273v2H2m160l073v3l0h/Screen%20Shot%202014-02-09%20at%209.55.18%20PM.png)
-
 **Now, choose your own adventure:**
 
-+ See a [live Pingpong instance](http://api-pong.herokuapp.com) that tracks the response time of popular API providers
-+ Read [the inspiration](#inspiration) behind Pingpong
++ Deploy straight to Heroku
 + Setup and deploy your own Pingpong app (keep reading!)
 
 #### Setup & Deployment
@@ -57,54 +52,15 @@ If you don't have the `bundle` command, first `gem install bundler`.
 $ thor pingpong:setup
 ```
 
-This will create one migration for two tables, `checks` and `incidents`, then run the migration. The default database driver is sqlite, but you can configure something else in `database.yml`.
+This will create one migration for two tables, `checks` and `incidents`, then run the migration. The default database driver is postgresql, but you can configure something else in `database.yml`.
 
-**Step 4:** Add your first check
+You will need to have a running postgres database!
 
-At minimum a _check_ has a name, a URL, and a frequency (how often to 'check'). Pingpong comes with two ways to create a check, via a web ui or the pingpong cli. If you want to use the web ui, skip to step 6 to boot up the server, otherwise, follow along.
+**Step 4:** Set up the environment variables
 
-```
-$ pingpong check add
-```
+You'll need to sign up for a free [Keen IO](https://keen.io) account. Once your account is set up, create a new project.
 
-Answer the prompts with a site you'd like to check. We'll use Google as an example.
-
-```
-Enter a URL to check:
-http://google.com
-
-Give this check a name:
-Google
-
-How often, in minutes, to run this check? (leave blank for 1)
-5
-
-What HTTP Method? (GET or POST or DELETE, leave blank for GET)
-```
-
-**Note**: Entering POST or DELETE as the Method will ask you for data to be posted.
-
-You can add more checks at any time via the pingpong cli or the web ui.
-
-**Step 5:** Setup Heroku and Keen IO
-
-This section assumes you're already familiar with 2 concepts: provisioning a Heroku app and adding the free `keen:developer` Heroku addon. That said, neither Keen nor Heroku are *required* to make Pingpong work. For now, though, let's assume you're OK with Heroku.
-
-**5a)** Create a new Heroku app and add the `keen` addon as follows:
-
-```
-$ heroku apps:create
-$ heroku addons:add keen
-```
-
-Install the `heroku-config` plugin, and download your new app's environment variables:
-
-```
-$ heroku plugins:install git://github.com/ddollar/heroku-config.git
-$ heroku config:pull
-```
-
-You should now have a `.env` file in your app's directory that contains the environment variables you need to read and write data from Keen IO:
+You'll need to grab the `project id`, `read key`, and `write key`. Add these to a root level file called `.env`. It should look like this:
 
 ```
 KEEN_PROJECT_ID=xxxxxxxxxxxxxxx
@@ -118,27 +74,7 @@ Now you're ready to start the web server locally using `foreman`, which will pic
 $ foreman start
 ```
 
-The Pingpong web interface should now be running on [localhost:5000](http://localhost:5000). Additionally, the checks you have configured should be running in the background of your web process. After a minute or so, you should start to see data appear on the Pingpong charts!
-
-You're now ready to push your app to Heroku.
-
-```
-$ git push heroku master
-```
-
-Once the deploy finishes, visit the URL for your application.
-
-```
-$ heroku open
-```
-
-You should once again see the Pingpong dashboard. To make sure that your checks are running successfully on Heroku, you can tail the output of the Heroku app:
-
-```
-$ heroku logs --tail
-2014-01-31T08:22:45.191611+00:00 app[web.1]: I, [2014-01-31T08:22:45.191408 #2]  INFO -- : CheckComplete, Google, 200, 0.314894153
-2014-01-31T08:22:46.100808+00:00 app[web.1]: I, [2014-01-31T08:22:46.100518 #2]  INFO -- : CheckComplete, Google, 200, 1.238122939
-```
+The Pingpong web interface should now be running on [localhost:5000](http://localhost:5000). Click on the button to create a new check, and then within a few minutes, you'll see the check data populating the charts.
 
 #### Check Properties
 
@@ -150,27 +86,11 @@ Every check requires the following properties:
 
 Additionally, checks have some optional properties:
 
-+ method: GET or POST (defaults to GET)
++ method: GET, POST, or DELETE (defaults to GET)
 + http_username: Username for HTTP authentication
 + http_password: Password for HTTP authentication
 
 Checks can also have any number of custom properties, which is very useful for grouping & drill-down analysis later. Place any custom properties in the `custom` field.
-
-Here's an example of custom properties:
-
-``` json
-{
-  "server_role": "web",
-  "is_https": true
-}
-
-{
-  "server_role": "api",
-  "is_https": true
-}
-```
-
-`server_role` and `is_https` are custom properties and are included each time the results of a check are recorded.
 
 #### HTTP Request & Response as an Event
 
@@ -225,51 +145,9 @@ It's easy to add more fields to the `environment` section in `config.yml`, or im
 
 Capturing all of these fields makes it possible to perform powerful grouping and filtering during analysis.
 
-#### The Pingpong Dashboard
-
-Here's a snapshot of a Pingpong [dashboard](http://api-pong.herokuapp.com) that shows the home page response time for popular API providers.
-
-![Pingpong Dashboard](http://f.cl.ly/items/273v2H2m160l073v3l0h/Screen%20Shot%202014-02-09%20at%209.55.18%20PM.png)
-
-This dashboard uses most of Pingpong's default visualizations, such as:
-
-+ Average response time by check by minute, last 120 minutes
-+ Color coded checks based on current check status
-
-Clicking on any of the checks gives you a more detailed view of that check's vitals.
-
 #### Reporting and Alerting
 
 Pingpong uses [Pushpop](https://github.com/pushpop/pingpong.git) to provide basic alerting and reporting functionality. This functionality can easily be extended to create your own custom alerts and reports.
-
-By default, a Pingpong instance started with `foreman start` will run Pushpop jobs. If you don't want this to be the case (for example if you run multiple geographically distributed Pingpongs and only want 1 to do the alerting), set the environment variable `SKIP_PUSHPOP=1`.
-
-Pushpop jobs are located in the [jobs](jobs/) directory. Here's a short description of each job.
-
-##### detect_failures_job
-
-This job runs once per minute, querying to see if the `response.successful` property of any check is `false`. If so, it sends one email for each failed, which contains the name of the check and how many times it failed.
-
-This job will only run if the `PUSHPOP_FROM_EMAIL` and `PUSHPOP_TO_EMAIL` environment variables are set. Likewise, the included version uses the Pushpop [sendgrid plugin](https://github.com/keenlabs/pushpop#sendgrid), so you'll need to set the requisite environment variables for that as well.
-
-Learn more by looking at [the job](jobs/detect_failures_job.rb) and its [template](jobs/detect_failures_job.html.erb).
-
-#### Rake Tasks
-
-Pingpong comes with a set of rake tasks to make various tasks easier. 
-
-+ `foreman run rake checks:add` - Add a check to `checks.json`
-+ `foreman run rake checks:run` - Run checks in an endless while loop. Useful for workers.
-+ `foreman run rake checks:run_once` - Run checks once, and don't log the response. Useful for testing.
-+ `foreman run rake checks:run_once[key=value]` - Run a subset of checks once, only those whose 'key' equals 'value' (e.g., name=Google)
-+ `foreman run rake keen:workbench` - Print the Keen IO workbench URL for the configured project. The workbench lets you do data exploration and generates JavaScript for adding queries to your dashboard.
-+ `foreman run rake keen:count` - Print counts grouped by check name.
-+ `foreman run rake keen:duration` - Print average durations grouped by check name.
-+ `foreman run rake keen:extract` - Extract 100 recent checks. Note: The Keen API stores data at full resolution, and you have access to all historical data via the [extraction resource](https://keen.io/docs/data-analysis/extractions/).
-+ `foreman run rake keen:delete` - Delete the collection of checks (Use with caution! Requires `KEEN_MASTER_KEY` to be set.)
-
-(*Protip*: Substitute `heroku` for `foreman` to run any of these on a Heroku dyno.)
-
 
 #### Additional Options & Recipes
 
@@ -281,7 +159,7 @@ See `config.yml` for an idea of what can be configured with settings. Examples i
 
 If a configured check returns JSON, you can save that JSON into the request body. This allows you to monitor and analyze not only the success or failure of web calls, but also the values they can return.
 
-To add this to a check, simply set the `save_body` property to `true`:
+To save the body, select true when creating a new check.
 
 This example grabs the weather from the [Forecast.io API](https://developer.forecast.io/) as JSON. The weather data will be merged into the response body under the key `response.body`. Here's an example check response event (some fields omitted for clarity):
 
@@ -317,76 +195,6 @@ Each major component of Pingpong is pluggable:
 + `CheckLogger`: logs the JSON payload from the `CheckMarshaller`. The default implementation is `KeenCheckLogger`.
 
 Once you've written an implementation for any of these components, simply replace the previous implementation's class name in `config.yml` with name of your component.
-
-##### Run in a Worker
-
-Pingpong can run checks in two ways:
-
-+ a background thread inside a web process 
-+ in a dedicated worker process
-
-For smaller numbers of checks you may find the web process to be enough, but if you are doing hundreds of simultaneous checks you might consider using one or more workers.
-
-To run Pingpong in a worker on Heroku, uncomment the `worker` line from the Procfile:
-
-```
-worker: bundle exec rake checks:run
-```
-
-Commit the change, push to Heroku, and scale workers to 1:
-
-```
-$ heroku scale worker=1
-```
-
-If you run checks in a worker, you may want to turn off checking in your web process. To do so, add the `SKIP_CHECKS` environment variable to your app's configuration:
-
-```
-$ heroku config:add SKIP_CHECKS=1
-```
-
-##### Multiple Datacenters
-
-Running Pingpong from multiple datacenters can give you a better idea of latencies across the globe.
-
-Let's say you already have a Pingpong Heroku app running in the US, and you'd also like to run checks the EU.
-
-First, create a new Heroku app in the EU:
-
-```
-$ heroku apps:create my-pingpong-app-eu --region eu
-```
-
-Next, push your Keen IO credentials up to the new app:
-
-```
-$ heroku config:push --app my-pingpong-app-eu
-```
-
-Then, set the `REGION` environment variable:
-
-```
-$ heroku config:add REGION=heroku-eu-west-1
-```
-
-As you can see in `config.yml`, Pingpong will include the `REGION` in the JSON payload for each check, making it easy to do analysis in the future.
-
-Now, tell git about the new Heroku EU git remote, and push your Pingpong codebase to the new app:
-
-```
-$ git remote add heroku-eu git@heroku.com:my-pingpong-app-eu.git
-$ git push heroku-eu master
-```
-
-That's it! You should now have events from both datacenters going to the same Keen IO project. At this time, you might want to add a new chart to your dashboard that shows the latency from each datacenter.
-
-##### Use a Different Collection Name Locally
-
-To change the [Keen IO event collection name](https://keen.io/docs/event-data-modeling/event-data-intro/#event-collections) where events get logged, specify KEEN_COLLECTION as an environment variable. The default is simply `checks`.
-
-You might want to do this locally to avoid checks from your development environment intermixing with those happening in production. (Note that you can also use the `environment` namespace for this, too.)
-
-You can also use `KEEN_COLLECTION` to break checks into multiple collections for any reason.
 
 ##### HTTP Authentication
 
@@ -444,10 +252,9 @@ Contributions are very welcome. Here are some ideas for new features:
 ##### Wish List
 
 + More tabs and queries and visualizations on the dashboard
-+ Create a table that shows slow recent checks and their full response bodies (using [extractions](https://keen.io/docs/data-analysis/extractions/))
 + More default alerts
 + Deploy instructions for multiple platforms
-+ Templates or builders for common `checks.json` patterns (multi-DC, many ports on same server, etc)
++ Ability to merge multiple data centers into one set of graphs
 + Support for more back-ends and front-ends
 + ~~Support for HTTP POST~~
 
@@ -466,6 +273,5 @@ $ bundle exec rake spec
 + Loren Siebert - [@lorensiebert](https://github.com/loren)
 + Alex Kleissner - [@hex337](https://github.com/hex337)
 + Mariano Vallés - [@zucaritask](https://github.com/zucaritask)
-
 
 If you contribute, add your name to this list!
