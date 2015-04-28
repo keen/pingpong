@@ -49,6 +49,7 @@ If you don't have the `bundle` command, first `gem install bundler`.
 **Step 3:** Set up database tables
 
 ```
+$ mkdir -p db/migrate
 $ thor pingpong:setup
 ```
 
