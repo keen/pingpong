@@ -12,6 +12,7 @@ class Check < ActiveRecord::Base
   validates :name, presence: true
   validates :url, presence: true
   validates :frequency, presence: true
+  validates :frequency, numericality: { only_integer: true, greater_than: 0 }
   validates :method, presence: true
   validate :post_must_have_data, on: :create
   validate :url_formatting, on: :create
@@ -31,21 +32,24 @@ class Check < ActiveRecord::Base
 
   def post_must_have_data
     if self.method == "POST"
-      errors.add(:data, "Must have data for a post body.") unless !self.data.empty?
+      if !self.data
+        errors.add(:data, "Can't be empty for a POST.")
+      else
+        errors.add(:data, "Must have data for a post body.") unless !self.data.empty?
+      end
     end
   end
 
   def url_formatting
     uri = URI.parse(self.url)
     if !uri
-    #if !url.kind_of?(URI::HTTP)
-      errors.add(:url, "Invalid url.")
+      errors.add(:url, "Invalid.")
     end
     if !url.start_with?("http")
-      errors.add(:url, "Url must start with http/https.")
+      errors.add(:url, "Must start with http/https.")
     end
   rescue URI::InvalidURIError
-    errors.add(:url, "Invalid url.")
+    errors.add(:url, "Invalid.")
   end
 
   def add_response_time(time)
@@ -79,6 +83,7 @@ class Check < ActiveRecord::Base
 
   def to_hash
     attrs = self.attributes
+    attrs.delete("configurations")
     attrs.delete("incident_checking")
     attrs.delete("created_at")
     attrs.delete("updated_at")

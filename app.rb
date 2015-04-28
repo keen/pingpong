@@ -48,7 +48,7 @@ post '/check/create' do
     flash[:notice] = "Created a new check: #{params[:name]}"
     redirect '/'
   else
-    errorMsg = check.errors.messages.values.join(" ")
+    errorMsg = check.errors.full_messages.join(" ")
     flash[:error] = "Could not save the new check. #{errorMsg}"
     redirect '/check/new'
   end
