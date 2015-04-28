@@ -6,26 +6,15 @@ describe Check do
   describe "#initialize" do
     context "missing required values" do
       it "should raise an error" do
-        expect {
-          Check.new(:name => 'Bob', :url => 'http://google.com').validate
-        }.to raise_error
-
-        expect {
-          Check.new(:name => 'Bob', :frequency => 10).validate
-        }.to raise_error
-
-        expect {
-          Check.new(:url => 'http://bob.com', :frequency => 10).validate
-        }.to raise_error
-
-        expect {
-          Check.new(
+        expect(Check.new(:name => 'Bob', :url => 'http://google.com').valid?).to be_false
+        expect(Check.new(:name => 'Bob', :frequency => 10).valid?).to be_false
+        expect(Check.new(:url => 'http://bob.com', :frequency => 10).valid?).to be_false
+        expect(Check.new(
             :name => 'foo',
             :url => 'http://keen.io',
             :frequency => 10,
             :method => "POST"
-          ).validate
-        }.to raise_error
+          ).valid?).to be_false
       end
     end
   end
@@ -226,7 +215,7 @@ describe Check do
 
     context "the response times are somewhat variable" do
       before {
-        [5, 8, 2, 9, 7, 1, 4, 11, 6, 4, 6].each {|time| subject.add_response_time(time)}
+        [6, 7, 4, 11, 2, 5, 8, 2, 9, 7, 1, 4, 11, 6, 4, 6].each {|time| subject.add_response_time(time)}
       }
 
       it "creates a warn incident" do
@@ -238,7 +227,7 @@ describe Check do
 
     context "the response times are highly variable" do
       before {
-        [5, 20, 2, 9, 30, 1, 4, 11, 6, 4, 46, 14].each {|time| subject.add_response_time(time)}
+        [1, 27, 12, 13, 12, 48, 5, 20, 2, 9, 30, 1, 4, 11, 6, 4, 46, 14].each {|time| subject.add_response_time(time)}
       }
 
       it "creates a bad incident" do
