@@ -62,7 +62,6 @@ TEMPLATE
 
     run("bundle exec rake db:create")
     run("bundle exec rake db:migrate")
-    run("bundle exec rake db:setup")
   end
 
   def self.source_root
