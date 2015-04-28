@@ -60,6 +60,7 @@ TEMPLATE
       end
     end
 
+    run("mkdir -p db/migrate")
     run("bundle exec rake db:create")
     run("bundle exec rake db:migrate")
   end
