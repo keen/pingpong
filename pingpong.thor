@@ -5,9 +5,22 @@ class Pingpong < Thor
   def setup
     # lets create the migration file
     t = Time.new()
-    fileName = "db/migrate/#{t.strftime("%Y%m%d%H%M%S")}_create_checks_and_incidents.rb"
+    migrationName = "create_checks_and_incidents"
+    hasFile = false;
 
-    create_file fileName do
+    # Need to check for this file first.
+    files = Dir.entries("db/migrate").select {|entry| !File.directory? entry}
+    files.each do |file|
+      if file.end_with? "#{migrationName}.rb"
+        hasFile = true
+        break
+      end
+    end
+
+    fileName = "db/migrate/#{t.strftime("%Y%m%d%H%M%S")}_#{migrationName}.rb"
+
+    if !hasFile
+      create_file fileName do
 <<TEMPLATE
 class CreateChecksAndIncidents < ActiveRecord::Migration
   def change
@@ -44,9 +57,12 @@ class CreateChecksAndIncidents < ActiveRecord::Migration
   end
 end
 TEMPLATE
-    end unless File.exists?(fileName)
+      end
+    end
 
+    run("bundle exec rake db:create")
     run("bundle exec rake db:migrate")
+    run("bundle exec rake db:setup")
   end
 
   def self.source_root
