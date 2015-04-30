@@ -8,12 +8,14 @@ class Pingpong < Thor
     migrationName = "create_checks_and_incidents"
     hasFile = false;
 
-    # Need to check for this file first.
-    files = Dir.entries("db/migrate").select {|entry| !File.directory? entry}
-    files.each do |file|
-      if file.end_with? "#{migrationName}.rb"
-        hasFile = true
-        break
+    if Dir.exists?("db/migrate")
+      # Need to check for this file first.
+      files = Dir.entries("db/migrate").select {|entry| !File.directory? entry}
+      files.each do |file|
+        if file.end_with? "#{migrationName}.rb"
+          hasFile = true
+          break
+        end
       end
     end
 
