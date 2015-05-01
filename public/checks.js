@@ -1,9 +1,10 @@
 var Check = function() {
-  var constructor = function Check(elem, checks, percentWarn, percentBad) {
+  var constructor = function Check(elem, checks, percentWarn, percentBad, showColoring) {
     this.elem = elem;
     this.checks = checks;
     this.percentWarn = percentWarn;
     this.percentBad = percentBad;
+    this.showColoring = showColoring;
 
     this.createHtml = function() {
       elem.empty();
@@ -19,6 +20,7 @@ var Check = function() {
 
       var warnThreshold = this.percentWarn * responseMean;
       var badThreshold = this.percentBad * responseMean;
+      var showColoredIcon = this.showColoring;
 
       $.each(this.checks, function(i, check) {
         var iconCss = "";
@@ -28,6 +30,7 @@ var Check = function() {
         var hasBadCode = false;
 
         var message = "";
+        var coloredIndicator = "";
 
         if (check.request.duration > badThreshold) {
           iconCss = " error";
@@ -49,13 +52,17 @@ var Check = function() {
           message = message + "400/500 status code. "
         }
 
+        if (showColoredIcon) {
+          coloredIndicator = '<span class="status-icon' + iconCss + '" aria-hidden="true"></span>';
+        }
+
         var checkHTML = '<div class="panel panel-default">'
             + '<div class="panel-heading" role="tab" id="heading' + i +'">'
               + '<a data-toggle="collapse" data-parent="#accordion" href="#collapse' + i +'" aria-expanded="true" aria-controls="collapse' + i +'" class="collapsed">'
                 + '<h3 class="panel-title">'
                   + '<div class="row">'
                     + '<div class="col-xs-2">'
-                      + '<span class="status-icon' + iconCss + '" aria-hidden="true"></span>' 
+                      + coloredIndicator
                     + '</div>'
                     + '<div class="col-xs-10">'
                       + check.request.sent_at

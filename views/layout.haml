@@ -86,6 +86,7 @@
       
       $.each($(".extraction-container").last(), function(key, value) {
         var name = $(this).data("name");
+        var numchecks = $(this).data("numchecks");
 
         var query = new Keen.Query("extraction", {
           eventCollection: Pingpong.collection,
@@ -95,7 +96,7 @@
         });
 
         client.run(query, function(err, response) {
-          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD});
+          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD}, numchecks > #{Check::MIN_CHECK_LENGTH});
           check.createHtml();
         });
       });

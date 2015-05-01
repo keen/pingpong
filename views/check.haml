@@ -155,7 +155,7 @@
 .row
   .col-md-8
     .chart-stage
-      #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10}}
+      #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10, :numchecks => @check.response_times.length}}
         .panel-group#accordion{:role => "tablist", :aria => {:multiselectable => "true"}}
   .col-md-4
     .chart-wrapper
@@ -167,6 +167,8 @@
       $("#check_count").change(function() {
         var latest = $("#check_count").val();
         var name = $("#checks-extraction").data("name");
+        var numchecks = $("#checks-extraction").data("numchecks");
+
         // Make sure the timeframe has enough data points to pull
         var timeframe = "this_" + String(latest * #{@check[:frequency]}) + "_minutes"
 
@@ -178,7 +180,7 @@
         });
 
         client.run(query, function(err, response) {
-          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD});
+          var check = new Check($(".extraction-container"), response.result, #{Check::MEAN_WARN_THRESHOLD}, #{Check::MEAN_BAD_THRESHOLD}, numchecks > #{Check::MIN_CHECK_LENGTH});
           check.createHtml();
         });
       });
