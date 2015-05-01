@@ -1,5 +1,5 @@
 <p align="center">
-![logo](public/pingpong-og.png)
+<img src="public/pingpong-og.png" alt="Pingpong Logo">
 </p>
 
 <img src="https://travis-ci.org/keen/pingpong.png?branch=master&foo=bar" alt="Pingpong Build Status">
