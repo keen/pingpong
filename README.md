@@ -1,5 +1,5 @@
 <p align="center">
-<img align="center" src="http://f.cl.ly/items/3C2j1v2T360u1s23170P/pingpong-square.png"> 
+<img src="public/pingpong-og.png" alt="Pingpong Logo">
 </p>
 
 <img src="https://travis-ci.org/keen/pingpong.png?branch=master&foo=bar" alt="Pingpong Build Status">
