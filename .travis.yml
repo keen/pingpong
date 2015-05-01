@@ -4,6 +4,11 @@ bundler_args: --without development
 rvm:
   - 2.0.0
 
+addons:
+  postgresql: "9.1"
+  
+before_script:
+  - psql -c 'create database pingpong_test;' -U postgres
+
 script:
   - bundle exec rake spec
-
