@@ -9,6 +9,7 @@ test:
   pool: 5
   timeout: 5000
   database: pingpong_test
+  username: postgres
 
 production:
   adapter: postgresql
