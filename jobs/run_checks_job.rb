@@ -61,17 +61,19 @@ job do
       end
     end
 
-    checks_with_incidents
+    checks
   end
 
   sendgrid 'send emails' do |response, step_responses|
     if !response.empty?
       response.each do |check|
-        if (check.is_bad? && check.email_bad?) || (check.is_warn? && check.email_warn?)
-          # things here
+        if (check.is_bad?) || (check.is_warn? && check.email_warn?)
+          config.logger.info("sending email for #{check.name}")
           incident = Incident.most_recent_for_check(check, 1).first
+          subject = incident.email_subject
+          body = incident.email_body
 
-          send_email config.properties[:to_email_address], config.properties[:from_email_address], incident.email_subject, incident.email_body, nil
+          send_email config.properties[:to_email_address], config.properties[:from_email_address], subject, body, nil
         end
       end
     end
