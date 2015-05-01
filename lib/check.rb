@@ -78,7 +78,7 @@ class Check < ActiveRecord::Base
       create_ok("Issue resolved.", response)
     end
 
-    timeIncident || codeIncident
+    timeIncident or codeIncident
   end
 
   def to_hash

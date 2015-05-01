@@ -54,10 +54,12 @@ class Incident < ActiveRecord::Base
   end
 
   def email_body
-    message = "Incident report for check '#{check.name}':\n\n" +
-      info + "\n\n" +
-      "Check Response: \n\n" +
-      JSON.pretty_generate(JSON.parse(check_response))
+    message = "Incident report for check '#{check.name}':<br><br>" +
+      info + "<br><br>" +
+      "Check Response: <br><br>" +
+      "<pre>" +
+      JSON.pretty_generate(check_response) +
+      "</pre>"
   end
 
   private
