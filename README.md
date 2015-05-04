@@ -1,3 +1,4 @@
+
 <p align="center">
 <img src="public/pingpong-og.png" alt="Pingpong Logo">
 </p>
@@ -6,32 +7,34 @@
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-#### Easy & Powerful HTTP Request-Response Analytics
+#### Get deeper HTTP request response analytics every second.
 
 Track real-time performance and availability across multiple API servers to see the what, when, and how behind your system performance. So you can understand why.
 
 ![Pingpong Graph](http://keen.github.io/pingpong/img/chart_02_new.png)
 
-#### How Does It Work?
+#### How does it work?
 
-+ Pingpong makes HTTP requests to URLs you configure, as frequently as once per minute. Pingpong turns data about each request and response into JSON.
-+ The default destination is Keen IO's [analytics API](https://keen.io/docs/). Keen's API supports capturing events, running queries, and creating visualizations.
-+ Pingpong ships with an HTML dashboard built on Keen that shows the following metrics:
-  + HTTP response status breakdown by URL
-  + Response time breakdown by URL
-  + Errors and long-running requests
-+ Pingpong automatically captures most of the data you'd want about HTTP requests and responses, but it also makes it easy to add custom properties specific to your infrastructure.
++ Pingpong sends HTTP requests to URLs you configure as frequently as once per second. It turns data about each request and response into JSON, then logs it to a custom destination.
++ Your default data store is Keen IO’s [analytics API](https://keen.io/docs/) to capture events, run queries, and create visualizations. But it’s simple to set up another backend.
++ Pingpong ships with [Dashboards](http://keen.github.io/dashboards/), an HTML visualization kit that lets you see and arrange your most critical response data. Built on the Keen IO analytics API, Dashboards is super-flexible and ready to be skinned, tweaked, and embedded anywhere.
++ Pingpong captures most of the data you'd want about HTTP requests and responses. To beef up or slim down your data stream, adding custom properties specific to your infrastructure is simple.
 
-**Now, choose your own adventure:**
+####Choose your own install adventure.
 
-+ Deploy straight to Heroku
-+ Setup and deploy your own Pingpong app (keep reading!)
+**Deploy straight to Heroku:** Pingpong is easy to install and ready for deployment to one or more Heroku regions. You can even deploy the app with a single click with this handy button:
+
+[![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
+
+*A note on event limits:* If you're using the Keen IO backend to store events, you can send 50,000 events for free per month. As a reference, one check running every minute will create about 43,000 events in a month. Check out [more plans](https://keen.io/pricing) to get more events.
+
+**Setup and deploy your own Pingpong app:** Don't run Heroku? That's cool. You can run Pingpong on any computer with Ruby, even your local machine. Either way, it's up and running in less than five minutes. Just see the next section.
 
 #### Setup & Deployment
 
 Pingpong is open source and easy to install. Pingpong is written in Ruby and streamlined for deployment to one or more Heroku regions. That said, you can run it on any computer with Ruby, including your local machine.
 
-**Step 1:** Clone or fork this repository
+**Step 1:** Clone or fork this repository:
 
 ```
 $ git clone git@github.com:keen/pingpong.git
@@ -48,13 +51,14 @@ If you don't have the `bundle` command, first `gem install bundler`.
 
 **Step 3:** Set up database tables
 
-By default, this project uses Postgres. You'll need that installed and running on your host. You can change the database adapter in the `database.yml` file.
-
-
 ```
-$ bundle exec rake db:create
-$ bundle exec rake db:migrate
+$ mkdir -p db/migrate
+$ thor pingpong:setup
 ```
+
+This will create one migration for two tables, `checks` and `incidents`, then run the migration. The default database driver is postgresql, but you can configure something else in `database.yml`.
+
+You will need to have a running postgres database!
 
 **Step 4:** Set up the environment variables
 
@@ -219,7 +223,7 @@ Set the `headers` property of a check to a hash of headers you'd like included w
 ```
 #### Inspiration
 
-Pingpong was developed in-house at Keen IO to answer a few simple, but important questions about our web and API infrastructure:
+Pingpong was developed in-house at Keen IO to answer a few simple, but important, questions about our web and API infrastructure:
 
 + Are any API servers or server processes slower than others?
 + Are any web pages or API calls slow? Are any experiencing errors?
@@ -227,10 +231,7 @@ Pingpong was developed in-house at Keen IO to answer a few simple, but important
 + What's the latency to each DC from a client in the US? In Europe?
 + How much latency does using SSL add?
 
-Pingpong runs all day, every day from multiple data centers around the world, helping our team understand current performance and study long-term trends. To date, Pingpong has run over 19,693,312 checks in production!
-
-While agent-based application monitoring tools like New Relic are also useful (we're big fans!), some things need to be measured from a real client exactly 1 Internet away. Additionally, few monitoring tools allow drill-downs over custom dimensions, or provide the ability to create dashboards from arbitrary queries.
-
+Pingpong runs all day, every day from multiple data centers around the world, helping our team understand current performance and study long-term trends. To date, Pingpong has run more than 20 million checks in production.
 
 #### Helpful Links
 
@@ -243,7 +244,7 @@ If you're using the Keen IO backend to store events, there's a limit on the numb
 
 ##### More Events
 
-As an early Pingpong user, you're helping us find bugs and test out new features. That's worth something, right? We think so, and we're happy to throw some extra events your way. Just [email us](mailto:team@keen.io?subject=Pingpong Events) your project ID and we'll get you hooked up.
+Do you use Pingpong and Keen IO? If so, we’re happy to throw some extra events your way. Just [email us](mailto:team@keen.io?subject=Pingpong Events) your project ID and we'll get you hooked up.
 
 #### Contributing
 
