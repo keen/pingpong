@@ -37,6 +37,6 @@
     }
   },
   "scripts": {
-    "postdeploy": "thor pingpong:setup"
+    "postdeploy": "rake db:migrate"
   }
 }
