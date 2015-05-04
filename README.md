@@ -1,4 +1,3 @@
-
 <p align="center">
 <img src="public/pingpong-og.png" alt="Pingpong Logo">
 </p>
