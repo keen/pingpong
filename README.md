@@ -48,14 +48,13 @@ If you don't have the `bundle` command, first `gem install bundler`.
 
 **Step 3:** Set up database tables
 
-```
-$ mkdir -p db/migrate
-$ thor pingpong:setup
-```
+By default, this project uses Postgres. You'll need that installed and running on your host. You can change the database adapter in the `database.yml` file.
 
-This will create one migration for two tables, `checks` and `incidents`, then run the migration. The default database driver is postgresql, but you can configure something else in `database.yml`.
 
-You will need to have a running postgres database!
+```
+$ bundle exec rake db:create
+$ bundle exec rake db:migrate
+```
 
 **Step 4:** Set up the environment variables
 
