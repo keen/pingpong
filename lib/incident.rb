@@ -9,9 +9,23 @@ class Incident < ActiveRecord::Base
   STATUS_WARN = 2
   STATUS_BAD = 3
 
+  NUM_TO_KEEP = 50
+
   scope :most_recent_for_check, ->(check, limit) {
     where(:check_id => check.id).order('created_at desc').limit(limit)
   }
+
+  scope :old_incidents_for_check, ->(check, offset) {
+    where(:check_id => check.id).order('created_at desc').offset(offset)
+  }
+
+  after_create do
+    oldIncidents = Incident.old_incidents_for_check(self.check, Incident::NUM_TO_KEEP)
+    
+    oldIncidents.each do |incident|
+      Incident.destroy(incident.id)
+    end
+  end
 
   def self.create_bad_from_check(check, info, response)
     self.createFromCheck(STATUS_BAD, check, info, response)
