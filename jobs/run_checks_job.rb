@@ -16,7 +16,7 @@ require File.dirname(__FILE__) + "/../lib/check.rb"
 
 KEEN_COLLECTION = ENV['KEEN_COLLECTION'] || 'checks'
 
-job do
+job 'run_checks' do
 
   every 1.minute
 
@@ -67,7 +67,7 @@ job do
   sendgrid 'send emails' do |response, step_responses|
     if !response.empty?
       response.each do |check|
-        if (check.is_bad?) || (check.is_warn? && check.email_warn?)
+        if (check.is_bad?) || (check.is_warn? && check.email_warn)
           config.logger.info("sending email for #{check.name}")
           incident = Incident.most_recent_for_check(check, 1).first
           subject = incident.email_subject
