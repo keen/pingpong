@@ -79,3 +79,29 @@
         %a.btn.btn-default.pull-right{:href => "/check/#{check.id}/edit"}
           %span.icon.icon-pencil{:aria => {:hidden => "true"}}
           Edit
+        %br
+        %br
+        %a.delete-check.btn.btn-default.pull-right{:href => "#", :data => {:checkid => check.id, :checkname => "#{check.name}"}}
+          %span.glyphicon.glyphicon-remove{:aria => {:hidden => "true"}}
+          Delete
+
+:javascript
+  $(document).ready(function() {
+    $.each($(".delete-check"), function(key, value) {
+      $(this).click(function(event) {
+        event.preventDefault();
+        var checkId = $(this).data("checkid");
+        var checkName = $(this).data("checkname");
+
+        if (confirm("Delete check '" + checkName + "'?")) {
+          $.ajax({
+            url: '/check/' + checkId + '/delete',
+            type: 'delete',
+            success: function(result) {
+              document.location = "/";
+            }
+          });
+        }
+      });
+    });
+  });

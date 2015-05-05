@@ -40,6 +40,17 @@ get '/check/new' do
   haml :new
 end
 
+delete '/check/:check_id/delete' do
+  check = Check.find(params[:check_id])
+
+  if check
+    flash[:notice] = "Removed check '#{check.name}'."
+    Check.find(params[:check_id]).destroy
+  end
+
+  redirect '/'
+end
+
 post '/check/create' do
   check = Check.new
   update_check(check, params)
