@@ -23,10 +23,10 @@ class Check < ActiveRecord::Base
   MIN_CHECK_LENGTH = 15
 
   # TODO: make these configurable with defaults
-  MEAN_WARN_THRESHOLD = 1.25
-  MEAN_BAD_THRESHOLD = 1.5
-  STD_BAD_CUTOFF = 0.28
-  STD_WARN_CUTOFF = 0.18
+  MEAN_WARN_THRESHOLD = 1.5
+  MEAN_BAD_THRESHOLD = 1.75
+  STD_WARN_CUTOFF = 0.2
+  STD_BAD_CUTOFF = 0.3
 
   after_initialize :initialize_defaults, :if => :new_record?
 
@@ -175,10 +175,10 @@ class Check < ActiveRecord::Base
     oldTimesMean = allOldTimes.mean
 
     # compare the current time to the old mean
-    if self.response_times.last / oldTimesMean > MEAN_BAD_THRESHOLD
+    if self.response_times.last / oldTimesMean > self.bad_thresh
       create_bad("Response time was a lot higher than the mean.", response)
       issueFound = true
-    elsif self.response_times.last / oldTimesMean > MEAN_WARN_THRESHOLD
+    elsif self.response_times.last / oldTimesMean > self.warn_thresh
       create_warn("Response time was higher than the mean.", response)
       issueFound = true
     end

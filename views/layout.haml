@@ -73,6 +73,8 @@
 
 :javascript
   $(document).ready(function() {
+    $(function () { $("[data-toggle='tooltip']").tooltip(); });
+
     // This handles form validation
     $(function () { $("input,select,textarea").not("[type=submit]").jqBootstrapValidation(); } );
 
