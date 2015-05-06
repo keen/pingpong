@@ -34,17 +34,24 @@
       %label Http Password (optional)
       %input{:type => "text", :name => "http_password", :id => "http_password", :class => "form-control", :value => "#{@check.http_password if !@check.nil?}"}
   .col-md-6
-    .checkbox
-      %label
-        %input{:type => "checkbox", :name => "email_warn", :id => "email_warn", :checked => @check.try(:email_warn) ? @check.email_warn : false} Email about Warnings
+    .form-group
+      .checkbox
+        %label{:title => "Select if you want to be notified when the check is in a warn state.", :data => {:toggle => "tooltip", :placement => "top"}}
+          %input{:type => "checkbox", :name => "email_warn", :id => "email_warn", :checked => @check.try(:email_warn) ? @check.email_warn : false} Email about Warnings
+    .form-group
+      %label{:title => "The value the request duration has to exceed to create a warning incident (value is a multiplies of the mean).",:data => {:toggle => "tooltip", :placement => "top"}} Warn Threshold
+      %input{:type => "text", :name => "warn_thresh", :id => "warn_thresh", :class => "form-control", :value => "#{@check.nil? ? Check::MEAN_WARN_THRESHOLD : @check.warn_thresh}"}
+    .form-group
+      %label{:title => "The value the request duration has to exceed to create an error incident (value is a multiplies of the mean).",:data => {:toggle => "tooltip", :placement => "top"}} Error Threshold
+      %input{:type => "text", :name => "bad_thresh", :id => "bad_thresh", :class => "form-control", :value => "#{@check.nil? ? Check::MEAN_BAD_THRESHOLD : @check.bad_thresh}"}
     .form-group
       %label Custom Properties (JSON)
       %textarea{:name => "custom_properties", :id => "custom_properties", :class => "form-control", :rows => 6, :cols => 30}
-        = @check.custom_properties if !@check.nil?
+        = @check.custom_properties.to_s if !@check.nil?
     .form-group
       %label Data (JSON)
       %textarea{:name => "data", :id => "data", :class => "form-control", :rows => 6, :cols => 30}
-        = @check.data if !@check.nil?
+        = @check.data.to_s if !@check.nil?
 .row{:style => "padding-top:5px;"}
   .col-md-12
     .form-group

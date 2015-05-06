@@ -185,7 +185,7 @@ describe Check do
     context "the most recent response time is slow" do
       before { 
         29.times { subject.add_response_time(10) }
-        subject.add_response_time(15)
+        subject.add_response_time(17)
       }
 
       it "creates an incident" do
@@ -215,7 +215,7 @@ describe Check do
 
     context "the response times are somewhat variable" do
       before {
-        [6, 7, 4, 11, 2, 5, 8, 2, 9, 7, 1, 4, 11, 6, 4, 6].each {|time| subject.add_response_time(time)}
+        [6, 7, 4, 11, 2, 5, 8, 2, 14, 7, 1, 4, 15, 6, 4, 1].each {|time| subject.add_response_time(time)}
       }
 
       it "creates a warn incident" do
@@ -227,7 +227,7 @@ describe Check do
 
     context "the response times are highly variable" do
       before {
-        [1, 27, 12, 13, 12, 48, 5, 20, 2, 9, 30, 1, 4, 11, 6, 4, 46, 14].each {|time| subject.add_response_time(time)}
+        [1, 27, 12, 13, 12, 48, 5, 20, 2, 9, 40, 1, 4, 11, 6, 4, 46, 14].each {|time| subject.add_response_time(time)}
       }
 
       it "creates a bad incident" do
@@ -329,7 +329,7 @@ describe Check do
     context "response times were wonky, now they're good" do
       before {
         29.times { subject.add_response_time(10) }
-        subject.add_response_time(15)
+        subject.add_response_time(16)
       }
 
       it "is ok" do
@@ -346,14 +346,36 @@ describe Check do
     context "response times are normal, then go up a bit" do
       before {
         28.times { subject.add_response_time(10) }
-        subject.add_response_time(15)
+        subject.add_response_time(16)
       }
 
       it "generates one incident" do
         subject.check_for_incidents(response)
-        subject.add_response_time(15)
+        subject.add_response_time(16)
         subject.check_for_incidents(response)
 
+        expect(subject.incidents.length).to eq(1)
+      end
+    end
+
+    context "obeys the configured thresholds" do
+      before {
+        28.times { subject.add_response_time(10) }
+        subject.warn_thresh = 2.0
+        subject.bad_thresh = 3.0
+      }
+
+      it "doesn't generate an incident with new thresholds" do
+        subject.add_response_time(17)
+        subject.check_for_incidents(response)
+        
+        expect(subject.incidents.length).to eq(0)
+      end
+
+      it "does generate an incident with a slower time" do
+        subject.add_response_time(22)
+        subject.check_for_incidents(response)
+        
         expect(subject.incidents.length).to eq(1)
       end
     end
