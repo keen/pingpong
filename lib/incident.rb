@@ -55,7 +55,7 @@ class Incident < ActiveRecord::Base
     is_ok? ? "" : is_warn? ? " warning" : " error"
   end
 
-  def email_subject
+  def notification_subject(formatting = false)
     subject = ""
 
     if is_warn?
@@ -64,10 +64,14 @@ class Incident < ActiveRecord::Base
       subject = "Failure"
     end
 
+    if formatting
+      subject = "**#{subject}**"
+    end
+
     subject + " for check '#{check.name}'"
   end
 
-  def email_body
+  def notification_body
     message = "Incident report for check '#{check.name}':<br><br>" +
       info + "<br><br>" +
       "Check Response: <br><br>" +
