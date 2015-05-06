@@ -27,11 +27,11 @@ Track real-time performance and availability across multiple API servers to see 
 
 *A note on event limits:* If you're using the Keen IO backend to store events, you can send 50,000 events for free per month. As a reference, one check running every minute will create about 43,000 events in a month. Check out [more plans](https://keen.io/pricing) to get more events.
 
-**Setup and deploy your own Pingpong app:** Don't run Heroku? That's cool. You can run Pingpong on any computer with Ruby, even your local machine. Either way, it's up and running in less than five minutes. Just see the next section.
+**Setup and deploy your own Pingpong app:** Don't run Heroku? That's cool. You can run Pingpong on any host with Ruby, even your local machine. Either way, it's up and running in less than five minutes. Just see the next section.
 
 #### Setup & Deployment
 
-Pingpong is open source and easy to install. Pingpong is written in Ruby and streamlined for deployment to one or more Heroku regions. That said, you can run it on any computer with Ruby, including your local machine.
+Pingpong is open source and easy to install. Pingpong is written in Ruby and streamlined for deployment to one or more Heroku regions. That said, you can run it on any host with Ruby, including your local machine.
 
 **Step 1:** Clone or fork this repository:
 
@@ -51,15 +51,15 @@ If you don't have the `bundle` command, first `gem install bundler`.
 **Step 3:** Set up database tables
 
 ```
-$ mkdir -p db/migrate
-$ thor pingpong:setup
+$ bundle exec rake db:create
+$ bundle exec rake db:migrate
 ```
 
-This will create one migration for two tables, `checks` and `incidents`, then run the migration. The default database driver is postgresql, but you can configure something else in `database.yml`.
-
-You will need to have a running postgres database!
+The project uses Postgres as the default database, but you can modify that in the `database.yml` file.
 
 **Step 4:** Set up the environment variables
+
+***Keen IO Setup***
 
 You'll need to sign up for a free [Keen IO](https://keen.io) account. Once your account is set up, create a new project.
 
@@ -70,6 +70,26 @@ KEEN_PROJECT_ID=xxxxxxxxxxxxxxx
 KEEN_READ_KEY=yyyyyyyyyyyyyyyyy
 KEEN_WRITE_KEY=zzzzzzzzzzzzzzzz
 ```
+
+***Sendgrid Setup***
+
+If you want to send emails, you'll have to sign up for a free [Sendgrid](https://sendgrid.com/user/signup) account.
+
+Once you've done that, add the following to your `.env` file:
+
+```
+TO_EMAIL_ADDRESS=me@test.com
+FROM_EMAIL_ADDRESS=pingpong@test.com
+SKIP_EMAIL=false
+SENDGRID_USERNAME=asdfasdfasdf
+SENDGRID_PASSWORD=12345
+```
+
+***Slack Setup***
+
+Coming soon!
+
+***Run the Server***
 
 Now you're ready to start the web server locally using `foreman`, which will pick up the variables in the `.env` file. [foreman](https://github.com/ddollar/foreman) comes with the [Heroku toolbelt](https://toolbelt.heroku.com/).
 
