@@ -1,5 +1,8 @@
 $stdout.sync = true
 
+require 'dotenv'
+Dotenv.load
+
 require 'sinatra'
 require 'sinatra/reloader' if development?
 require 'sinatra/activerecord'
