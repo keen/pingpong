@@ -52,6 +52,7 @@ describe 'Pushpop' do
         ) 
       } 
 
+
       step = job.steps.find { |step|
         step.name == 'send emails'
       }
@@ -88,6 +89,71 @@ describe 'Pushpop' do
         step.should_receive(:send_email)
 
         step.run([check])
+      end
+    end
+    
+    describe 'send slack message' do
+      let(:check) { Check.new(:name => 'WebCheck', :url => 'http://bark.meow', :frequency => 10) }
+      let(:incident) {
+        Incident.new(
+          :incident_type => 3,
+          :info => 'test',
+          :check_response => { :body => 'tester' },
+          :check => check
+        )
+      }
+      let(:step_responses) { { 'run checks' => [check] }}
+
+      before(:each) do
+        allow(Incident).to receive(:most_recent_for_check).and_return([incident])
+      end
+
+
+      step = job.steps.find { |step|
+        step.name == 'send slack message'
+      }
+
+      it 'should have this step' do
+        expect(step.class).to equal(Pushpop::Slack)
+      end
+
+      it 'should not send any messages when the configs are false' do
+        allow(check).to receive(:is_bad?).and_return(true)
+        allow(check).to receive(:is_warn?).and_return(true)
+        allow(check).to receive(:slack_bad).and_return(false)
+
+        expect(step).not_to receive(:send_message)
+        step.run(nil, step_responses)
+      end
+
+      it 'should send messages for bad checks if slack_bad is true' do
+        allow(check).to receive(:is_bad?).and_return(true)
+        allow(check).to receive(:slack_bad).and_return(true)
+
+        expect(step).to receive(:send_message)
+        step.run(nil, step_responses)
+      end
+
+      it 'should send messages for warn checks if slack_warn is true' do
+        allow(check).to receive(:is_warn?).and_return(true)
+        allow(check).to receive(:slack_warn).and_return(true)
+        allow(check).to receive(:send_message)
+
+        incident.incident_type = 2
+
+        expect(step).to receive(:send_message)
+        step.run(nil, step_responses)
+
+        incident.incident_type = 2
+      end
+
+      it 'should send multiple messages if there are multiple bad checks' do
+        allow(check).to receive(:is_bad?).and_return(true)
+        allow(check).to receive(:slack_bad).and_return(true)
+
+        expect(step).to receive(:send_message).exactly(2).times
+        puts 'multiple'
+        step.run(nil, { 'run checks' => [check, check] })
       end
     end
   end
