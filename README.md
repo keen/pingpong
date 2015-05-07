@@ -25,7 +25,7 @@ Track real-time performance and availability across multiple API servers to see 
 
 [![Deploy](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-*A note on event limits:* If you're using the Keen IO backend to store events, you can send 50,000 events for free per month. As a reference, one check running every minute will create about 43,000 events in a month. Check out [more plans](https://keen.io/pricing) to get more events.
+*A note on event limits:* If you're using the Keen IO backend to store events, you can send 50,000 events for free per month. As a reference, one check running every minute will create about 43,000 events in a month. Check out [more plans](https://keen.io/pricing) to get more events. We'd also love to give you a discount if you're using Pingpong, just [email us](mailto:team@keen.io?subject=Pingpong Events) your project ID and we'll get you hooked up.
 
 **Setup and deploy your own Pingpong app:** Don't run Heroku? That's cool. You can run Pingpong on any host with Ruby, even your local machine. Either way, it's up and running in less than five minutes. Just see the next section.
 
@@ -256,14 +256,6 @@ Pingpong runs all day, every day from multiple data centers around the world, he
 
 + [Keen IO docs](https://keen.io)
 + [Keen IO Heroku add-on](https://addons.heroku.com/keen)
-
-#### Event Limits
-
-If you're using the Keen IO backend to store events, there's a limit on the number of monthly events you can send for free. Currently, that limit is 50,000 events/month. The [$20/month plan](https://keen.io/pricing) doubles that limit to 100,000.
-
-##### More Events
-
-Do you use Pingpong and Keen IO? If so, we’re happy to throw some extra events your way. Just [email us](mailto:team@keen.io?subject=Pingpong Events) your project ID and we'll get you hooked up.
 
 #### Contributing
 
