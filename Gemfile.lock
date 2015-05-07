@@ -74,7 +74,7 @@ GEM
     pushpop-keen (0.1.1)
       keen
       pushpop
-    pushpop-slack (0.2.2)
+    pushpop-slack (0.2.3)
       pushpop
       slack-notifier
     rack (1.5.2)
