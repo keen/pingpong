@@ -87,7 +87,7 @@ SENDGRID_PASSWORD=12345
 
 ***Slack Setup***
 
-To get notifications in Slack, you'll have to provide us with your Incoming Webhook URL. You can create an Incoming Webhook [here](https://slack.com/services/new/incoming-webhook)
+To get notifications in Slack, you'll have to provide us with your Incoming Webhook URL. You can create an Incoming Webhook [here](https://slack.com/services/new/incoming-webhook).
 
 Once you've got the Webhook URL, drop it in your `.env` file:
 
