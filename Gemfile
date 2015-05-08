@@ -16,7 +16,7 @@ gem 'keen'
 
 gem 'pushpop'
 gem 'pushpop-keen'
-gem 'pushpop-sendgrid', :git => 'git@github.com:pushpop-project/pushpop-sendgrid.git'
+gem 'pushpop-sendgrid'
 gem 'pushpop-slack'
 
 gem 'pg', '0.18.1'

@@ -1,11 +1,3 @@
-GIT
-  remote: git@github.com:pushpop-project/pushpop-sendgrid.git
-  revision: 7fc7742907683f43756e73c8bec21229021c0d7a
-  specs:
-    pushpop-sendgrid (0.1.3)
-      mail
-      pushpop
-
 GEM
   remote: http://rubygems.org/
   specs:
@@ -73,12 +65,20 @@ GEM
       coderay (~> 1.1.0)
       method_source (~> 0.8.1)
       slop (~> 3.4)
+    pry (0.10.1-x64-mingw32)
+      coderay (~> 1.1.0)
+      method_source (~> 0.8.1)
+      slop (~> 3.4)
+      win32console (~> 1.3)
     pushpop (0.2)
       clockwork
       dotenv
       thor
     pushpop-keen (0.1.1)
       keen
+      pushpop
+    pushpop-sendgrid (0.1.3)
+      mail
       pushpop
     pushpop-slack (0.2.3)
       pushpop
@@ -126,6 +126,7 @@ GEM
     webmock (1.17.1)
       addressable (>= 2.2.7)
       crack (>= 0.3.2)
+    win32console (1.3.2)
 
 PLATFORMS
   ruby
@@ -146,7 +147,7 @@ DEPENDENCIES
   pry
   pushpop
   pushpop-keen
-  pushpop-sendgrid!
+  pushpop-sendgrid
   pushpop-slack
   rack-flash3
   rake
