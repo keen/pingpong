@@ -7,7 +7,7 @@ class Check < ActiveRecord::Base
   serialize :headers, JSON
 
   store :incident_checking, accessors: [:response_times, :response_codes], coder: JSON
-  store :configurations, accessors: [:email_warn, :email_bad, :warn_thresh, :bad_thresh], coder: JSON
+  store :configurations, accessors: [:email_warn, :email_bad, :slack_bad, :slack_warn, :warn_thresh, :bad_thresh], coder: JSON
 
   validates :name, presence: true
   validates :url, presence: true
@@ -255,6 +255,8 @@ class Check < ActiveRecord::Base
   def initialize_defaults
     self.email_warn = false
     self.email_bad = true
+    self.slack_bad = true
+    self.slack_warn = false
     self.warn_thresh = MEAN_WARN_THRESHOLD
     self.bad_thresh = MEAN_BAD_THRESHOLD
   end

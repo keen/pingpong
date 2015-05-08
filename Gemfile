@@ -17,6 +17,7 @@ gem 'keen'
 gem 'pushpop'
 gem 'pushpop-keen'
 gem 'pushpop-sendgrid'
+gem 'pushpop-slack'
 
 gem 'pg', '0.18.1'
 gem 'rack-flash3'
@@ -29,4 +30,5 @@ group :development, :test do
   gem 'rspec'
   gem 'webmock'
   gem 'factory_girl'
+  gem 'pry'
 end

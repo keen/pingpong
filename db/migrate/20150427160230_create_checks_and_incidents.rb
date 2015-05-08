@@ -13,7 +13,7 @@ class CreateChecksAndIncidents < ActiveRecord::Migration
 
       t.text :custom_properties
       t.text :incident_checking
-      t.text :configurations, :default => '{"email_warn":false, "email_bad":true}'
+      t.text :configurations, :default => '{"email_warn":false, "email_bad":true, "slack_warn":false, "slack_bad":true}'
 
       t.timestamps
     end

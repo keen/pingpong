@@ -1,9 +1,9 @@
 require 'pushpop'
 require 'pushpop-keen'
 require 'pushpop-sendgrid'
-
 require 'dotenv'
 Dotenv.load
+require 'pushpop-slack'
 
 require 'sinatra'
 require 'sinatra/activerecord'
@@ -16,7 +16,7 @@ require File.dirname(__FILE__) + "/../lib/check.rb"
 
 KEEN_COLLECTION = ENV['KEEN_COLLECTION'] || 'checks'
 
-job do
+job 'run_checks' do
 
   every 1.minute
 
@@ -67,15 +67,63 @@ job do
   sendgrid 'send emails' do |response, step_responses|
     if !response.empty?
       response.each do |check|
-        if (check.is_bad?) || (check.is_warn? && check.email_warn?)
+        if (check.is_bad?) || (check.is_warn? && check.email_warn)
           config.logger.info("sending email for #{check.name}")
           incident = Incident.most_recent_for_check(check, 1).first
-          subject = incident.email_subject
-          body = incident.email_body
+          subject = incident.notification_subject
+          body = incident.notification_body
 
           send_email config.properties[:to_email_address], config.properties[:from_email_address], subject, body, nil
         end
       end
+      true
+    else
+      false
     end
+  end
+
+  slack 'send slack message' do |response, step_responses|
+    step_responses['run checks'].each_with_index do |check, index|
+      if (check.is_bad? && check.slack_bad) || (check.is_warn? && check.slack_warn)
+        config.logger.info("sending slack message for #{check.name}")
+        incident = Incident.most_recent_for_check(check, 1).first
+
+        slack_attachment = {
+          fallback: "Attachment couldn't be displayed - your client only supports plaintext",
+          color: check.is_bad? ? config.properties[:slack][:bad_color] : config.properties[:slack][:warn_color],
+          title: check.name,
+          title_link: check.url,
+          mrkdwn_in: ['fields'],
+          fields: [
+            {
+              title: 'URL',
+              value: check.url,
+              short: true
+            },
+            {
+              title: 'Severity',
+              value: check.is_bad? ? 'Failure' : 'Warning',
+              short: true
+            },
+            {
+              title: 'Check Response',
+              value: "```#{JSON.pretty_generate(incident.check_response)}```"
+            }
+          ]
+        } 
+
+
+        channel config.properties[:slack][:channel] if config.properties[:slack][:channel]
+        username config.properties[:slack][:username]
+        icon config.properties[:slack][:icon] if config.properties[:slack][:icon]
+        message incident.notification_subject
+        attachment slack_attachment
+
+        send_message
+      end 
+    end
+      # pushpop-slack calls send_message internally at the end of the step
+      # so if we set the message to nil it will just abort rather than duplicate the last check message
+      self._message = nil
   end
 end

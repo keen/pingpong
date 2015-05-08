@@ -1,6 +1,7 @@
 require 'webmock/rspec'
 require 'sinatra/activerecord'
 require 'factory_girl'
+require 'pushpop'
 
 $: << File.join(File.dirname(__FILE__), 'lib')
 
@@ -21,3 +22,12 @@ require File.expand_path('../support/factory_girl.rb', __FILE__)
 # then the factory files
 require File.expand_path('../factories.rb', __FILE__)
 #Dir["../factories/*.rb"].each {|file| require file }
+
+# then load pushpop
+Dir.glob("#{File.dirname(__FILE__)}/../jobs/**/*.rb").each { |file|
+  require file
+}
+Pushpop.schedule
+
+# quiet down AR
+ActiveRecord::Base.logger = nil

@@ -38,6 +38,15 @@
       .checkbox
         %label{:title => "Select if you want to be notified when the check is in a warn state.", :data => {:toggle => "tooltip", :placement => "top"}}
           %input{:type => "checkbox", :name => "email_warn", :id => "email_warn", :checked => @check.try(:email_warn) ? @check.email_warn : false} Email about Warnings
+      .checkbox
+        %label
+          %input{:type => "checkbox", :name => "email_warn", :id => "email_warn", :checked => @check.try(:email_warn) ? @check.email_warn : false} Email about Warnings
+      .checkbox
+        %label
+          %input{:type => "checkbox", :name => "slack_bad", :id => "slack_bad", :checked => @check.try(:slack_bad) ? @check.slack_bad : false} Send Slack message about Failures
+      .checkbox
+        %label
+          %input{:type => "checkbox", :name => "slack_warn", :id => "slack_warn", :checked => @check.try(:slack_warn) ? @check.slack_warn : false} Send Slack message about Warnings
     .form-group
       %label{:title => "The value the request duration has to exceed to create a warning incident (value is a multiplies of the mean).",:data => {:toggle => "tooltip", :placement => "top"}} Warn Threshold
       %input{:type => "text", :name => "warn_thresh", :id => "warn_thresh", :class => "form-control", :value => "#{@check.nil? ? Check::MEAN_WARN_THRESHOLD : @check.warn_thresh}"}

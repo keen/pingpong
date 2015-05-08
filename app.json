@@ -22,6 +22,10 @@
       "description": "The from email address for alert emails.",
       "value": ""
     },
+    "SLACK_WEBHOOK_URL": {
+      "description": "Optional: Webhook URL for Slack notifications",
+      "required": false
+    },
     "KEEN_COLLECTION": {
       "description": "Name of the collection to store the checks in.",
       "value": "checks",

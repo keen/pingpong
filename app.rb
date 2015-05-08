@@ -105,6 +105,8 @@ def update_check(check, params)
   check.http_username = params[:http_username]
   check.http_password = params[:http_password]
   check.email_warn = params[:email_warn] == 'on'
+  check.slack_warn = params[:slack_warn] == 'on'
+  check.slack_bad = params[:slack_bad] == 'on'
 
   check
 end

@@ -19,6 +19,13 @@ defaults: &defaults
     master_key: <%= ENV['KEEN_MASTER_KEY'] %>
     collection: <%= ENV['KEEN_COLLECTION'] || 'checks' %>
 
+  slack: 
+    channel: <%= ENV['SLACK_CHANNEL'] %>
+    username: <%= ENV['SLACK_USERNAME'] || 'Pingpong' %>
+    icon: <%= ENV['SLACK_ICON'] %>
+    warn_color: '<%= ENV['WARN_COLOR'] || '#E2E541' %>'
+    bad_color: '<%= ENV['BAD_COLOR'] || '#F25656' %>'
+
   # by default a web worker will run checks
   skip_checks: <%= ENV['SKIP_CHECKS'] %>
 
