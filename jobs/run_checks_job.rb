@@ -61,7 +61,7 @@ job 'run_checks' do
       end
     end
 
-    checks
+    checks_with_incidents
   end
 
   sendgrid 'send emails' do |response, step_responses|
