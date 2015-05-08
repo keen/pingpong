@@ -28,7 +28,7 @@ ActiveRecord::Schema.define(version: 20150427160230) do
     t.string   "http_password"
     t.text     "custom_properties"
     t.text     "incident_checking"
-    t.text     "configurations",    default: "{\"email_warn\":false, \"email_bad\":true}"
+    t.text     "configurations",    default: "{\"email_warn\":false, \"email_bad\":true, \"slack_bad\":true, \"slack_warn\":false}"
     t.datetime "created_at"
     t.datetime "updated_at"
   end

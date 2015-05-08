@@ -90,7 +90,7 @@ job 'run_checks' do
 
         slack_attachment = {
           fallback: "Attachment couldn't be displayed - your client only supports plaintext",
-          color: check.is_bad? ? config.properties[:slack][:warn_color] : config.properties[:slack][:warn_color],
+          color: check.is_bad? ? config.properties[:slack][:bad_color] : config.properties[:slack][:warn_color],
           title: check.name,
           title_link: check.url,
           mrkdwn_in: ['fields'],

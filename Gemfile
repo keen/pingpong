@@ -30,4 +30,5 @@ group :development, :test do
   gem 'rspec'
   gem 'webmock'
   gem 'factory_girl'
+  gem 'pry'
 end
