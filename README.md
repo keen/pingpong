@@ -87,7 +87,23 @@ SENDGRID_PASSWORD=12345
 
 ***Slack Setup***
 
-Coming soon!
+To get notifications in Slack, you'll have to provide us with your Incoming Webhook URL. You can create an Incoming Webhook [here](https://slack.com/services/new/incoming-webhook)
+
+Once you've got the Webhook URL, drop it in your `.env` file:
+
+```
+SLACK_WEBHOOK_URL=https://hooks.slack.com/services/XXXXXXXXXXXXXXX/YYYYYYYYYYY
+```
+
+There are also some optional configurations you can put in for Slack notifications:
+
+```
+SLACK_CHANNEL='#alerts' # The channel to send notifcations to
+SLACK_USERNAME='Robot' # The username the notification will come from - defaults to Pingpong
+SLACK_ICON=':rotating_light' # The icon of the user "sending" the notification. Can be a URL or an Emoji
+WARN_COLOR='#CCCCCC' # Hex color value used for the warning messages - defaults to #E2E541
+BAD_COLOR='#000000' # Hex color value used for the failure messages - defaults to #F25656
+```
 
 ***Run the Server***
 
