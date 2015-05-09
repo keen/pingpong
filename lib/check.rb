@@ -159,6 +159,12 @@ class Check < ActiveRecord::Base
     interval
   end
 
+  def mean_response_time(include_recent=true)
+    return 0 if self.response_times.nil? || self.response_times.empty?
+    times = include_recent ? self.response_times : self.response_times.slice(0, 29)
+    times.mean
+  end
+
   private
   def check_for_response_time_incidents(response)
     issueFound = false
