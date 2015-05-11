@@ -1,25 +1,13 @@
 var Check = function() {
-  var constructor = function Check(elem, checks, percentWarn, percentBad, showColoring) {
+  var constructor = function Check(elem, checks, warnAmount, badAmount, showColoring) {
     this.elem = elem;
     this.checks = checks;
-    this.percentWarn = percentWarn;
-    this.percentBad = percentBad;
+    this.warnAmount = warnAmount;
+    this.badAmount = badAmount;
     this.showColoring = showColoring;
 
     this.createHtml = function() {
       elem.empty();
-      var responseTimes = [];
-      var responseMean = 0.0, responseTotal = 0.0;
-
-      $.each(this.checks, function(i, check) {
-        responseTotal += check.request.duration
-        responseTimes.push(check.request.duration);
-      });
-
-      responseMean = responseTotal / this.checks.length;
-
-      var warnThreshold = this.percentWarn * responseMean;
-      var badThreshold = this.percentBad * responseMean;
       var showColoredIcon = this.showColoring;
 
       $.each(this.checks, function(i, check) {
@@ -32,11 +20,11 @@ var Check = function() {
         var message = "";
         var coloredIndicator = "";
 
-        if (check.request.duration > badThreshold) {
+        if (check.request.duration > this.badAmount) {
           iconCss = " error";
           hasBadTime = true;
           message = message + "Very slow response time. "
-        } else if (check.request.duration > warnThreshold) {
+        } else if (check.request.duration > this.warnAmount) {
           iconCss = " warning";
           hasWarnTime = true;
           message = message + "Slow response time. "
