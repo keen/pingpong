@@ -19,7 +19,7 @@ Track real-time performance and availability across multiple API servers to see 
 + Pingpong ships with [Dashboards](http://keen.github.io/dashboards/), an HTML visualization kit that lets you see and arrange your most critical response data. Built on the Keen IO analytics API, Dashboards is super-flexible and ready to be skinned, tweaked, and embedded anywhere.
 + Pingpong captures most of the data you'd want about HTTP requests and responses. To beef up or slim down your data stream, adding custom properties specific to your infrastructure is simple.
 
-####Choose your own install adventure.
+#### Choose your own install adventure.
 
 **Deploy straight to Heroku:** Pingpong is easy to install and ready for deployment to one or more Heroku regions. You can even deploy the app with a single click with this handy button:
 
@@ -63,7 +63,13 @@ The project uses Postgres as the default database, but you can modify that in th
 
 You'll need to sign up for a free [Keen IO](https://keen.io) account. Once your account is set up, create a new project.
 
-You'll need to grab the `project id`, `read key`, and `write key`. Add these to a root level file called `.env`. It should look like this:
+You'll need to grab the `project id`, `read key`, and `write key`. Add these to a root level file called `.env`. There's a .env.sample setup with all the variables, so just run:
+
+```sh
+$ cp .env.sample .env
+```
+
+And edit your Keen IO variables:
 
 ```
 KEEN_PROJECT_ID=xxxxxxxxxxxxxxx
@@ -71,11 +77,11 @@ KEEN_READ_KEY=yyyyyyyyyyyyyyyyy
 KEEN_WRITE_KEY=zzzzzzzzzzzzzzzz
 ```
 
-***Sendgrid Setup***
+***SendGrid Setup***
 
-If you want to send emails, you'll have to sign up for a free [Sendgrid](https://sendgrid.com/user/signup) account.
+If you want to send emails, you'll have to sign up for a free [SendGrid](https://sendgrid.com/user/signup) account.
 
-Once you've done that, add the following to your `.env` file:
+Once you've done that, edit the following in your `.env` file:
 
 ```
 TO_EMAIL_ADDRESS=me@test.com
@@ -89,16 +95,16 @@ SENDGRID_PASSWORD=12345
 
 To get notifications in Slack, you'll have to provide us with your Incoming Webhook URL. You can create an Incoming Webhook [here](https://slack.com/services/new/incoming-webhook).
 
-Once you've got the Webhook URL, drop it in your `.env` file:
+Once you've got the Webhook URL, update your `.env` file:
 
 ```
 SLACK_WEBHOOK_URL=https://hooks.slack.com/services/XXXXXXXXXXXXXXX/YYYYYYYYYYY
 ```
 
-There are also some optional configurations you can put in for Slack notifications:
+There are also some optional configurations you can edit for Slack notifications:
 
 ```
-SLACK_CHANNEL='#alerts' # The channel to send notifcations to
+SLACK_CHANNEL='#alerts' # The channel to send notifications to
 SLACK_USERNAME='Robot' # The username the notification will come from - defaults to Pingpong
 SLACK_ICON=':rotating_light' # The icon of the user "sending" the notification. Can be a URL or an Emoji
 WARN_COLOR='#CCCCCC' # Hex color value used for the warning messages - defaults to #E2E541
