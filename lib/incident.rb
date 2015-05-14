@@ -62,6 +62,8 @@ class Incident < ActiveRecord::Base
       subject = "Warning"
     elsif is_bad?
       subject = "Failure"
+    elsif is_ok?
+      subject = "Incident Resolved"
     end
 
     if formatting

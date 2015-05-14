@@ -28,7 +28,7 @@ job 'run_checks' do
   end
 
   step 'run checks' do |checks|
-    checks_with_incidents = []
+    checks_with_state_changed = []
 
     checks.each do |check|
       check_response = nil
@@ -41,7 +41,7 @@ job 'run_checks' do
           config.logger.debug(response)
 
           if check_response[:had_incident]
-            checks_with_incidents.push(check)
+            checks_with_state_changed.push(check)
           end
 
           begin
@@ -61,7 +61,7 @@ job 'run_checks' do
       end
     end
 
-    checks_with_incidents
+    checks_with_state_changed
   end
 
   sendgrid 'send emails' do |response, step_responses|

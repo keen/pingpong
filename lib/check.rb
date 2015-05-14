@@ -73,12 +73,14 @@ class Check < ActiveRecord::Base
   def check_for_incidents(response)
     timeIncident = check_for_response_time_incidents(response)
     codeIncident = check_for_response_code_incidents(response)
+    okIncident = false
 
     if !timeIncident && !codeIncident && ! self.is_ok?
       create_ok("Issue resolved.", response)
+      okIncident = true
     end
 
-    timeIncident or codeIncident
+    timeIncident or codeIncident or okIncident
   end
 
   def to_hash
