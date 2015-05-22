@@ -64,7 +64,7 @@
 
   </figure>
   <ul>
-    <li> <a href="https://keen.io/blog/101269629091/charts-on-grids-responsive-dashboard-templates-with">About</a> </li>
+    <li> <a href="https://keen.io/blog/118382591286/pingpong-a-reintroduction">About</a> </li>
     <li> <a href="https://keen.io/team">Team</a> </li>
     <li> <a href="https://groups.google.com/forum/#!forum/keen-io-devs">Community</a> </li>
     <li> <a href="http://stackoverflow.com/questions/tagged/keen-io?sort=newest&pageSize=15">Support</a> </li>
@@ -365,13 +365,20 @@
   !function(a,b){a("Keen","http://d26b395fwzu5fz.cloudfront.net/3.2.2/keen.min.js",b)}(function(a,b,c){var d,e,f;c["_"+a]={},c[a]=function(b){c["_"+a].clients=c["_"+a].clients||{},c["_"+a].clients[b.projectId]=this,this._config=b},c[a].ready=function(b){c["_"+a].ready=c["_"+a].ready||[],c["_"+a].ready.push(b)},d=["addEvent","setGlobalProperties","trackExternalLink","on"];for(var g=0;g<d.length;g++){var h=d[g],i=function(a){return function(){return this["_"+a]=this["_"+a]||[],this["_"+a].push(arguments),this}};c[a].prototype[h]=i(h)}e=document.createElement("script"),e.async=!0,e.src=b,f=document.getElementsByTagName("script")[0],f.parentNode.insertBefore(e,f)},this);
 </script>
 <script src="js/script.js"> </script>
-<script>
-    (function(b,o,i,l,e,r){b.GoogleAnalyticsObject=l;b[l]||(b[l]=
-    function(){(b[l].q=b[l].q||[]).push(arguments)});b[l].l=+new Date;
-    e=o.createElement(i);r=o.getElementsByTagName(i)[0];
-    e.src='//www.google-analytics.com/analytics.js';
-    r.parentNode.insertBefore(e,r)}(window,document,'script','ga'));
-    ga('create','UA-XXXXX-X');ga('send','pageview');
-</script>
+  <script type="text/javascript" src="js/common-web.min.js"></script>
+  <script type="text/javascript">
+    console.log('sup');
+    CommonWeb.Keen.Client = new Keen({
+      projectId: '554d169796773d1969aeb5fc',
+      writeKey: '6780ed4f00b0534665bc5203fb990c1a39407a89044e4ff67177cf2b1bd7f132f0c3230b32716d1912439e83a04858a4c4b7882742491fb33d438b89a8e9ec0e2766c2b602f3c311d25e04fc7adad2d71b4ebd93e248fbb70513dd8ab4843444b957342acf70f900458372354086327a' 
+    });
+
+    CommonWeb.addGlobalProperties(CommonWeb.Keen.globalProperties);
+    CommonWeb.Callback = CommonWeb.Keen.Callback;
+
+    CommonWeb.trackSession();
+    CommonWeb.trackPageview();
+    CommonWeb.trackClicks();
+  </script>
   </body>
 </html>
