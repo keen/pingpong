@@ -61,7 +61,7 @@ The project uses Postgres as the default database, but you can modify that in th
 
 ***Keen IO Setup***
 
-You'll need to sign up for a free [Keen IO](https://keen.io) account. Once your account is set up, create a new project.
+You'll need to sign up for a free [Keen IO](https://keen.io?s=pingpong) account. Once your account is set up, create a new project.
 
 You'll need to grab the `project id`, `read key`, and `write key`. Add these to a root level file called `.env`. There's a .env.sample setup with all the variables, so just run:
 
