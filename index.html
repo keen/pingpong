@@ -369,11 +369,14 @@
   <script type="text/javascript">
     console.log('sup');
     CommonWeb.Keen.Client = new Keen({
-      projectId: '554d169796773d1969aeb5fc',
-      writeKey: '6780ed4f00b0534665bc5203fb990c1a39407a89044e4ff67177cf2b1bd7f132f0c3230b32716d1912439e83a04858a4c4b7882742491fb33d438b89a8e9ec0e2766c2b602f3c311d25e04fc7adad2d71b4ebd93e248fbb70513dd8ab4843444b957342acf70f900458372354086327a' 
+      projectId: '557a0832c2266c48aa9977fd',
+      writeKey: '16e4effde55c09ce3541a5b323e4e5e032b5bd278f43f57d57be720c6c500afb7a81fa7c99d1f9886ad9da08da7956d1e25853305e8dd79da3e0ecb0a8160ca9904c25b892b92b53b999b7ea35f531ea04fee5634a43e2b673711814cded8691135824d11f7ff80be4d8cd0eb421c7cb'
     });
 
     CommonWeb.addGlobalProperties(CommonWeb.Keen.globalProperties);
+    CommonWeb.addGlobalProperties({
+      project_name: "Pingpong gh-page"
+    });
     CommonWeb.Callback = CommonWeb.Keen.Callback;
 
     CommonWeb.trackSession();
