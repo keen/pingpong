@@ -155,7 +155,7 @@
 .row
   .col-md-8
     .chart-stage
-      #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10, :numchecks => @check.response_times.length, :warnamount => @check.mean_response_time() * @check.warn_thresh, :badamaount => @check.mean_response_time() * @check.bad_thresh}}
+      #checks-extraction.extraction-container{:data => {:name => @check[:name], timeframe: "this_30_minutes", :latest => 10, :numchecks => @check.response_times.length, :warnamount => @check.mean_response_time() * @check.warn_thresh, :badamount => @check.mean_response_time() * @check.bad_thresh}}
         .panel-group#accordion{:role => "tablist", :aria => {:multiselectable => "true"}}
   .col-md-4
     .chart-wrapper
