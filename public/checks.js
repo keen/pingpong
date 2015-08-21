@@ -10,6 +10,7 @@ var Check = function() {
       elem.empty();
       var showColoredIcon = this.showColoring;
 
+      var self = this;
       $.each(this.checks, function(i, check) {
         var iconCss = "";
         var hasBadTime = false;
@@ -20,11 +21,11 @@ var Check = function() {
         var message = "";
         var coloredIndicator = "";
 
-        if (check.request.duration > this.badAmount) {
+        if (check.request.duration > self.badAmount) {
           iconCss = " error";
           hasBadTime = true;
           message = message + "Very slow response time. "
-        } else if (check.request.duration > this.warnAmount) {
+        } else if (check.request.duration > self.warnAmount) {
           iconCss = " warning";
           hasWarnTime = true;
           message = message + "Slow response time. "
@@ -62,7 +63,7 @@ var Check = function() {
             + '</div>'
             + '<div id="collapse' + i +'" class="panel-collapse collapse" role="tabpanel" aria-labelledby="heading' + i +'">'
               + '<div class="panel-body">';
-              
+
         for (var key in check) {
           checkHTML = checkHTML + '<div class="row">'
             + '<div class="col-md-12 json-header">'
@@ -103,7 +104,7 @@ var Check = function() {
             + '</div>';
           }
         }
-        
+
         checkHTML = checkHTML + '</div>'
             + '</div>'
           + '</div>';
