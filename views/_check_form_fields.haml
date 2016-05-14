@@ -8,7 +8,7 @@
     .form-group
       %label Url
       .controls
-        %input{:type => "text", :name => "url", :id => "url", :class => "form-control", :placeholder => "ie http://www.google.com/api", :value => "#{@check.url if !@check.nil?}", :required => ""}
+        %input{:type => "url", :name => "url", :id => "url", :class => "form-control", :placeholder => "ie http://www.google.com/api", :value => "#{@check.url if !@check.nil?}", :required => ""}
         %p.help-block
     .form-group
       %label Method
